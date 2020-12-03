@@ -1,0 +1,15 @@
+    <!-- <div class="form-item justify-between">
+    <div>
+    <label for="">ডকুমেন্টের ধরন</label>
+    <div class="mt-1 relative rounded-md shadow-sm">
+        <input type="text" name="price" id="price" class="input" placeholder="0.00">
+        <div class="absolute inset-y-0 right-0 flex items-center">
+        <label for="currency" class="sr-only">Currency</label>
+        <select id="Currency" name="currency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+            
+        </select>
+        </div>
+    </div>
+
+    </div>
+    </div> -->
