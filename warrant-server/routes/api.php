@@ -31,6 +31,9 @@ Route::middleware(['auth:api'])->group(function () {
 	
 
     Route::post('/add-warrant','App\Http\Controllers\Api\WarrantController@addWarrantInfo'); 
-	Route::get('/warrants','App\Http\Controllers\Api\WarrantController@getAllWarrantInfo'); 
+	Route::get('/warrants','App\Http\Controllers\Api\WarrantController@getAllWarrantInfo');
+
+    Route::post('/import-from-CI','App\Http\Controllers\Api\importExcelFileController@importFromCI');
+
 
 });
