@@ -18,7 +18,7 @@
       <div class="flex flex-wrap -mx-3">
         <div class="w-full px-3">
           <p class="text-xl font-semibold mb-4">
-            নতুন ওয়ারেন্ট
+            নতুন ওয়ারেন্ট(থানা)
           </p>
           <div class="content">
             <div class="form-wizard">
@@ -155,11 +155,20 @@
                     <input v-model="arrest_warrant_to_thana" class="input" type="date" placeholder="Something...">
                   </div>
                   <div>
-                    <label for="">আদালতে হাজিরের তারিখ</label>
+                    <label for="">পরোয়ানা থানায় রিসিভের তারিখ</label>
                     <input v-model="arrest_criminal_to_court" class="input" type="date" placeholder="Something...">
                   </div>
                   <div>
-                    <fieldset class="border border-gray-500 rounded-lg px-2 pb-2">
+                    <label for="">আসামী আদালতে হাজির করার তারিখ </label>
+                    <input v-model="arrest_criminal_to_court" class="input" type="date" placeholder="Something...">
+                  </div>
+                  
+                </div>
+                <!-- item end -->
+
+                <div class="form-item justify-between gap-2">
+                  <div class="w-full">
+                    <fieldset class="border border-gray-500 rounded-lg px-2 pb-2 py-4">
                       <legend class="text-gray-800">গ্রেফতারি পরোয়ানার ছবি</legend>
                       <div class="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:justify-between lg:-space-x-20 text-sm">
                         <div>
@@ -173,9 +182,7 @@
                       </div>
                     </fieldset>
                   </div>
-                  
                 </div>
-                <!-- item end -->
 
                 <div>
                   <fieldset class="border border-gray-700 rounded-lg px-4">
@@ -258,7 +265,7 @@ import Multiselect from 'vue-multiselect'
   export default {
     // OR register locally
     components: { Multiselect },
-     name: 'warrantAdd',
+     name: 'warrantAddThana',
     data () {
       return {
         form1: "",

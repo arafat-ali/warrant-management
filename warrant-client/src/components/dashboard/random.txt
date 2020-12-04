@@ -1,15 +1,63 @@
-    <!-- <div class="form-item justify-between">
+<div class="form-item justify-between">
     <div>
-    <label for="">ডকুমেন্টের ধরন</label>
-    <div class="mt-1 relative rounded-md shadow-sm">
-        <input type="text" name="price" id="price" class="input" placeholder="0.00">
-        <div class="absolute inset-y-0 right-0 flex items-center">
-        <label for="currency" class="sr-only">Currency</label>
-        <select id="Currency" name="currency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
-            
-        </select>
+        <label for="">ডকুমেন্টের ধরন</label>
+        <div class="mt-1 relative rounded-md shadow-sm">
+            <input type="text" name="price" id="price" class="input" placeholder="0.00">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+                <label for="currency" class="sr-only">Currency</label>
+                <select id="Currency" name="currency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                </select>
+            </div>
         </div>
     </div>
+</div>
 
+// Multi select start
+<div class="form-item justify-between">
+    <div class="w-full my-4">
+        <label class="typo__label">অন্যান্য ডকুমেন্ট</label>
+        <multiselect v-model="value" :options="options" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="--নির্বাচন করুন--" label="name" track-by="name" :preselect-first="false">
+        <template slot="selection" slot-scope="{ values, isOpen }">
+            <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span></template>
+        </multiselect>
     </div>
-    </div> -->
+</div> 
+// Multi select end
+
+//Sub Category start
+<!--                       <div>
+                        <select v-model="crime_subcategory_id" class="select" >
+                          <option value="" >--সাবক্যাটেগরি--</option>
+                          <option v-for="crimeSubCategory in crimeSubCategoriesById" :value="crimeSubCategory.id">{{crimeSubCategory.name}}</option>
+                        </select>
+                      </div> -->
+// Sub category end
+
+
+
+
+
+// Thana
+<div>
+    <label for="">থানা</label>
+    <select v-model="thana_id" class="select" >
+    <option value="" >--নির্বাচন করুন--</option>
+    <option v-for="thana in thanas" :key="thana.id" :value="thana.id">{{thana.name}}</option>
+    </select>
+</div>
+
+
+
+
+
+// Warrant er dhoron
+<div>
+    <label for="">ওয়ারেন্ট এর ধরণ</label>
+    <select v-model="warrant_type" class="select" >
+    <option value="" >--নির্বাচন করুন--</option>
+    <option value="জিআর সাজা">জিআর সাজা</option>
+    <option value="জিআর গ্রেফতার">জিআর গ্রেফতার</option>
+    <option value="সিআর সাজা">সিআর সাজা</option>
+    <option value="সিআর গ্রেফতার">সিআর গ্রেফতার</option>
+    </select>
+</div>
