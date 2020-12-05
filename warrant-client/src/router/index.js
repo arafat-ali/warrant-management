@@ -1,17 +1,26 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import dashboard from '@/components/dashboard/home';
-import warrant from '@/components/dashboard/warrant';
 import login from '@/components/dashboard/login';
+import dashboard from '@/components/dashboard/home';
+import warrantAdd from '@/components/dashboard/warrant-add';
 import warrantList from '@/components/dashboard/warrant-list';
 import ImportFromCI from '@/components/dashboard/importFromCI';
+
+import warrantAddThana from '@/components/dashboard/warrant-add-thana';
+import warrantListThana from '@/components/dashboard/warrant-list-thana';
+
 
 Vue.use(Router);
 
 const router = new Router({
 	mode: 'history',
 	routes: [
+		{
+			path: '/login',
+			name: 'login',
+			component: login,
+		},
 		{
 			path: '/dashboard',
 			name: 'dashboard',
@@ -25,9 +34,10 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
-			path: '/login',
-			name: 'login',
-			component: login,
+
+			path: '/warrant-add',
+			name: 'warrantAdd',
+			component: warrantAdd,
 		},
 		{
 			path: '/warrant-list',
@@ -40,6 +50,16 @@ const router = new Router({
 			name: 'ImportFromCI',
 			component: ImportFromCI,
 			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-add-thana',
+			name: 'warrantAddThana',
+			component: warrantAddThana,
+		},
+		{
+			path: '/warrant-list-thana',
+			name: 'warrantListThana',
+			component: warrantListThana,
 		},
 	]
 });

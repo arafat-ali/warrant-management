@@ -30,6 +30,7 @@ const Store = new Vuex.Store({
 					client_id: 2,
 					client_secret:'IWdtdmZTcX1JepqixsOR2TSJSzRMzRzgA8AhDRlz',
 
+
 					grant_type:'password',
 					username: user.email,
 					password: user.password,
