@@ -35,8 +35,8 @@ class CreateWarrantsTable extends Migration
             $table->string('criminal_passport')->nullable();
             $table->string('birth_cirtificate')->nullable();
             $table->string('criminal_mobile_no')->nullable();
-            $table->date('arrest_criminal_to_court')->format('m-d-Y')->nullable();
-            $table->date('arrest_warrant_to_thana')->format('m-d-Y')->nullable();
+            $table->string('arrest_criminal_to_court')->nullable();
+            $table->string('arrest_warrant_to_thana')->nullable();
             $table->unsignedBigInteger('court_id')->nullable();
             $table->foreign('court_id')
                   ->references('id')->on('courts')

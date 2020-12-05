@@ -36,8 +36,8 @@ class importExcelFileController extends Controller
     			$warrant->criminal_father_name = $data[$i][8];
     			$warrant->criminal_address = $data[$i][9];
     			$warrant->criminal_NID = $data[$i][11];
-    			//$warrant->arrest_warrant_to_thana = $data[$i][12];
-    			//$warrant->arrest_criminal_to_court = $data[$i][13];
+    			$warrant->arrest_warrant_to_thana = $data[$i][12];
+    			$warrant->arrest_criminal_to_court = $data[$i][13];
     			$warrant->arrest_criminal_to_court = $data[$i][13];
     			$warrant->save();
     		}

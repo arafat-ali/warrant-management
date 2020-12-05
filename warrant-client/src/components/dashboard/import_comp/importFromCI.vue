@@ -24,7 +24,6 @@
 			      <div>
 			        Drag and drop 
 			        or <span class="underline">Upload a file</span><br>
-			        CSV file from Track My Subs
 			      </div>
 			    </label>
 			    <ul class="mt-4" v-if="this.filelist.length" v-cloak>
