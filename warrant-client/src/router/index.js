@@ -6,9 +6,14 @@ import dashboard from '@/components/dashboard/home';
 import warrantAdd from '@/components/dashboard/warrant-add';
 import warrantList from '@/components/dashboard/warrant-list';
 import ImportFromCI from '@/components/dashboard/importFromCI';
+import ImportFromThana from '@/components/dashboard/importFromThana';
 
 import warrantAddThana from '@/components/dashboard/warrant-add-thana';
 import warrantListThana from '@/components/dashboard/warrant-list-thana';
+
+import crimeTypeList from '@/components/dashboard/crime_type';
+import courtList from '@/components/dashboard/court_list';
+
 
 
 Vue.use(Router);
@@ -46,27 +51,39 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
+			path: '/import-from-thana',
+			name: 'ImportFromThana',
+			component: ImportFromThana,
+			meta: {requiresAuth: true}
+		},
+		{
 			path: '/warrant-add-thana',
 			name: 'warrantAddThana',
 			component: warrantAddThana,
+			meta: {requiresAuth: true}
 		},
 		{
 			path: '/warrant-list-thana',
 			name: 'warrantListThana',
 			component: warrantListThana,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/crime-type',
+			name: 'crimeTypeList',
+			component: crimeTypeList,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/court-list',
+			name: 'courtList',
+			component: courtList,
+			meta: {requiresAuth: true}
 		},
 	]
 });
 
 router.beforeEach((to, from, next) => {
-	// console.log('-----to-----')
-	// console.log(to)
-	// console.log('-----to name-----')
-	// console.log(to.name)
-	// console.log('-----from-----')
-	// console.log(from)
-	// console.log('-----from name-----')
-	// console.log(from.name)
 
 	if(from.name=='create' && to.name=='login' && store.getters.getCurrentUser){
 		next({name: from.name })

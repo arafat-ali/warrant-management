@@ -29,11 +29,12 @@ Route::middleware(['auth:api'])->group(function () {
 	Route::get('/crime-subcategories/{id}','App\Http\Controllers\Api\CrimeCategoryController@getCrimeSubCategoriesById');
 	Route::get('/crime-subcategories','App\Http\Controllers\Api\CrimeCategoryController@getCrimeSubCategories'); 
 	
-
     Route::post('/add-warrant','App\Http\Controllers\Api\WarrantController@addWarrantInfo'); 
 	Route::get('/warrants','App\Http\Controllers\Api\WarrantController@getAllWarrantInfo');
+    Route::post('/add-warrant-by-thana','App\Http\Controllers\Api\WarrantController@addWarrantInfoByThana'); 
 
     Route::post('/import-from-CI','App\Http\Controllers\Api\importExcelFileController@importFromCI');
+    Route::post('/import-from-thana','App\Http\Controllers\Api\importExcelFileController@importFromThana');
 
 
 });
