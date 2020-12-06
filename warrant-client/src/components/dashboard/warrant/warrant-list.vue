@@ -78,12 +78,16 @@
     name: 'warrant_list',
     data () {
       return {
-        warrants:[]
+      }
+    },
+    computed: {
+      warrants(){
+        return store.getters.getCourtWarrants;
       }
     },
     created(){
-      store.dispatch('fetchAllWarrants');
-      this.warrants = store.getters.getAllWarrants;
+      store.dispatch('fetchCourtWarrants');
+      //this.warrants = 
     }
 }
 </script>
