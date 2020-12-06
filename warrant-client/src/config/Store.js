@@ -28,7 +28,8 @@ const Store = new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				let data = {
 					client_id: 2,
-					client_secret:'wBb7ALWUy13XeeB6sHapH3lmpvs7kpXMfAOAhh21',
+					client_secret:'IWdtdmZTcX1JepqixsOR2TSJSzRMzRzgA8AhDRlz',
+
 
 					grant_type:'password',
 					username: user.email,
