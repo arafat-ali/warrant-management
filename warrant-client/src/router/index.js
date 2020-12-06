@@ -28,12 +28,6 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
-			path: '/warrant',
-			name: 'warrant',
-			component: warrant,
-			meta: {requiresAuth: true}
-		},
-		{
 
 			path: '/warrant-add',
 			name: 'warrantAdd',
