@@ -6,7 +6,9 @@ class API {
 
   static user = '/api/user'
 
-  static warrants = '/api/warrants'
+  static warrantsCourt = '/api/warrants-court'
+
+  static warrantsThana = '/api/warrants-thana'
 
 }
   

@@ -30,11 +30,14 @@ Route::middleware(['auth:api'])->group(function () {
 	Route::get('/crime-subcategories','App\Http\Controllers\Api\CrimeCategoryController@getCrimeSubCategories'); 
 	
     Route::post('/add-warrant','App\Http\Controllers\Api\WarrantController@addWarrantInfo'); 
-	Route::get('/warrants','App\Http\Controllers\Api\WarrantController@getAllWarrantInfo');
+	Route::get('/warrants-court','App\Http\Controllers\Api\WarrantController@getCourtWarrantInfo');
+    Route::get('/warrants-thana','App\Http\Controllers\Api\WarrantController@getThanaWarrantInfo');
     Route::post('/add-warrant-by-thana','App\Http\Controllers\Api\WarrantController@addWarrantInfoByThana'); 
 
     Route::post('/import-from-CI','App\Http\Controllers\Api\importExcelFileController@importFromCI');
     Route::post('/import-from-thana','App\Http\Controllers\Api\importExcelFileController@importFromThana');
 
-
+    //Warrant Mismatch
+    Route::get('/thana-not-recieve','App\Http\Controllers\Api\WarrantMismatchController@thanaNotRecieveMismatch');
+    Route::get('/process-no-not-found','App\Http\Controllers\Api\WarrantMismatchController@processNumberNotFoundMismatch');
 });
