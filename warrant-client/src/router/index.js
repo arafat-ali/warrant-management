@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import login from '@/components/dashboard/login';
+import registration from '@/components/dashboard/registration';
 import dashboard from '@/components/dashboard/home';
 import warrantAdd from '@/components/dashboard/warrant-add';
 import warrantList from '@/components/dashboard/warrant-list';
@@ -25,6 +26,11 @@ const router = new Router({
 			path: '/login',
 			name: 'login',
 			component: login,
+		},
+		{
+			path: '/registration',
+			name: 'registration',
+			component: registration,
 		},
 		{
 			path: '/dashboard',

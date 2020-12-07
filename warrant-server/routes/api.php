@@ -20,6 +20,7 @@ Route::middleware(['auth:api'])->group(function () {
     });
 
     Route::get('/thanas','App\Http\Controllers\Api\ThanaController@getAllThanas');
+    Route::post('/registration','App\Http\Controllers\Api\UserController@store');
 
     Route::get('/courts','App\Http\Controllers\Api\CourtController@getAllCourt');
 
