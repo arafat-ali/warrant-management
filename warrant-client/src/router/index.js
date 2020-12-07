@@ -14,6 +14,8 @@ import warrantListThana from '@/components/dashboard/warrant-list-thana';
 import crimeTypeList from '@/components/dashboard/crime_type';
 import courtList from '@/components/dashboard/court_list';
 
+import Statistics from '@/components/dashboard/statistics';
+
 
 
 Vue.use(Router);
@@ -78,6 +80,12 @@ const router = new Router({
 			path: '/court-list',
 			name: 'courtList',
 			component: courtList,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/statistics',
+			name: 'statistics',
+			component: Statistics,
 			meta: {requiresAuth: true}
 		},
 	]

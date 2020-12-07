@@ -37,5 +37,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/import-from-CI','App\Http\Controllers\Api\importExcelFileController@importFromCI');
     Route::post('/import-from-thana','App\Http\Controllers\Api\importExcelFileController@importFromThana');
 
-
+    //Warrant Mismatch
+    Route::get('/thana-not-recieve','App\Http\Controllers\Api\WarrantMismatchController@thanaNotRecieveMismatch');
+    Route::get('/process-no-not-found','App\Http\Controllers\Api\WarrantMismatchController@processNumberNotFoundMismatch');
 });

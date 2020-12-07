@@ -1,20 +1,13 @@
 <template>
     <div id="home">
-
-      <!-- breadcrumb -->
-      <nav class="text-sm font-semibold mb-6" aria-label="Breadcrumb">
-        <ol class="list-none p-0 inline-flex">
-          <li class="flex items-center text-blue-500">
-            <a href="#" class="text-gray-700">Home</a>
-            <svg class="fill-current w-3 h-3 mx-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-          </li>
-          <li class="flex items-center">
-            <a href="#" class="text-gray-600">Warrant List</a>
-          </li>
-        </ol>
-      </nav>
-      <!-- breadcrumb end -->
-      <div class="flex flex-wrap -mx-3">
+      <datatable 
+        title="ওয়ারেন্ট লিস্ট"
+        :columns="tableColumns"
+        :rows="warrants"
+        :printable= false
+        :exportable = false
+      ></datatable>
+      <!-- <div class="flex flex-wrap -mx-3">
         <div class="w-full px-3">
           <p class="text-xl font-semibold mb-4">
             ওয়ারেন্ট লিস্ট
@@ -68,17 +61,129 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 </template>
 
 <script>
+import DataTable from "vue-materialize-datatable";
   export default {
 
     name: 'warrant_list',
     data () {
       return {
+        tableColumns: [
+        {
+          label: "প্রসেস নং",
+          field: "process_number",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "জি আর নাম্বার",
+          field: "gr_number",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "অন্যান্য কোর্টের নাম্বার",
+          field: "other_number",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "আসামির নাম",
+          field: "criminal_name",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "আসামির পিতার নাম",
+          field: "criminal_father_name",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "আসামির ঠিকানা",
+          field: "criminal_address",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "কোর্ট হতে প্রেরণের তারিখ",
+          field: "send_date",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        // {
+        //   label: "থানা",
+        //   field: "thana_name",
+        //   numeric: false,
+        //   html: false,
+        //   searchable: true
+        // },
+        {
+          label: "ইস্যুকারি আদালত",
+          field: "court_id",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        // {
+        //   label: "মামলার সূত্র",
+        //   field: "case_hint",
+        //   numeric: false,
+        //   html: false,
+        //   searchable: true
+        // },
+        {
+          label: "থানায় প্রেরনের তারিখ",
+          field: "arrest_warrant_to_thana",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "আদালতে হাজিরের তারিখ",
+          field: "arrest_criminal_to_court",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "মোবাইল নং",
+          field: "criminal_mobile_no",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "আসামির এনআইডি",
+          field: "criminal_NID",
+          numeric: false,
+          html: false,
+          searchable: true
+        },
+        {
+          label: "আসামির জন্ম নিবন্ধন",
+          field: "birth_cirtificate",
+          numeric: false,
+          html: false,
+          searchable: true
+        }
+      ],
+      tableRows: [],
       }
+    },
+    components:{
+      "datatable": DataTable
     },
     computed: {
       warrants(){

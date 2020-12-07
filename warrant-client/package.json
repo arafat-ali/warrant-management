@@ -14,6 +14,7 @@
     "core-js": "^3.6.5",
     "tailwindcss": "^2.0.1",
     "vue": "^2.6.11",
+    "vue-materialize-datatable": "^1.0.4",
     "vue-multiselect": "^2.1.6",
     "vue-router": "^3.4.9",
     "vuex": "^3.6.0",
