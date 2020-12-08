@@ -17,6 +17,10 @@ import courtList from '@/components/dashboard/court_list';
 
 import Statistics from '@/components/dashboard/statistics';
 
+import warrantAddSp from '@/components/dashboard/warrant-add-sp';
+import warrantListSp from '@/components/dashboard/warrant-list-sp';
+
+import warrantListDig from '@/components/dashboard/warrant-list-dig';
 
 
 Vue.use(Router);
@@ -77,6 +81,18 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
+			path: '/warrant-add-sp',
+			name: 'warrantAddSp',
+			component: warrantAddSp,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-list-sp',
+			name: 'warrantListSp',
+			component: warrantListSp,
+			meta: {requiresAuth: true}
+		},
+		{
 			path: '/crime-type',
 			name: 'crimeTypeList',
 			component: crimeTypeList,
@@ -92,6 +108,12 @@ const router = new Router({
 			path: '/statistics',
 			name: 'statistics',
 			component: Statistics,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-list-dig',
+			name: 'warrantListDig',
+			component: warrantListSp,
 			meta: {requiresAuth: true}
 		},
 	]
