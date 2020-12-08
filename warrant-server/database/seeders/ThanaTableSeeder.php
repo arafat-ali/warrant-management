@@ -16,7 +16,7 @@ class ThanaTableSeeder extends Seeder
     {
         DB::table('thanas')->insert(
             [
-               [
+                [
                     'name' => 'হাটহাজারি',
                     'district_id' => 1
                 ],

@@ -8,13 +8,19 @@ import warrantAdd from '@/components/dashboard/warrant-add';
 import warrantList from '@/components/dashboard/warrant-list';
 import ImportFromCI from '@/components/dashboard/importFromCI';
 import ImportFromThana from '@/components/dashboard/importFromThana';
-import warrantAddSp from '@/components/dashboard/warrant-add-sp';
-import warrantListSp from '@/components/dashboard/warrant-list-sp';
-import warrantListDig from '@/components/dashboard/warrant-list-dig';
+
+import warrantAddThana from '@/components/dashboard/warrant-add-thana';
+import warrantListThana from '@/components/dashboard/warrant-list-thana';
 
 import crimeTypeList from '@/components/dashboard/crime_type';
 import courtList from '@/components/dashboard/court_list';
 
+import Statistics from '@/components/dashboard/statistics';
+
+import warrantAddSp from '@/components/dashboard/warrant-add-sp';
+import warrantListSp from '@/components/dashboard/warrant-list-sp';
+
+import warrantListDig from '@/components/dashboard/warrant-list-dig';
 
 
 Vue.use(Router);
@@ -63,6 +69,18 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
+			path: '/warrant-add-thana',
+			name: 'warrantAddThana',
+			component: warrantAddThana,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-list-thana',
+			name: 'warrantListThana',
+			component: warrantListThana,
+			meta: {requiresAuth: true}
+		},
+		{
 			path: '/warrant-add-sp',
 			name: 'warrantAddSp',
 			component: warrantAddSp,
@@ -87,9 +105,15 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
+			path: '/statistics',
+			name: 'statistics',
+			component: Statistics,
+			meta: {requiresAuth: true}
+		},
+		{
 			path: '/warrant-list-dig',
 			name: 'warrantListDig',
-			component: warrantListDig,
+			component: warrantListSp,
 			meta: {requiresAuth: true}
 		},
 	]

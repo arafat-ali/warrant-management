@@ -28,7 +28,7 @@ const Store = new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				let data = {
 					client_id: 2,
-					client_secret:'ms7tOMGnTNvZePaoNLjxzjv8RKyictYTMaDEL5xp',
+					client_secret:'KHRI6bZySagoCQpJnDNJyAkHuJUjJNCZ24N7HZBO',
 
 
 					grant_type:'password',
@@ -84,13 +84,28 @@ const Store = new Vuex.Store({
 			});
 		},
 
-		fetchAllWarrants(context){
+		fetchCourtWarrants(context){
 			return new Promise((resolve, reject) => {
 				axios
-					.get(API.warrants)
+					.get(API.warrantsCourt)
 					.then(response => {
 						let responseData = response.data.Warrants;
-						context.commit('updateWarrants', responseData);
+						context.commit('updateCourtWarrants', responseData);
+						resolve(response);
+					})
+					.catch(response => {
+						reject(response);
+					});
+			});
+		},
+
+		fetchThanaWarrants(context){
+			return new Promise((resolve, reject) => {
+				axios
+					.get(API.warrantsThana)
+					.then(response => {
+						let responseData = response.data.Warrants;
+						context.commit('updateThanaWarrants', responseData);
 						resolve(response);
 					})
 					.catch(response => {
@@ -115,7 +130,10 @@ const Store = new Vuex.Store({
 			state.currentUser = null;
 			state.tokens = null;
 		},
-		updateWarrants(state, warrants){
+		updateCourtWarrants(state, warrants){
+			state.warrants = warrants;
+		},
+		updateThanaWarrants(state, warrants){
 			state.warrants = warrants;
 		},
 
@@ -132,7 +150,10 @@ const Store = new Vuex.Store({
 		getCurrentUser(state) {
 			return state.currentUser;
 		},
-		getAllWarrants(state){
+		getCourtWarrants(state){
+			return state.warrants;
+		},
+		getThanaWarrants(state){
 			return state.warrants;
 		}
 		
