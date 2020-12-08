@@ -18,18 +18,23 @@ class ThanaTableSeeder extends Seeder
             [
                 [
                     'name' => 'হাটহাজারি',
+                    'district_id' => 1
                 ],
                 [
                     'name' => 'পটিয়া',
+                    'district_id' => 1
                 ],
                 [
                     'name' => 'সাতকানিয়া',
+                    'district_id' => 1
                 ],
                 [
                     'name' => 'আনোয়ারা',
+                    'district_id' => 1
                 ],
                 [
                     'name' => 'রাউজান',
+                    'district_id' => 1
                 ],
             ]
         );
