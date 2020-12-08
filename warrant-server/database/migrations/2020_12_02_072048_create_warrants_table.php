@@ -16,13 +16,14 @@ class CreateWarrantsTable extends Migration
         Schema::create('warrants', function (Blueprint $table) {
             $table->id();
             $table->date('send_date')->format('m-d-Y')->nullable();
+            $table->string('zilla_name')->nullable();
+            $table->string('other_thana')->nullable();
             $table->string('process_number')->nullable();
             $table->string('gr_number')->nullable();
             $table->string('other_number')->nullable();
             $table->string('warrant_type')->nullable();
             $table->string('thana_name')->nullable();
             $table->string('case_section_and_date')->nullable();
-            $table->string('case_hint')->nullable();
             $table->string('criminal_name')->nullable();
             $table->string('criminal_father_name')->nullable();
             $table->string('criminal_address')->nullable();
@@ -38,11 +39,7 @@ class CreateWarrantsTable extends Migration
             $table->string('arrest_criminal_to_court')->nullable();
             $table->string('arrest_warrant_to_thana')->nullable();
             $table->string('arrest_warrant_received_to_thana')->nullable();
-            $table->unsignedBigInteger('court_id')->nullable();
-            $table->foreign('court_id')
-                  ->references('id')->on('courts')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table->string('court_name')->nullable();
             $table->string('arrest_warrant_picture_one')->nullable();
             $table->string('arrest_warrant_picture_two')->nullable();
             $table->string('criminal_other_document')->nullable();

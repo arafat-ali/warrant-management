@@ -1,34 +1,19 @@
 <template>
     <div id="home">
-      <!-- breadcrumb -->
-      <nav class="text-sm font-semibold mb-6" aria-label="Breadcrumb">
-        <ol class="list-none p-0 inline-flex">
-          <li class="flex items-center text-blue-500">
-            <a href="#" class="text-gray-700">Home</a>
-            <svg class="fill-current w-3 h-3 mx-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-          </li>
-          <li class="flex items-center">
-            <a href="#" class="text-gray-600">Add warrant</a>
-          </li>
-        </ol>
-      </nav>
-      <!-- breadcrumb end -->
-
-      
       <div class="flex flex-wrap -mx-3">
         <div class="w-full px-3">
           <p class="text-xl font-semibold mb-4">
-            নতুন ওয়ারেন্ট(থানা)
+            নতুন ওয়ারেন্ট
           </p>
           <div class="content">
-            <div class="form-wizard">
+            <!-- <div class="form-wizard">
                 <div class="form-wizard-item">
                   <button class="form-wizard-btn " :class="wizardActive1">01</button>
                 </div>
                 <div class="form-wizard-item">
                   <button class="form-wizard-btn" :class="wizardActive2">02</button>
                 </div>
-            </div>
+            </div> -->
             <!-- First Form Start -->
             <div :class="form1">
               <div class="form">
@@ -47,7 +32,7 @@
                       <label for="">থানা</label>
                       <select v-model="thana_id" class="select" >
                       <option value="" >--নির্বাচন করুন--</option>
-                      <option v-for="thana in thanas" :key="thana.id" :value="thana.id">{{thana.name}}</option>
+                      <option v-for="thana in thanas" :key="thana.id" :value="thana.name">{{thana.name}}</option>
                       </select>
                   </div>
                   <div>
@@ -55,14 +40,17 @@
                       <legend>অন্য জেলা হতে আসা পরোয়ানা</legend>
                       <div>
                         <label for="">জেলা</label> 
-                        <select v-model="thana_id" class="select" >
+                        <select v-model="zilla_name" class="select" >
                         <option value="" >--নির্বাচন করুন--</option>
-                        <option v-for="thana in thanas" :key="thana.id" :value="thana.id">{{thana.name}}</option>
+                        <option value="কুমিল্লা">কুমিল্লা</option>
+                        <option value="বান্দরবান">বান্দরবান</option>
+                        <option value="খাগড়াছড়ি">খাগড়াছড়ি</option>
+                        <option value="কক্সবাজার">কক্সবাজার</option>
                         </select>
                       </div>
                       <div>
                         <label for="">থানা</label>
-                        <input type="text" class="input" placeholder="থানা">
+                        <input v-model="other_thana" type="text" class="input" placeholder="থানা">
                       </div>
                     </fieldset>
                   </div>
@@ -89,30 +77,17 @@
                             
                 </div>
                 <div class="">
-                    <fieldset class="border border-gray-700 rounded-lg px-2 pb-3 flex flex-col space-y-2 lg:flex-row lg:justify-between">
-                      <legend>মামলা</legend>
-                      <div>
-                        <label for="">নম্বর</label>
-                        <input class="input" placeholder="নম্বর">
-                      </div>
-                      <div>
-                        <label for="">তারিখ</label>
-                        <input class="input" type="date">
-                      </div>
-                      <div>
-                        <label for="">ধারা</label>
-                        <input class="input" placeholder="ধারা">
-                      </div>
-                    </fieldset>
+                    
+                    <div>
+                      <label for="">মামলার নম্বর, তারিখ ও ধারা</label>
+                      <input v-model="case_section_and_date" class="input" placeholder="মামলার নম্বর, তারিখ ও ধারা">
+                    </div>
+                
                   </div>                 
                 <div class="form-item justify-between">
                   <div>
-                    <label for="">অন্যান্য কোর্টের নাম্বার</label>
+                    <label for="">সেশন আদালত, অন্যান্য কোর্টের নাম্বার</label>
                     <input v-model="other_number" class="input" type="text" placeholder="অন্যান্য কোর্টের নাম্বার">
-                  </div>
-                  <div>
-                    <label for="">সেশন আদালত</label>
-                    <input v-model="other_number" class="input" type="text" placeholder="সেশন আদালত">
                   </div>
                   <div>
                     <label for="">কোর্ট হতে প্রেরণের তারিখ</label>
@@ -138,12 +113,8 @@
                     <label for="">পরোয়ানা ইস্যুকারি আদালত</label>
                     <select v-model="court_id" class="select" >
                       <option value="" >--নির্বাচন করুন--</option>
-                      <option v-for="court in courts" :key="court.id" :value="court.id">{{court.name}}</option>
+                      <option v-for="court in courts" :key="court.id" :value="court.name">{{court.name}}</option>
                     </select>
-                  </div>
-                  <div>
-                    <label for="">মামলার সূত্র</label>
-                    <input v-model="case_hint" class="input" placeholder="মামলার সূত্র">
                   </div>
                   
                 </div>
@@ -155,20 +126,11 @@
                     <input v-model="arrest_warrant_to_thana" class="input" type="date" placeholder="Something...">
                   </div>
                   <div>
-                    <label for="">পরোয়ানা থানায় রিসিভের তারিখ</label>
+                    <label for="">আদালতে হাজিরের তারিখ</label>
                     <input v-model="arrest_criminal_to_court" class="input" type="date" placeholder="Something...">
                   </div>
                   <div>
-                    <label for="">আসামী আদালতে হাজির করার তারিখ </label>
-                    <input v-model="arrest_criminal_to_court" class="input" type="date" placeholder="Something...">
-                  </div>
-                  
-                </div>
-                <!-- item end -->
-
-                <div class="form-item justify-between gap-2">
-                  <div class="w-full">
-                    <fieldset class="border border-gray-500 rounded-lg px-2 pb-2 py-4">
+                    <fieldset class="border border-gray-500 rounded-lg px-2 pb-2">
                       <legend class="text-gray-800">গ্রেফতারি পরোয়ানার ছবি</legend>
                       <div class="flex flex-col space-y-2 lg:flex-row lg:space-y-0 lg:justify-between lg:-space-x-20 text-sm">
                         <div>
@@ -182,7 +144,9 @@
                       </div>
                     </fieldset>
                   </div>
+                  
                 </div>
+                <!-- item end -->
 
                 <div>
                   <fieldset class="border border-gray-700 rounded-lg px-4">
@@ -265,7 +229,7 @@ import Multiselect from 'vue-multiselect'
   export default {
     // OR register locally
     components: { Multiselect },
-     name: 'warrantAddThana',
+     name: 'warrantAdd',
     data () {
       return {
         form1: "",
@@ -285,6 +249,10 @@ import Multiselect from 'vue-multiselect'
         crimeCategories:[],
         crimeSubCategories: [],
 
+        zilla_name: '',
+        other_thana:'',
+        case_section_and_date:'',
+
         process_number: '',
         gr_number: '',
         other_number:'',
@@ -294,7 +262,6 @@ import Multiselect from 'vue-multiselect'
         crime_category_id: '',
         // crime_subcategory_id:'',
         court_id: '',
-        case_hint: '',
         arrest_criminal_to_court: '',
         arrest_warrant_to_thana: '',
         picture_one: '',
@@ -345,6 +312,9 @@ import Multiselect from 'vue-multiselect'
         }
 
         let data = new FormData();
+        data.append('zilla_name', this.zilla_name);
+        data.append('other_thana', this.other_thana);
+        data.append('case_section_and_date', this.case_section_and_date);
         data.append('process_number', this.process_number);
         data.append('gr_number', this.gr_number);
         data.append('other_number', this.other_number);
@@ -353,7 +323,6 @@ import Multiselect from 'vue-multiselect'
         data.append('thana_id', this.thana_id);
         data.append('crime_category_id', this.crime_category_id);
         data.append('court_id', this.court_id);
-        data.append('case_hint', this.case_hint);
         data.append('arrest_criminal_to_court', this.arrest_criminal_to_court);
         data.append('arrest_warrant_to_thana', this.arrest_warrant_to_thana);
         data.append('arrest_warrant_picture_one', this.picture_one);

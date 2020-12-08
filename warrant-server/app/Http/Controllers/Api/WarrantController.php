@@ -12,7 +12,6 @@ class WarrantController extends Controller
     public function addWarrantInfo(Request $req){
 
     	$warrant = new Warrant();
-
     	if($req->hasfile('arrest_warrant_picture_one')){
     		$originalImageOne= $req->file('arrest_warrant_picture_one');
 	        $thumbnailImageOne = Image::make($originalImageOne);
@@ -36,7 +35,8 @@ class WarrantController extends Controller
 	        $warrant->arrest_warrant_picture_two = time().$originalImageTwo->getClientOriginalName();
     	}
 
-    	
+    	$warrant->zilla_name = $req->zilla_name;
+        $warrant->other_thana = $req->other_thana;
         $warrant->process_number = $req->process_number;
         $warrant->gr_number = $req->gr_number;
     	$warrant->other_number = $req->other_number;
@@ -45,8 +45,7 @@ class WarrantController extends Controller
     	$warrant->thana_name = $req->thana_id;
     	$warrant->crime_category_id = $req->crime_category_id;
     	//$warrant->crime_subcategory_id = $req->crime_subcategory_id;
-    	$warrant->court_id = $req->court_id;
-    	$warrant->case_hint = $req->case_hint;
+    	$warrant->court_name = $req->court_id;
     	$warrant->arrest_criminal_to_court = $req->arrest_criminal_to_court;
     	$warrant->arrest_warrant_to_thana = $req->arrest_warrant_to_thana;
 		$warrant->criminal_name = $req->criminal_name;

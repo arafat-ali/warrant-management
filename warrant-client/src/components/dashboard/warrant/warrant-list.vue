@@ -131,7 +131,7 @@ import DataTable from "vue-materialize-datatable";
         // },
         {
           label: "ইস্যুকারি আদালত",
-          field: "court_id",
+          field: "court_name",
           numeric: false,
           html: false,
           searchable: true
