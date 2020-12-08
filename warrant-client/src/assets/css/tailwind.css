@@ -67,3 +67,45 @@ body::-webkit-scrollbar {
     position: fixed;
   }
 }
+
+/*.table {
+  width: 100%
+  padding: 1rem
+  font-size: .875rem
+  line-height: 1.5
+  
+  &.main-first-cell{
+    
+    .td {
+      &:first-child {
+        flex-grow: 1
+        flex: auto
+        flex-shrink: 1
+      }
+    }
+  }
+  
+  .tr {
+    display: flex
+   }
+   
+   .td {
+      padding: 1rem
+      margin: 0.25 rem
+      flex-grow: 0
+    }
+    
+  .thead { 
+    color: #000
+    font-weight: 700;
+    .td {
+     background-color: #f1f5f8
+    }
+  }
+  
+  .tbody {
+    .td {
+      background-color: #f8fafc
+    }
+  }
+}*/
