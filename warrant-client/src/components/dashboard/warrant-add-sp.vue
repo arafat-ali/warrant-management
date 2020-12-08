@@ -25,7 +25,7 @@ import { mapState } from 'vuex'
 import Sidebar from './dashboard_headr/sidebar'
 import Navbar from './dashboard_headr/navbar'
 import Footer from './dashboard_footr/footr'
-import WarrantAdd from './warrant-thana/warrant-add'
+import WarrantAdd from './warrant-sp/warrant-add'
 
 export default {
   name: 'Home',

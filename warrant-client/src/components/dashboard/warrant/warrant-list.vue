@@ -24,24 +24,22 @@
                 <table class="border">
                     <thead class="border text-xs">
                         <tr class="border">
-                        <th class="border">প্রসেস নং</th>
-                        <th class="border">জি আর নাম্বার</th>
-                        <th class="border">অন্যান্য কোর্টের নাম্বার</th>
-                        <th class="border">কোর্ট হতে প্রেরণের তারিখ</th>
-                        <th class="border">থানা</th>
-                        <th class="border">অপরাধের ধরন</th>
-                        <th class="border">ইস্যুকারি আদালত</th>
-                        <th class="border">মামলার সূত্র</th>
-                        <th class="border">থানায় প্রেরনের তারিখ</th>
-                        <th class="border">আদালতে হাজিরের তারিখ</th>
-                        <th class="border">আসামির নাম</th>
-                        <th class="border">আসামির পিতার নাম</th>
-                        <th class="border">আসামির ঠিকানা</th>
-                        <th class="border">মোবাইল নং</th>
-                        <th class="border">আসামির এনআইডি</th>
-                        <th class="border">আসামির জন্ম নিবন্ধন</th>
-                        
-
+                          <th class="border">প্রসেস নং</th>
+                          <th class="border">জি আর নাম্বার</th>
+                          <th class="border">অন্যান্য কোর্টের নাম্বার</th>
+                          <th class="border">কোর্ট হতে প্রেরণের তারিখ</th>
+                          <th class="border">থানা</th>
+                          <th class="border">অপরাধের ধরন</th>
+                          <th class="border">ইস্যুকারি আদালত</th>
+                          <th class="border">মামলার সূত্র</th>
+                          <th class="border">থানায় প্রেরনের তারিখ</th>
+                          <th class="border">আদালতে হাজিরের তারিখ</th>
+                          <th class="border">আসামির নাম</th>
+                          <th class="border">আসামির পিতার নাম</th>
+                          <th class="border">আসামির ঠিকানা</th>
+                          <th class="border">মোবাইল নং</th>
+                          <th class="border">আসামির এনআইডি</th>
+                          <th class="border">আসামির জন্ম নিবন্ধন</th>
                         </tr>
                     </thead>
                     <tbody class="text-sm">

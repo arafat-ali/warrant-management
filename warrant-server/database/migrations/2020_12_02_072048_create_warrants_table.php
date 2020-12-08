@@ -46,6 +46,7 @@ class CreateWarrantsTable extends Migration
             $table->string('arrest_warrant_picture_one')->nullable();
             $table->string('arrest_warrant_picture_two')->nullable();
             $table->string('criminal_other_document')->nullable();
+            $table->tinyInteger('is_executed')->default(0);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->foreign('created_by')
                   ->references('id')->on('users')

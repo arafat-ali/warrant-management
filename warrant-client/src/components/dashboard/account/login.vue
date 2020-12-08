@@ -115,7 +115,7 @@
 	   data() {
 			return {
 				user: {
-					email: 'arafat@gmail.com',
+					email: 'ci@gmail.com',
 					password: '123456',
 				},
 				isLoggedIn: false,

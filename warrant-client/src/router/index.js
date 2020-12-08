@@ -8,9 +8,9 @@ import warrantAdd from '@/components/dashboard/warrant-add';
 import warrantList from '@/components/dashboard/warrant-list';
 import ImportFromCI from '@/components/dashboard/importFromCI';
 import ImportFromThana from '@/components/dashboard/importFromThana';
-
-import warrantAddThana from '@/components/dashboard/warrant-add-thana';
-import warrantListThana from '@/components/dashboard/warrant-list-thana';
+import warrantAddSp from '@/components/dashboard/warrant-add-sp';
+import warrantListSp from '@/components/dashboard/warrant-list-sp';
+import warrantListDig from '@/components/dashboard/warrant-list-dig';
 
 import crimeTypeList from '@/components/dashboard/crime_type';
 import courtList from '@/components/dashboard/court_list';
@@ -63,15 +63,15 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
-			path: '/warrant-add-thana',
-			name: 'warrantAddThana',
-			component: warrantAddThana,
+			path: '/warrant-add-sp',
+			name: 'warrantAddSp',
+			component: warrantAddSp,
 			meta: {requiresAuth: true}
 		},
 		{
-			path: '/warrant-list-thana',
-			name: 'warrantListThana',
-			component: warrantListThana,
+			path: '/warrant-list-sp',
+			name: 'warrantListSp',
+			component: warrantListSp,
 			meta: {requiresAuth: true}
 		},
 		{
@@ -84,6 +84,12 @@ const router = new Router({
 			path: '/court-list',
 			name: 'courtList',
 			component: courtList,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-list-dig',
+			name: 'warrantListDig',
+			component: warrantListDig,
 			meta: {requiresAuth: true}
 		},
 	]

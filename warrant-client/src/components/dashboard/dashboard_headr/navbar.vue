@@ -32,9 +32,9 @@
             </div>
 
             <!-- dropdown menu -->
-            <div class="absolute bg-gray-100 border border-t-0 shadow-xl text-gray-700 rounded-b-lg w-48 bottom-10 right-0 mr-6" :class="dropDownOpen ? '' : 'hidden'">
-                <a href="#" class="block px-4 py-2 hover:bg-gray-200">Account</a>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-200">Settings</a>
+            <div class="absolute bg-gray-100 border border-t-0 shadow-xl text-gray-700 rounded-lg w-48 bottom-0 right-0 mr-6" :class="dropDownOpen ? '' : 'hidden'">
+                <!-- <a href="#" class="block px-4 py-2 hover:bg-gray-200">Account</a>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-200">Settings</a> -->
                 <a @click.prevent="logout" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
             </div>
             <!-- dropdown menu end -->

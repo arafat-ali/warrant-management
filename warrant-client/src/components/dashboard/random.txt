@@ -61,3 +61,13 @@
     <option value="সিআর গ্রেফতার">সিআর গ্রেফতার</option>
     </select>
 </div>
+
+
+
+
+///table button
+<!-- <td class="border">
+                              <button class="bg-purple-500 p-1.5 rounded-sm text-white text-xs">
+                                Details
+                              </button>
+                            </td> -->
