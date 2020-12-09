@@ -163,6 +163,8 @@
       store.dispatch('fetchThanaWarrants');
       this.warrants = store.getters.getThanaWarrants;
       this.searchedWarrant = this.warrants;
+      this.search();
+
     }
 }
 </script>
