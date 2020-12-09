@@ -162,8 +162,8 @@
       }
     },
     created(){
-      store.dispatch('fetchAllWarrants');
-      this.warrants = store.getters.getAllWarrants;
+      store.dispatch('fetchThanaWarrants');
+      this.warrants = store.getters.getThanaWarrants;
       this.search();
     }
 }
