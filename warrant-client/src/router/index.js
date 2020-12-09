@@ -19,6 +19,8 @@ import Statistics from '@/components/dashboard/statistics';
 
 import warrantAddSp from '@/components/dashboard/warrant-add-sp';
 import warrantListSp from '@/components/dashboard/warrant-list-sp';
+import warrantListPending from '@/components/dashboard/warrant-list-pending';
+import warrantListExecuted from '@/components/dashboard/warrant-list-executed';
 
 import warrantListDig from '@/components/dashboard/warrant-list-dig';
 
@@ -90,6 +92,18 @@ const router = new Router({
 			path: '/warrant-list-sp',
 			name: 'warrantListSp',
 			component: warrantListSp,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-list-pending',
+			name: 'warrantListPending',
+			component: warrantListPending,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-list-executed',
+			name: 'warrantListExecuted',
+			component: warrantListExecuted,
 			meta: {requiresAuth: true}
 		},
 		{

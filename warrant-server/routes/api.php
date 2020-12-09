@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/registration','App\Http\Controllers\Api\UserController@store');
+//search
+Route::get('/get-thana-data-by-date/{name}/{start_date}/{end_date}','App\Http\Controllers\Api\WarrantController@getThanaDataByDate');
+Route::get('/get-thana-data-by-date-executed/{name}/{start_date}/{end_date}','App\Http\Controllers\Api\WarrantController@getThanaDataByDateExecuted');
+
 
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', function (Request $request) {
@@ -42,4 +46,6 @@ Route::middleware(['auth:api'])->group(function () {
     //Warrant Mismatch
     Route::get('/thana-not-recieve','App\Http\Controllers\Api\WarrantMismatchController@thanaNotRecieveMismatch');
     Route::get('/process-no-not-found','App\Http\Controllers\Api\WarrantMismatchController@processNumberNotFoundMismatch');
+
+    
 });
