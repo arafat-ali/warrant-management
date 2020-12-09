@@ -71,3 +71,16 @@
                                 Details
                               </button>
                             </td> -->
+
+
+
+
+                            <div class="rounded-full py-1 px-3 bg-green-500 text-white" v-if="warrant.is_executed == 1">
+                              Executed
+                              </div>
+                              <div class="text-sm" v-if="index%2 === 0">
+                                Recalled
+                              </div>
+                               <div class="text-sm" v-if="index%2 === 1">
+                                Arrested
+                              </div>

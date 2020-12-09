@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Image;
+use DB;
 use App\Models\Warrant;
 
 class WarrantController extends Controller
@@ -155,5 +156,37 @@ class WarrantController extends Controller
 
     }
 
+    public function getThanaDataByDate($name, $startDate, $endDate){
+        $warrants = DB::select("select * from warrants where is_executed = 0 and
+              ".$name." between '". $startDate ."' and '". $endDate ."' ");
+            
+            //   $a = "select * from warrants where
+            //   ".$name." between '". $startDate ."' and '". $endDate ."' ";
+
+            //   echo $a;
+              
+        return response()->json([
+            'name' => $name,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'success' => true,
+            'warrants' => $warrants
+            // 'Warrants' => $warrants
+        ]);
+    }
+
+    public function getThanaDataByDateExecuted($name, $startDate, $endDate){
+        $warrants = DB::select("select * from warrants where is_executed = 1 and
+              ".$name." between '". $startDate ."' and '". $endDate ."' ");
+              
+        return response()->json([
+            'name' => $name,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'success' => true,
+            'warrants' => $warrants
+            // 'Warrants' => $warrants
+        ]);
+    }
 
 }

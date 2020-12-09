@@ -50,11 +50,11 @@
                           <td class="border">{{warrant.process_number}}</td>
                           <td class="border">{{warrant.gr_number}}</td>
                           <td class="border">{{warrant.other_number}}</td>
-                          <td class="border">{{warrant.send_date}}</td>
+                          <td class="border">{{warrant.arrest_warrant_to_thana}}</td>
                           <td class="border">{{warrant.thana_name}}</td>
                           <td class="border">{{warrant.warrant_type}}</td>
                           <td class="border">{{warrant.court_id}}</td>
-                          <td class="border">{{warrant.arrest_warrant_to_thana}}</td>
+                          <td class="border">{{warrant.arrest_warrant_received_to_thana}}</td>
                           <td class="border">{{warrant.arrest_criminal_to_court}}</td>
                           <td class="border">{{warrant.criminal_name}}</td>
                           <td class="border">{{warrant.criminal_father_name}}</td>
@@ -154,17 +154,15 @@
           if(this.warrants[i][this.selectedField.nameArr].search(this.searchText) >= 0){
             searchArr.push(this.warrants[i]);
           }
-         
         }
         this.searchedWarrant = searchArr;
         console.log(searchArr);
-     
       }
     },
     created(){
-      store.dispatch('fetchAllWarrants');
-      this.warrants = store.getters.getAllWarrants;
-      this.search();
+      store.dispatch('fetchThanaWarrants');
+      this.warrants = store.getters.getThanaWarrants;
+      this.searchedWarrant = this.warrants;
     }
 }
 </script>
