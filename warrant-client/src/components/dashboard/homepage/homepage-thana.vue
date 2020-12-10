@@ -16,7 +16,7 @@
           </svg>
         </li>
         <li class="flex items-center">
-          <a href="#" class="text-gray-600">Dashboard</a>
+          <a href="#" class="text-gray-600">Dashboard</a> 
         </li>
       </ol>
     </nav>
