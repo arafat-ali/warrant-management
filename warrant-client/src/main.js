@@ -12,6 +12,7 @@ import '@/assets/css/tailwind.css'
 
 axios.defaults.baseURL = env.baseURL
 
+Vue.use(require('vue-moment'));
 // let access_token = localStorage.getItem('token');
 let access_token = store.getters.getAccessToken ? store.getters.getAccessToken.access_token : null;
 

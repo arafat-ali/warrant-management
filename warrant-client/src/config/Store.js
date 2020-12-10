@@ -18,7 +18,9 @@ const Store = new Vuex.Store({
 		},
 		currentUser:null,
 		sideBarOpen: false,
-		warrants: []
+		warrants: [],
+		nonAssignedWarrants:[],
+		assignedWarrants: []
 	},
 	actions: {
 		toggleSidebar(context) {
@@ -113,6 +115,34 @@ const Store = new Vuex.Store({
 					});
 			});
 		},
+		fetchAssignedThanaWarrants(context){
+			return new Promise((resolve, reject) => {
+				axios
+					.get('api/warrants-thana-assigned')
+					.then(response => {
+						let responseData = response.data.Warrants;
+						context.commit('updateAssignedThanaWarrants', responseData);
+						resolve(response);
+					})
+					.catch(response => {
+						reject(response);
+					});
+			});
+		},
+		fetchNonAssignedThanaWarrants(context){
+			return new Promise((resolve, reject) => {
+				axios
+					.get('api/warrants-thana-non-assigned')
+					.then(response => {
+						let responseData = response.data.Warrants;
+						context.commit('updateNonAssignedThanaWarrants', responseData);
+						resolve(response);
+					})
+					.catch(response => {
+						reject(response);
+					});
+			});
+		},
 
 	},
 
@@ -136,6 +166,12 @@ const Store = new Vuex.Store({
 		updateThanaWarrants(state, warrants){
 			state.warrants = warrants;
 		},
+		updateAssignedThanaWarrants(state, warrants){
+			state.assignedWarrants = warrants;
+		},
+		updateNonAssignedThanaWarrants(state, warrants){
+			state.nonAssignedWarrants = warrants;
+		},
 
 
 	},
@@ -155,7 +191,14 @@ const Store = new Vuex.Store({
 		},
 		getThanaWarrants(state){
 			return state.warrants;
+		},
+		getNonAssignedThanaWarrants(state){
+			return state.nonAssignedWarrants;
+		},
+		getAssignedThanaWarrants(state){
+			return state.assignedWarrants;
 		}
+
 		
 	},
 });

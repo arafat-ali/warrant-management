@@ -10,7 +10,8 @@ import ImportFromCI from '@/components/dashboard/importFromCI';
 import ImportFromThana from '@/components/dashboard/importFromThana';
 
 import warrantAddThana from '@/components/dashboard/warrant-add-thana';
-import warrantListThana from '@/components/dashboard/warrant-list-thana';
+import warrantListThanaNotAssigned from '@/components/dashboard/warrant-list-thana-not-assigned';
+import warrantListThanaAssigned from '@/components/dashboard/warrant-list-thana-assigned';
 
 import crimeTypeList from '@/components/dashboard/crime_type';
 import courtList from '@/components/dashboard/court_list';
@@ -77,9 +78,15 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
-			path: '/warrant-list-thana',
-			name: 'warrantListThana',
-			component: warrantListThana,
+			path: '/warrant-list-thana-not-assigned',
+			name: 'warrantListThanaNotAssigned',
+			component: warrantListThanaNotAssigned,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-list-thana-assigned',
+			name: 'warrantListThanaAssigned',
+			component: warrantListThanaAssigned,
 			meta: {requiresAuth: true}
 		},
 		{
