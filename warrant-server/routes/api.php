@@ -37,8 +37,13 @@ Route::middleware(['auth:api'])->group(function () {
 	
     Route::post('/add-warrant','App\Http\Controllers\Api\WarrantController@addWarrantInfo'); 
 	Route::get('/warrants-court','App\Http\Controllers\Api\WarrantController@getCourtWarrantInfo');
-    Route::get('/warrants-thana','App\Http\Controllers\Api\WarrantController@getThanaWarrantInfo');
+    
+    //Thana
     Route::post('/add-warrant-by-thana','App\Http\Controllers\Api\WarrantController@addWarrantInfoByThana'); 
+    Route::get('/warrants-thana','App\Http\Controllers\Api\WarrantController@getThanaWarrantInfo');
+    Route::get('/warrants-thana-assigned','App\Http\Controllers\Api\WarrantController@getAssingedThanaWarrantInfo');
+    Route::get('/warrants-thana-non-assigned','App\Http\Controllers\Api\WarrantController@getNonAssingedThanaWarrantInfo');
+
 
     Route::post('/import-from-CI','App\Http\Controllers\Api\importExcelFileController@importFromCI');
     Route::post('/import-from-thana','App\Http\Controllers\Api\importExcelFileController@importFromThana');
@@ -46,6 +51,10 @@ Route::middleware(['auth:api'])->group(function () {
     //Warrant Mismatch
     Route::get('/thana-not-recieve','App\Http\Controllers\Api\WarrantMismatchController@thanaNotRecieveMismatch');
     Route::get('/process-no-not-found','App\Http\Controllers\Api\WarrantMismatchController@processNumberNotFoundMismatch');
+
+    //SI List
+    Route::get('/SI-list','App\Http\Controllers\Api\SIController@GetSIListByThana');
+    Route::get('/assignSI/{warrant_id}/{si_id}','App\Http\Controllers\Api\SIController@assignSItoWarrant');
 
     
 });

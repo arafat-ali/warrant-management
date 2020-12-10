@@ -84,7 +84,26 @@ class WarrantController extends Controller
     }
     public function getThanaWarrantInfo(){
         $warrants = Warrant::orderBy('created_at', 'desc')
-                        ->where('arrest_warrant_received_to_thana','!=', null)
+                        ->get();
+        return response()->json([
+            'success' => true,
+            'Warrants' => $warrants
+        ]);
+    }
+
+    public function getNonAssingedThanaWarrantInfo(){
+        $warrants = Warrant::orderBy('created_at', 'desc')
+                        ->where('is_assigned','=',null)
+                        ->get();
+        return response()->json([
+            'success' => true,
+            'Warrants' => $warrants
+        ]);
+    }
+
+    public function getAssingedThanaWarrantInfo(){
+        $warrants = Warrant::orderBy('created_at', 'desc')
+                        ->where('is_assigned','!=',null)
                         ->get();
         return response()->json([
             'success' => true,
