@@ -15,9 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/registration','App\Http\Controllers\Api\UserController@store');
+
 //search
 Route::get('/get-thana-data-by-date/{name}/{start_date}/{end_date}','App\Http\Controllers\Api\WarrantController@getThanaDataByDate');
 Route::get('/get-thana-data-by-date-executed/{name}/{start_date}/{end_date}','App\Http\Controllers\Api\WarrantController@getThanaDataByDateExecuted');
+
+
+Route::get('/get-si-asi-warrants/{id}','App\Http\Controllers\Api\SIController@getSiAsiTotalWarrant');
 
 
 Route::middleware(['auth:api'])->group(function () {
@@ -55,6 +59,10 @@ Route::middleware(['auth:api'])->group(function () {
     //SI List
     Route::get('/SI-list','App\Http\Controllers\Api\SIController@GetSIListByThana');
     Route::get('/assignSI/{warrant_id}/{si_id}','App\Http\Controllers\Api\SIController@assignSItoWarrant');
+
+    //SI Warrants
+    Route::get('/get-assigned-si-warrants','App\Http\Controllers\Api\SiController@getAssignedWarrant');
+    Route::get('/get-completed-si-warrants','App\Http\Controllers\Api\SiController@getCompletedWarrant');
 
     
 });

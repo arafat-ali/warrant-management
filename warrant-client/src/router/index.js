@@ -26,6 +26,10 @@ import warrantListExecuted from '@/components/dashboard/warrant-list-executed';
 import warrantListDig from '@/components/dashboard/warrant-list-dig';
 
 
+import warrantListSI from '@/components/dashboard/warrantListSI';
+import warrantListCompletedSI from '@/components/dashboard/warrantListCompletedSI';
+
+
 Vue.use(Router);
 
 const router = new Router({
@@ -135,6 +139,18 @@ const router = new Router({
 			path: '/warrant-list-dig',
 			name: 'warrantListDig',
 			component: warrantListSp,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-list-si',
+			name: 'warrantListSI',
+			component: warrantListSI,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-list-si-completed',
+			name: 'warrantListCompletedSI',
+			component: warrantListCompletedSI,
 			meta: {requiresAuth: true}
 		},
 	]

@@ -46,8 +46,7 @@
           </svg>
 
           <div class="text-gray-700">
-            <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">{{ siAsiTotalWarrant.totalWarrant }}</p>
-            <p class="font-semibold text-3xl" v-else>{{ total }}</p>
+            <p class="font-semibold text-3xl">{{ total }}</p>
             <p>মোট ওয়ারেন্ট</p>
           </div>
         </div>
@@ -67,10 +66,7 @@
           </svg>
 
           <div class="text-gray-700">
-            <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">
-              {{ siAsiTotalWarrant.totalPendingWarrant }}
-            </p>
-            <p class="font-semibold text-3xl" v-else>{{ pending }}</p>
+            <p class="font-semibold text-3xl">{{ pending }}</p>
             <p>মোট মুলতবি ওয়ারেন্ট</p>
           </div>
         </div>
@@ -90,10 +86,7 @@
           </svg>
 
           <div class="text-gray-700">
-            <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">
-              {{ siAsiTotalWarrant.totalNewWarrant }}
-            </p>
-            <p class="font-semibold text-3xl" v-else>{{ newWarrant }}</p>
+            <p class="font-semibold text-3xl">{{ newWarrant }}</p>
             <p>মোট নতুন ওয়ারেন্ট</p>
           </div>
         </div>
@@ -113,17 +106,14 @@
           </svg>
 
           <div class="text-gray-700">
-            <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">
-              {{ siAsiTotalWarrant.totalCompletedWarrant }}
-            </p>
-            <p class="font-semibold text-3xl" v-else>{{ executed }}</p>
+            <p class="font-semibold text-3xl">{{ executed }}</p>
             <p>মোট তামিল ওয়ারেন্ট</p>
           </div>
         </div>
       </div>
     </div>
 
-    <h2>আজকের ওয়ারেন্ট ( {{ dateCreate(new Date(Date.now())) }} )</h2>
+    <h2>আজকের ওয়ারেন্ট ({{ today }})</h2>
     <div class="flex flex-wrap -mx-3 mb-6">
       <div class="w-1/2 xl:w-1/4 px-1">
         <div
@@ -140,11 +130,8 @@
 
           <div class="text-gray-700">
             <div class="flex flex-row gap-10">
-              <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">
-              {{ siAsiTotalWarrant.totalNewWarrant }}
-              </p>
-              <p class="font-semibold text-3xl" v-else>10</p>
-              <p class="text-sm">{{ dateCreate(new Date(Date.now() - 864e5)) }}</p>
+              <p class="font-semibold text-3xl">10</p>
+              <p class="text-sm">09-Dec-20</p>
             </div>
             <p>মোট নতুন ওয়ারেন্ট</p>
           </div>
@@ -166,11 +153,8 @@
 
           <div class="text-gray-700">
             <div class="flex flex-row gap-10">
-              <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">
-                {{ siAsiTotalWarrant.totalPendingWarrant }}
-              </p>
-              <p class="font-semibold text-3xl" v-else>10</p>
-              <p class="text-sm">{{ dateCreate(new Date(Date.now() - 864e5)) }}</p>
+              <p class="font-semibold text-3xl">10</p>
+              <p class="text-sm">09-Dec-20</p>
             </div>
 
             <p>মোট মুলতবি ওয়ারেন্ট</p>
@@ -216,11 +200,8 @@
 
           <div class="text-gray-700">
             <div class="flex flex-row gap-10">
-              <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">
-                {{ siAsiTotalWarrant.totalTodayCompletedWarrant }}
-              </p>
-              <p class="font-semibold text-3xl" v-else>10</p>
-              <p class="text-sm">{{ dateCreate(new Date(Date.now() - 864e5)) }}</p>
+              <p class="font-semibold text-3xl">0</p>
+              <p class="text-sm">09-Dec-20</p>
             </div>
             <p>মোট তামিল ওয়ারেন্ট</p>
           </div>
@@ -303,17 +284,101 @@ export default {
       user: false,
       name: null,
       warrants: [],
-      siAsiTotalWarrant: [],
+      today: "",
       total: 0,
       pending: 0,
       executed: 0,
       newWarrant: 0,
-     
+      buyersData: {
+        type: "line",
+        data: {
+          labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          datasets: [
+            {
+              backgroundColor: "rgba(99,179,237,0.4)",
+              strokeColor: "#63b3ed",
+              pointColor: "#fff",
+              pointStrokeColor: "#63b3ed",
+              data: [203, 156, 99, 251, 305, 247, 256],
+            },
+            {
+              backgroundColor: "rgba(198,198,198,0.4)",
+              strokeColor: "#f7fafc",
+              pointColor: "#fff",
+              pointStrokeColor: "#f7fafc",
+              data: [86, 97, 144, 114, 94, 108, 156],
+            },
+          ],
+        },
+        options: {
+          legend: {
+            display: false,
+          },
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  display: false,
+                },
+                ticks: {
+                  display: false,
+                },
+              },
+            ],
+            xAxes: [
+              {
+                gridLines: {
+                  display: false,
+                },
+              },
+            ],
+          },
+        },
+      },
+      reviewsData: {
+        type: "bar",
+        data: {
+          labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          datasets: [
+            {
+              backgroundColor: "rgba(99,179,237,0.4)",
+              strokeColor: "#63b3ed",
+              pointColor: "#fff",
+              pointStrokeColor: "#63b3ed",
+              data: [203, 156, 99, 251, 305, 247, 256],
+            },
+          ],
+        },
+        options: {
+          legend: {
+            display: false,
+          },
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  display: false,
+                },
+                ticks: {
+                  display: false,
+                },
+              },
+            ],
+            xAxes: [
+              {
+                gridLines: {
+                  display: false,
+                },
+              },
+            ],
+          },
+        },
+      },
     };
   },
   methods: {
     count() {
-      this.total = this.warrants != null ? this.warrants.length : 0;
+      this.total = this.warrants.length;
       this.warrants.forEach((warrant) => {
         if (!warrant.is_executed) {
           this.pending++;
@@ -321,32 +386,16 @@ export default {
         this.executed = this.total - this.pending;
       });
     },
-    dateCreateForSearch(date) {
+    dateCreate(date) {
       let yyyy = date.getFullYear();
-      let mm = date.getMonth() + 1;
+      let mm = date.getMonth();
       let dd = date.getDate();
       return yyyy + "-" + mm + "-" + dd;
     },
-    dateCreate(date){
-      let yyyy = date.getFullYear();
-      let mm = date.getMonth() + 1;
-      let dd = date.getDate();
-      return dd + "-" + mm + "-" + yyyy;
-    },
-    getSiAsiData(){
-      axios
-      .get("api/get-si-asi-warrants/" + this.user.id)
-      .then(response => {
-        this.siAsiTotalWarrant = response.data.data;
-      })
-      .catch(error => {
-        alert(error);
-      });
-    }
   },
   mounted() {
-    // new Chart(document.getElementById("buyers-chart"), this.buyersData);
-    // new Chart(document.getElementById("reviews-chart"), this.reviewsData);
+    new Chart(document.getElementById("buyers-chart"), this.buyersData);
+    new Chart(document.getElementById("reviews-chart"), this.reviewsData);
   },
   created() {
     this.user = store.getters.getCurrentUser
@@ -377,16 +426,14 @@ export default {
 
     this.count();
     this.warrants.forEach((warrant) => {
-      let dbDate = this.dateCreateForSearch(new Date(warrant.created_at));
-      let today = this.dateCreateForSearch(new Date());
+      let dbDate = this.dateCreate(new Date(warrant.created_at));
+      let today = this.dateCreate(new Date());
       if (dbDate === today) {
         this.newWarrant++;
       }
     });
 
     this.today = this.dateCreate(new Date());
-
-    this.getSiAsiData();
   },
 };
 </script>
