@@ -3,7 +3,7 @@
     <div class="flex flex-wrap -mx-3">
       <div class="w-full px-3">
         <p class="text-xl font-semibold mb-4">
-          ওয়ারেন্ট লিস্ট (তামিল)
+          ওয়ারেন্ট লিস্ট (মুলতবি)
         </p>
         <div class="w-full bg-white border rounded-lg p-8 mb-8 xl:mb-0 ">
           <div class="flex flex-col space-y-6 ">
@@ -13,7 +13,7 @@
                 <select
                   v-model="selectedField"
                   class="select"
-                  @change="(searchText = ''), (searchedWarrant = warrants)"
+                  @change="searchText = '', searchedWarrant = warrants"
                 >
                   <option value="" selected>--নির্বাচন করুন--</option>
                   <option
@@ -146,15 +146,14 @@
                     <td class="border">{{ warrant.process_number }}</td>
                     <td class="border">{{ warrant.gr_number }}</td>
                     <td class="border">{{ warrant.other_number }}</td>
-                    <td class="border">
-                      {{ warrant.arrest_warrant_to_thana }}
-                    </td>
+                    <td class="border"> {{ warrant.send_date }}</td>
                     <td class="border">{{ warrant.thana_name }}</td>
                     <td class="border">{{ warrant.warrant_type }}</td>
                     <td class="border">{{ warrant.court_name }}</td>
                     <td class="border">
                       {{ warrant.arrest_warrant_received_to_thana }}
                     </td>
+                    <!-- <td class="border w-4">{{warrant.case_section_and_date}}</td> -->
                     <!-- <td class="border">{{warrant.arrest_criminal_to_court}}</td> -->
                     <td class="border">{{ warrant.criminal_name }}</td>
                     <td class="border">{{ warrant.criminal_father_name }}</td>
@@ -164,16 +163,16 @@
                     <td class="border">{{ warrant.birth_cirtificate }}</td>
                     <td class="border">
                       <div
+                        class="rounded-full py-1 px-3 bg-yellow-500 text-white"
+                        v-if="warrant.is_executed == 0"
+                      >
+                        Pending
+                      </div>
+                      <div
                         class="rounded-full py-1 px-3 bg-green-500 text-white"
                         v-if="warrant.is_executed == 1"
                       >
                         Executed
-                      </div>
-                      <div class="text-sm" v-if="index % 2 === 0">
-                        Recalled
-                      </div>
-                      <div class="text-sm" v-if="index % 2 === 1">
-                        Arrested
                       </div>
                     </td>
                   </tr>
@@ -234,7 +233,7 @@ export default {
     return {
       warrants: [],
       searchedWarrant: [],
-      fields: [
+       fields: [
         { id: "1", name: "প্রসেস নং", nameArr: "process_number" },
         { id: "2", name: "জিআর নম্বর", nameArr: "gr_number" },
         { id: "3", name: "অন্যান্য আদালতের নাম্বার", nameArr: "other_number" },
@@ -242,16 +241,13 @@ export default {
         { id: "5", name: "থানা", nameArr: "thana_name" },
         { id: "6", name: "অপরাধের ধরন", nameArr: "warrant_type" },
         { id: "7", name: "ইস্যুকারি আদালত", nameArr: "court_name" },
-        {
-          id: "8",
-          name: "থানায় রিসিভের তারিখ",
-          nameArr: "arrest_warrant_to_thana",
-        },
+        { id: "8",name: "থানায় রিসিভের তারিখ", nameArr: "arrest_warrant_received_to_thana",},
+        // { id: "9",name: "মামলার ধারা ও তারিখ", nameArr: "case_section_and_date",},
         // { id: '9', name:'আদালতে হাজিরের তারিখ', nameArr: 'arrest_criminal_to_court'},
         { id: "10", name: "আসামির নাম", nameArr: "criminal_name" },
         { id: "11", name: "আসামির পিতার নাম", nameArr: "criminal_father_name" },
         { id: "12", name: "আসামির ঠিকানা", nameArr: "criminal_address" },
-        { id: "13", name: "মোবাইল নং", nameArr: "criminal_address" },
+        { id: "13", name: "মোবাইল নং", nameArr: "criminal_mobile_no" },
         { id: "14", name: "আসামির এনআইডি", nameArr: "criminal_NID" },
         { id: "15", name: "আসামির জন্ম নিবন্ধন", nameArr: "birth_cirtificate" },
       ],
@@ -291,7 +287,7 @@ export default {
       }
       return pendingWarrants;
     },
-    getData() {
+   getData() {
       console.log(this.startDate);
       console.log(this.endDate);
       axios

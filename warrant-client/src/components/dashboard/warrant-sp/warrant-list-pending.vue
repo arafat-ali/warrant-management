@@ -126,7 +126,7 @@
               <div class="flex flex-row justify-end mb-2 ">
                 <p class="font-bold">Total: {{ searchedWarrant.length }}</p>
               </div>
-              <table class="border table-auto overscroll-hidden">
+              <table class="border overscroll-scroll">
                 <thead class="border text-xs ">
                   <tr class="border">
                     <th class="border">#</th>
@@ -146,15 +146,14 @@
                     <td class="border">{{ warrant.process_number }}</td>
                     <td class="border">{{ warrant.gr_number }}</td>
                     <td class="border">{{ warrant.other_number }}</td>
-                    <td class="border">
-                      {{ warrant.arrest_warrant_to_thana }}
-                    </td>
+                    <td class="border"> {{ warrant.send_date }}</td>
                     <td class="border">{{ warrant.thana_name }}</td>
                     <td class="border">{{ warrant.warrant_type }}</td>
                     <td class="border">{{ warrant.court_name }}</td>
                     <td class="border">
                       {{ warrant.arrest_warrant_received_to_thana }}
                     </td>
+                    <!-- <td class="border w-4">{{warrant.case_section_and_date}}</td> -->
                     <!-- <td class="border">{{warrant.arrest_criminal_to_court}}</td> -->
                     <td class="border">{{ warrant.criminal_name }}</td>
                     <td class="border">{{ warrant.criminal_father_name }}</td>
@@ -182,44 +181,39 @@
             </div>
             <!-- <div class="border flex flex-col overflow-scroll overscroll-none h-96" style="width: 62rem">
                   <div class="flex flex-row justify-between">
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm" >#</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 2</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 3</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 4</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 5</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 6</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 7</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 8</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 9</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 10</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 11</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 12</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 13</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 14</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 15</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 16</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 17</div>
+                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm font-bold">#</div>
+                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm font-bold" v-for="field in fields" :key="field.id" >
+                      {{field.name}}
+                      </div>
+                    
                   </div> 
-                    <div class="flex flex-row justify-between">
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm" >head 1</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 2</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 3</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 4</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 5</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 6</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 7</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 8</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 9</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 10</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 11</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 12</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 13</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 14</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 15</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 16</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 17</div>
+                    <div class="flex flex-row justify-between" v-for="(warrant, index) in searchedWarrant" :key="warrant.id">
+                      <div class="border-r border-b w-42 text-center py-2 px-3 text-sm">{{ index }}</div>
+                      <div class="border-r border-b  text-center py-2 px-3 text-sm">{{ warrant.process_number }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.gr_number }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.other_number }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm"> {{ warrant.send_date }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.thana_name }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.warrant_type }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.court_name }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">
+                        {{ warrant.arrest_warrant_received_to_thana }}
+                      </div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{warrant.case_section_and_date}}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.criminal_name }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.criminal_father_name }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.criminal_address }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.criminal_mobile_no }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.criminal_NID }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">{{ warrant.birth_cirtificate }}</div>
+                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">
+                      <div class="rounded-full py-1 px-3 bg-yellow-500 text-white" v-if="warrant.is_executed == 0" >
+                        Pending
+                      </div>
+                     
+                    </div>
                     </div>         
-                </div>   -->
+            </div>   -->
           </div>
         </div>
       </div>
@@ -242,16 +236,13 @@ export default {
         { id: "5", name: "থানা", nameArr: "thana_name" },
         { id: "6", name: "অপরাধের ধরন", nameArr: "warrant_type" },
         { id: "7", name: "ইস্যুকারি আদালত", nameArr: "court_name" },
-        {
-          id: "8",
-          name: "থানায় রিসিভের তারিখ",
-          nameArr: "arrest_warrant_to_thana",
-        },
+        { id: "8",name: "থানায় রিসিভের তারিখ", nameArr: "arrest_warrant_received_to_thana",},
+        // { id: "9",name: "মামলার ধারা ও তারিখ", nameArr: "case_section_and_date",},
         // { id: '9', name:'আদালতে হাজিরের তারিখ', nameArr: 'arrest_criminal_to_court'},
         { id: "10", name: "আসামির নাম", nameArr: "criminal_name" },
         { id: "11", name: "আসামির পিতার নাম", nameArr: "criminal_father_name" },
         { id: "12", name: "আসামির ঠিকানা", nameArr: "criminal_address" },
-        { id: "13", name: "মোবাইল নং", nameArr: "criminal_address" },
+        { id: "13", name: "মোবাইল নং", nameArr: "criminal_mobile_no" },
         { id: "14", name: "আসামির এনআইডি", nameArr: "criminal_NID" },
         { id: "15", name: "আসামির জন্ম নিবন্ধন", nameArr: "birth_cirtificate" },
       ],
