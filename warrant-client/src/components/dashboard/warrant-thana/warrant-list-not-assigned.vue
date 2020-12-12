@@ -3,11 +3,11 @@
       <div class="flex flex-wrap -mx-3">
         <div class="w-full px-3">
           <p class="text-xl font-semibold mb-4">
-            ওয়ারেন্ট লিস্ট(নিযুক্তবিহীন)
+            ওয়ারেন্ট লিস্ট(আনঅ্যাসাইন্ড)
           </p>
           <div class="w-full bg-white border rounded-lg p-8 mb-8 xl:mb-0">
             <div class="flex flex-col space-y-6">
-                <table class="border">
+                <table class="border table-auto">
                     <thead class="border text-xs">
                         <tr class="border">
                         <th class="border">প্রসেস নং</th>
@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-sm">
-                        <tr class="border text-center" v-for="warrant in warrants" :key="warrant.id">
+                        <tr class="border text-center" v-for="warrant in warrants">
                             <td class="border">{{warrant.process_number}}</td>
                             <td class="border">{{warrant.case_section_and_date}}</td>
                             <td class="border">{{warrant.criminal_name}}</td>
@@ -78,7 +78,7 @@
                       <div>
                         <select v-model="SI_id" class="select" >
                         <option value="" >--নির্বাচন করুন--</option>
-                        <option v-for="SI in SIList" :key="SI.id" :value="SI.id">{{SI.name}}</option>
+                        <option v-for="SI in SIList" :value="SI.id">{{SI.name_bangla}} ({{SI.total_unExecuted_warrants}})</option>
                         </select>
                       </div>
                     </div>
@@ -144,7 +144,16 @@
             .get('api/assignSI/'+this.editable_warrant+'/'+this.SI_id)
             .then(response => {
                 store.dispatch('fetchNonAssignedThanaWarrants');
-                console.log(this.thanas);
+                axios
+                    .get('api/SI-list')
+                    .then(response => {
+                      this.SIList = response.data.SIList;
+                      //console.log(this.thanas);
+                    })
+                    .catch(error => {
+                      console.log(error)
+                    });
+                this.SI_id=''
             })
             .catch(error => {
               console.log(error)

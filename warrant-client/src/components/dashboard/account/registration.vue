@@ -1,15 +1,9 @@
 <template>
-	<div class="min-h-screen bg-gray-50 flex flex-col justify-center items-center py-0 sm:px-6 lg:px-8">
-		<div class="sm:mx-auto sm:w-full sm:max-w-md">
-			<h2 class="my-2 text-center text-3xl leading-9 font-extrabold text-gray-900">
-				Sign Up
-			</h2>
-		</div>
-
-		<div class="w-full  ">
-			<div class="bg-white py-8 px-6 xl:mx-96 shadow sm:rounded-lg sm:px-10">
+	<div id = "home">
+		<div class="w-full">
+			<div class="bg-white py-8 px-6 shadow sm:rounded-lg sm:px-10">
 				<form @submit.prevent="register()">
-					<div class="flex flex-col xl:flex-row xl:justify-between xl:mb-4">
+					<div class="flex flex-col xl:flex-row xl:justify-center xl:gap-4 xl:mb-4">
 						<div class="mb-4 xl:mb-0">
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">নাম</label> 
 							<input type="text" v-model="nameBangla" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="Name"> 
@@ -19,7 +13,7 @@
 							<input type="text" v-model="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="Name(English)">
 						</div> 
 					</div>
-					<div class="flex flex-col xl:flex-row xl:justify-between xl:mb-4">
+					<div class="flex flex-col xl:flex-row xl:justify-center xl:gap-4 xl:mb-4">
 						<div class="mb-4 xl:mb-0">
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">ই-মেইল</label> 
 							<input type="email" v-model="email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="Email">
@@ -29,7 +23,7 @@
 							<input type="password" v-model="password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="Password">
 						</div>
 					</div>
-					<div class="flex flex-col xl:flex-row xl:justify-between xl:mb-4">
+					<div class="flex flex-col xl:flex-row xl:justify-center xl:gap-4 xl:mb-4">
 						<div class="mb-4 xl:mb-0">
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">বিপি নং</label>
 							<input type="number" v-model="bp" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="BP no.">
@@ -40,7 +34,7 @@
 						</div>
 						
 					</div>
-					<div class="flex flex-col xl:flex-row xl:justify-between xl:mb-4">
+					<div class="flex flex-col xl:flex-row xl:justify-center xl:gap-4 xl:mb-4">
 						<div class="mb-4 xl:mb-0">
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">লিঙ্গ</label> 
 							<select name="" id="" v-model="gender" required class="w-full xl:w-52 px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
@@ -60,7 +54,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="flex flex-col xl:flex-row xl:justify-between xl:mb-4">
+					<div class="flex flex-col xl:flex-row xl:justify-center xl:gap-4 xl:mb-4">
 						<div class="mb-4 xl:mb-0">
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">থানা</label> 
 							<select name="" id="" v-model="thana" required class="w-full xl:w-52 px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
@@ -73,32 +67,29 @@
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">পদবি</label> 
 							<select name="" id="" v-model="designation" required class="w-full xl:w-52 px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
 								<option value="">--নির্বাচন করুন--</option>
-								<option value="1">CI</option>
-								<option value="2">OC</option>
-								<option value="3">SP</option>
-								<option value="4">DIG</option>
+								<option v-for="rank in rank_arr" :value="rank.id">{{rank.name}}</option>
 							</select>
 						</div>
 					</div>
-					<div class="flex flex-col xl:flex-row xl:justify-between xl:mb-4">
-						<div class="w-full mb-4 xl:mb-0">
+					<div class="flex flex-col xl:flex-row xl:justify-center xl:mb-4">
+						<div class="w-full xl:w-96 mb-4 xl:mb-0">
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">আউটপোস্ট</label> 
 							<input type="text" v-model="outpost" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="Outpost">
 						</div>
 						
 					</div>
-					<div>
-						<span class="block w-full rounded-md shadow-sm">
+					<div class="flex flex-col xl:flex-row xl:justify-center xl:mb-4">
+						<span class="block w-full xl:w-96 rounded-md shadow-sm">
 							<button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
 								Sign up
 							</button>
 						</span>
-						<p class="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
+						<!-- <p class="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
 							Or
 							<a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
 								Login
 							</a>
-						</p>
+						</p> -->
 					</div>
 				</form>
 			</div>
@@ -123,7 +114,12 @@
 				district: '',
 				thana: '',
 				designation: '',
-				outpost: ''
+				outpost: '',
+				rank_OC:'',
+				rank_SP:'',
+				rank_dig:'',
+				role_id: '',
+				rank_arr: []
 			}
 		},
 		methods: {
@@ -152,6 +148,19 @@
 
 			}
 		},
+		created(){
+			this.role_id = store.getters.getCurrentUser.role_id;
+			console.log(this.role_id);
+			if(this.role_id == 4){
+				this.rank_arr = [{id:5, name:'SI'},{id:6, name:'ASI'}]
+			}
+			else if(this.role_id == 2){
+				this.rank_arr = [{id:1, name:'CI'},{id:4, name:'OC'}]
+			}
+			else if(this.role_id == 3){
+				this.rank_arr = [{id:2, name:'SP'}]
+			}
+		}
 		
 	}
 </script>

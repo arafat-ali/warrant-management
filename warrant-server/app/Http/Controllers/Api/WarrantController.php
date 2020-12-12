@@ -39,6 +39,7 @@ class WarrantController extends Controller
     	$warrant->zilla_name = $req->zilla_name;
         $warrant->other_thana = $req->other_thana;
         $warrant->process_number = $req->process_number;
+        $warrant->case_section_and_date = $req->case_section_and_date;
         $warrant->gr_number = $req->gr_number;
     	$warrant->other_number = $req->other_number;
     	$warrant->send_date = $req->send_date;
@@ -49,6 +50,7 @@ class WarrantController extends Controller
     	$warrant->court_name = $req->court_id;
     	$warrant->arrest_criminal_to_court = $req->arrest_criminal_to_court;
     	$warrant->arrest_warrant_to_thana = $req->arrest_warrant_to_thana;
+        $warrant->arrest_warrant_received_to_thana = $req->arrest_warrant_received_to_thana;
 		$warrant->criminal_name = $req->criminal_name;
     	$warrant->criminal_father_name = $req->criminal_father_name;
     	$warrant->criminal_address = $req->criminal_address;
@@ -102,9 +104,13 @@ class WarrantController extends Controller
     }
 
     public function getAssingedThanaWarrantInfo(){
-        $warrants = Warrant::orderBy('created_at', 'desc')
-                        ->where('is_assigned','!=',null)
-                        ->get();
+        $warrants = DB::table('warrants')
+                    ->join('users','warrants.is_assigned','=','users.id')
+                    ->orderBy('warrants.created_at', 'desc')
+                    ->get();
+        // $warrants = Warrant::orderBy('created_at', 'desc')
+        //                 ->where('is_assigned','!=',null)
+        //                 ->get();
         return response()->json([
             'success' => true,
             'Warrants' => $warrants
@@ -151,6 +157,7 @@ class WarrantController extends Controller
         $warrant->case_hint = $req->case_hint;
         $warrant->arrest_criminal_to_court = $req->arrest_criminal_to_court;
         $warrant->arrest_warrant_to_thana = $req->arrest_warrant_to_thana;
+        $warrant->arrest_warrant_received_to_thana = $req->arrest_warrant_received_to_thana;
         $warrant->criminal_name = $req->criminal_name;
         $warrant->criminal_father_name = $req->criminal_father_name;
         $warrant->criminal_address = $req->criminal_address;

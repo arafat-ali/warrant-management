@@ -50,7 +50,7 @@
               <svg  class="h-6 w-6 text-blue-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <span class="text-gray-700">ওয়ারেন্ট(নিযুক্তবিহীন)</span>  
+              <span class="text-gray-700">ওয়ারেন্ট(আনঅ্যাসাইন্ড)</span>  
             </div>
             </router-link>
             <router-link v-show="user.role_id==4" :to="{ name: 'warrantListThanaAssigned' }">
@@ -58,7 +58,7 @@
               <svg  class="h-6 w-6 text-blue-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <span class="text-gray-700">ওয়ারেন্ট(নিযুক্তকৃত)</span>  
+              <span class="text-gray-700">ওয়ারেন্ট(অ্যাসাইন্ড)</span>  
             </div>
             </router-link>
             <router-link v-show="user.role_id==2" :to="{ name: 'warrantListPending' }">
@@ -134,6 +134,14 @@
                 <path d="M17.283,5.549h-5.26V4.335c0-0.222-0.183-0.404-0.404-0.404H8.381c-0.222,0-0.404,0.182-0.404,0.404v1.214h-5.26c-0.223,0-0.405,0.182-0.405,0.405v9.71c0,0.223,0.182,0.405,0.405,0.405h14.566c0.223,0,0.404-0.183,0.404-0.405v-9.71C17.688,5.731,17.506,5.549,17.283,5.549 M8.786,4.74h2.428v0.809H8.786V4.74z M16.879,15.26H3.122v-4.046h5.665v1.201c0,0.223,0.182,0.404,0.405,0.404h1.618c0.222,0,0.405-0.182,0.405-0.404v-1.201h5.665V15.26z M9.595,9.583h0.81v2.428h-0.81V9.583zM16.879,10.405h-5.665V9.19c0-0.222-0.183-0.405-0.405-0.405H9.191c-0.223,0-0.405,0.183-0.405,0.405v1.215H3.122V6.358h13.757V10.405z"></path>
               </svg>
               <span class="text-gray-700">পরিসংখ্যান</span>
+            </div>
+            </router-link>
+            <router-link v-show="user.role_id==2 || user.role_id==3 || user.role_id==4" :to="{ name: 'registration' }">
+            <div class="w-full flex items-center text-blue-400 h-10 pl-4 hover:bg-gray-200 rounded-lg cursor-pointer">
+              <svg class="h-6 w-6 fill-current mr-2" viewBox="0 0 20 20">
+                <path d="M17.283,5.549h-5.26V4.335c0-0.222-0.183-0.404-0.404-0.404H8.381c-0.222,0-0.404,0.182-0.404,0.404v1.214h-5.26c-0.223,0-0.405,0.182-0.405,0.405v9.71c0,0.223,0.182,0.405,0.405,0.405h14.566c0.223,0,0.404-0.183,0.404-0.405v-9.71C17.688,5.731,17.506,5.549,17.283,5.549 M8.786,4.74h2.428v0.809H8.786V4.74z M16.879,15.26H3.122v-4.046h5.665v1.201c0,0.223,0.182,0.404,0.405,0.404h1.618c0.222,0,0.405-0.182,0.405-0.404v-1.201h5.665V15.26z M9.595,9.583h0.81v2.428h-0.81V9.583zM16.879,10.405h-5.665V9.19c0-0.222-0.183-0.405-0.405-0.405H9.191c-0.223,0-0.405,0.183-0.405,0.405v1.215H3.122V6.358h13.757V10.405z"></path>
+              </svg>
+              <span class="text-gray-700">রেজিস্ট্রেশন</span>
             </div>
             </router-link>
           </div>

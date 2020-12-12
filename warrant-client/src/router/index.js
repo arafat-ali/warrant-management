@@ -40,6 +40,7 @@ const router = new Router({
 			path: '/registration',
 			name: 'registration',
 			component: registration,
+			meta: {requiresAuth: true}
 		},
 		{
 			path: '/dashboard',
