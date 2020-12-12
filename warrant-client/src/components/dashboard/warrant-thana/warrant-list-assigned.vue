@@ -3,7 +3,7 @@
       <div class="flex flex-wrap -mx-3">
         <div class="w-full px-3">
           <p class="text-xl font-semibold mb-4">
-            ওয়ারেন্ট লিস্ট(নিযুক্তকৃত)
+            ওয়ারেন্ট লিস্ট(অ্যাসাইন্ড)
           </p>
           <div class="w-full bg-white border rounded-lg p-8 mb-8 xl:mb-0">
             <div class="flex flex-col space-y-6">
@@ -17,12 +17,12 @@
                         <th class="border">আসামির ঠিকানা</th>
                         <th class="border">অপরাধের ধরন</th>
                         <th class="border">থানায় প্রেরনের তারিখ</th>
-                        
+                        <th class="border">অ্যাসাইন্ড</th>
 
                         </tr>
                     </thead>
                     <tbody class="text-sm">
-                        <tr class="border text-center" v-for="warrant in warrants" :key="warrant.id">
+                        <tr class="border text-center" v-for="warrant in warrants">
                             <td class="border">{{warrant.process_number}}</td>
                             <td class="border">{{warrant.case_section_and_date}}</td>
                             <td class="border">{{warrant.criminal_name}}</td>
@@ -30,6 +30,7 @@
                             <td class="border">{{warrant.criminal_address}}</td>
                             <td class="border">{{warrant.warrant_type}}</td>
                             <td class="border">{{warrant.arrest_warrant_to_thana}}</td>
+                            <td class="border">{{warrant.name_bangla}}</td>
                         </tr>
                     </tbody>
                 </table>

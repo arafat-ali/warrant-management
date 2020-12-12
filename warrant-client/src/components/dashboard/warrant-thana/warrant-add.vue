@@ -110,6 +110,10 @@
                     </div>
                   </div>
                   <div>
+                    <label for="">থানায় রিসিভের তারিখ</label>
+                    <input v-model="arrest_warrant_received_to_thana" class="input" type="date" placeholder="Something...">
+                  </div>
+                  <div>
                     <label for="">পরোয়ানা ইস্যুকারি আদালত</label>
                     <select v-model="court_id" class="select" >
                       <option value="" >--নির্বাচন করুন--</option>
@@ -264,6 +268,7 @@ import Multiselect from 'vue-multiselect'
         court_id: '',
         arrest_criminal_to_court: '',
         arrest_warrant_to_thana: '',
+        arrest_warrant_received_to_thana: '',
         picture_one: '',
         picture_two: '',
         criminal_name: '',
@@ -325,6 +330,7 @@ import Multiselect from 'vue-multiselect'
         data.append('court_id', this.court_id);
         data.append('arrest_criminal_to_court', this.arrest_criminal_to_court);
         data.append('arrest_warrant_to_thana', this.arrest_warrant_to_thana);
+        data.append('arrest_warrant_received_to_thana', this.arrest_warrant_received_to_thana);
         data.append('arrest_warrant_picture_one', this.picture_one);
         data.append('arrest_warrant_picture_two', this.picture_two);
         data.append('criminal_name', this.criminal_name);
