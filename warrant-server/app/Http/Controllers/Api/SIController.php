@@ -89,6 +89,7 @@ class SIController extends Controller
             	'data' => sizeof($warrants) == 0 ?  null : $warrants
 	        ]);
 	}
+	
 
 	public function storeActivity(Request $request)
 	{

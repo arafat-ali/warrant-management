@@ -159,14 +159,66 @@
                       </button>
                       <div class="origin-top-right absolute right mt-9  w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" v-show="buttonOption && optionId == warrant.id">
                         <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                          <a href="#" @click="buttonOption = false" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Executed</a>
-                          <a href="#" @click="(nonExecutedModal = true, buttonOption = false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Non Executed</a>
+                          <a href="#" @click="(buttonOption = false,executionModal = true)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Execution</a>
+                          <a href="#" @click="(nonExecutedModal = true, buttonOption = false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Non Execution</a>
                         </div>
                       </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+          <div class="fixed z-10 inset-0 overflow-y-auto mt-4" v-show="executionModal">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+              </div>
+
+              <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                  <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                      
+                      <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                          Execution
+                        </h3>
+                        <div class="mt-2">
+                          <div class="flex flex-col space-y-4">
+                            <div>
+                              <label for="">ধরন</label>
+                              <select name="" v-model="selectedExecutionType" class="select" >
+                                <option value="">--নির্বাচন করুন</option>
+                                <option value="Arrest">Arrest</option>
+                                <option value="Otherway">Otherway</option>
+                                <option value="Recall">Recall</option>
+                              </select>
+                            </div>
+                            <div v-if="selectedExecutionType == 'Otherway'">
+                             <label for="">অন্যান্য ধরন</label>
+                              <select name="" class="select">
+                                <option value="">--নির্বাচন করুন</option>
+                                <option value="Death">Death</option>
+                                <option value="NER">NER</option>
+                                <option value="OD">Otherways Disposal</option>
+                              </select>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button @click="executionModal = false" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                      Save
+                    </button>
+                    <button @click="executionModal = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
             </div>
           </div>
           <div class="fixed z-10 inset-0 overflow-y-auto mt-4" v-show="nonExecutedModal">
@@ -203,7 +255,12 @@
                               <input type="text" class="input" placeholder="Description">
                             </div>
                             <div>
-                              <button class="btn">Locate</button>
+                              <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded inline-flex items-center">
+                                <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                </svg>
+                                <span>Locate</span>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -251,7 +308,9 @@ export default {
       endDate: "",
       optionId: null,
       buttonOption: false,
-      nonExecutedModal: false
+      executionModal: false,
+      nonExecutedModal: false,
+      selectedExecutionType: '',
     };
   },
   methods: {
