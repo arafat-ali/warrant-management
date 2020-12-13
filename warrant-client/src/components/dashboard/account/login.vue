@@ -70,12 +70,15 @@
 						this.role_id = store.getters.getCurrentUser.role_id;
 						if(this.role_id==1){
 							this.$router.push('/dashboard-ci')
-						}
-						else if(this.role_id==5){
+						} else if(this.role_id==2){
+							this.$router.push('/dashboard-sp')
+						} else if(this.role_id==3){
+							this.$router.push('/dashboard-dig')
+						} else if(this.role_id==4){
+							this.$router.push('/dashboard-oc')
+						} else if(this.role_id==5){
 							this.$router.push('/dashboard-si')
-						}
-						
-						else this.$router.push('/dashboard')
+						} else this.$router.push('/dashboard')
 					})
 					.catch(err => {
 					})
@@ -95,11 +98,15 @@
 				this.role_id = store.getters.getCurrentUser.role_id;
 				if(this.role_id==1){
 					this.$router.push('/dashboard-ci')
-				}
-				else if(this.role_id==5){
+				} else if(this.role_id==2){
+					this.$router.push('/dashboard-sp')
+				} else if(this.role_id==3){
+					this.$router.push('/dashboard-dig')
+				} else if(this.role_id==4){
+					this.$router.push('/dashboard-oc')
+				} else if(this.role_id==5){
 					this.$router.push('/dashboard-si')
-				}	
-				else this.$router.push('/dashboard')
+				} else this.$router.push('/dashboard')
 	    	}
 	    }
 	}

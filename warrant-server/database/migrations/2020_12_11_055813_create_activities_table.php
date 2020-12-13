@@ -17,11 +17,16 @@ class CreateActivitiesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('warrant_id');
             $table->foreign('warrant_id')->references('id')->on('warrants')->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedBigInteger('activist_id');
-            $table->foreign('activist_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->float('lattitude');
-            $table->float('longitude');
-            $table->boolean('status');
+            $table->unsignedBigInteger('created_by');
+            $table->foreign('created_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('execution_type')->nullable();
+            $table->float('lattitude')->nullable();
+            $table->float('longitude')->nullable();
+            $table->string('relative_name')->nullable();
+            $table->string('relative_address')->nullable();
+            $table->string('relative_contact_no')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

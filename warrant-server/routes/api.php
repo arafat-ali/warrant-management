@@ -21,15 +21,21 @@ Route::get('/get-thana-data-by-date/{name}/{start_date}/{end_date}','App\Http\Co
 Route::get('/get-thana-data-by-date-executed/{name}/{start_date}/{end_date}','App\Http\Controllers\Api\WarrantController@getThanaDataByDateExecuted');
 
 
-Route::get('/get-si-asi-warrants/{id}','App\Http\Controllers\Api\SIController@getSiAsiTotalWarrant');
 
+
+// Not in use
+Route::get('/get-si-asi-warrants/{id}','App\Http\Controllers\Api\SIController@getSiAsiTotalWarrant'); 
 
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', function (Request $request) {
         return auth()->user();
     });
 
+    Route::get('/districts','App\Http\Controllers\Api\DistrictController@getAllDistrict');
+
     Route::get('/thanas','App\Http\Controllers\Api\ThanaController@getAllThanas');
+    Route::get('/thanas-by-district/{district}','App\Http\Controllers\Api\ThanaController@getThanasByDistrict');
+    
 
     Route::get('/courts','App\Http\Controllers\Api\CourtController@getAllCourt');
 
@@ -64,5 +70,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/get-assigned-si-warrants','App\Http\Controllers\Api\SiController@getAssignedWarrant');
     Route::get('/get-completed-si-warrants','App\Http\Controllers\Api\SiController@getCompletedWarrant');
 
-    
+
+    // Dashboard APIs
+    Route::get('/get-ci-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getCiDashboardData');
+    Route::get('/get-sp-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getSpDashboardData');
+    Route::get('/get-dig-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getDigDashboardData');
+    Route::get('/get-sp-dashboard-data-by-thana/{thana}','App\Http\Controllers\Api\DashboardController@getSpDashboardDataByThana');
+    Route::get('/get-oc-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getOcDashboardData');
+    Route::get('/get-si-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getSiDashboardData');
 });
+

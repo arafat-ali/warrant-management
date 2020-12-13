@@ -27,7 +27,30 @@
           </svg>
           <div class="text-gray-700">
             <p class="font-semibold text-3xl">{{ totalWarrant }}</p>
-            <p>মোট ওয়ারেন্ট</p>
+            <p class="text-sm">মোট ওয়ারেন্ট</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-1/2 xl:w-1/4 px-1">
+        <div class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6 xl:mb-0">
+          <svg class="w-10 h-10 fill-current mr-4 hidden lg:block" viewBox="0 0 20 20">
+            <path d="M17.35,2.219h-5.934c-0.115,0-0.225,0.045-0.307,0.128l-8.762,8.762c-0.171,0.168-0.171,0.443,0,0.611l5.933,5.934c0.167,0.171,0.443,0.169,0.612,0l8.762-8.763c0.083-0.083,0.128-0.192,0.128-0.307V2.651C17.781,2.414,17.587,2.219,17.35,2.219M16.916,8.405l-8.332,8.332l-5.321-5.321l8.333-8.332h5.32V8.405z M13.891,4.367c-0.957,0-1.729,0.772-1.729,1.729c0,0.957,0.771,1.729,1.729,1.729s1.729-0.772,1.729-1.729C15.619,5.14,14.848,4.367,13.891,4.367 M14.502,6.708c-0.326,0.326-0.896,0.326-1.223,0c-0.338-0.342-0.338-0.882,0-1.224c0.342-0.337,0.881-0.337,1.223,0C14.84,5.826,14.84,6.366,14.502,6.708"></path>
+          </svg>
+          <div class="text-gray-700">
+            <p class="font-semibold text-3xl">{{ totalAssignedWarrant }}</p>
+            <p class="text-sm">মোট অ্যাসাইন্ড ওয়ারেন্ট</p>
+          </div>
+        </div>
+      </div>
+      <div class="w-1/2 xl:w-1/4 px-1">
+        <div class="w-full bg-white border text-red-400 rounded-lg flex items-center p-6 mb-6 xl:mb-0">
+          <svg class="w-10 h-10 fill-current mr-4 hidden lg:block" viewBox="0 0 20 20">
+            <path d="M17.35,2.219h-5.934c-0.115,0-0.225,0.045-0.307,0.128l-8.762,8.762c-0.171,0.168-0.171,0.443,0,0.611l5.933,5.934c0.167,0.171,0.443,0.169,0.612,0l8.762-8.763c0.083-0.083,0.128-0.192,0.128-0.307V2.651C17.781,2.414,17.587,2.219,17.35,2.219M16.916,8.405l-8.332,8.332l-5.321-5.321l8.333-8.332h5.32V8.405z M13.891,4.367c-0.957,0-1.729,0.772-1.729,1.729c0,0.957,0.771,1.729,1.729,1.729s1.729-0.772,1.729-1.729C15.619,5.14,14.848,4.367,13.891,4.367 M14.502,6.708c-0.326,0.326-0.896,0.326-1.223,0c-0.338-0.342-0.338-0.882,0-1.224c0.342-0.337,0.881-0.337,1.223,0C14.84,5.826,14.84,6.366,14.502,6.708"></path>
+          </svg>
+          <div class="text-gray-700">
+            <p class="font-semibold text-3xl">{{ totalNotAssignedWarrant }}</p>
+            <p class="text-sm">মোট আনঅ্যাসাইন্ড ওয়ারেন্ট</p>
           </div>
         </div>
       </div>
@@ -39,7 +62,7 @@
           </svg>
           <div class="text-gray-700">
             <p class="font-semibold text-3xl"> {{ totalPendingWarrant }} </p>
-            <p>মোট মুলতবি ওয়ারেন্ট</p>
+            <p class="text-sm">মোট মুলতবি ওয়ারেন্ট</p>
           </div>
         </div>
       </div>
@@ -51,7 +74,7 @@
           </svg>
           <div class="text-gray-700">
             <p class="font-semibold text-3xl"> {{ totalCompletedWarrant }} </p>
-            <p>মোট তামিল ওয়ারেন্ট</p>
+            <p class="text-sm">মোট তামিল ওয়ারেন্ট</p>
           </div>
         </div>
       </div>
@@ -117,6 +140,8 @@ export default {
       user: false,
       name: 'SI',
       totalWarrant: 0,
+      totalAssignedWarrant: 0,
+      totalNotAssignedWarrant: 0,
       totalPendingWarrant: 0,
       totalCompletedWarrant: 0,
       totalNewWarrant: 0,
@@ -142,10 +167,12 @@ export default {
     },
     getDashboardData(){
       axios
-      .get("api/get-si-dashboard-data/" + this.user.id)
+      .get("api/get-oc-dashboard-data/" + this.user.id)
       .then(response => {
         let data = response.data.data;
-         this.totalWarrant = data.totalWarrant ? data.totalWarrant : 0;
+        this.totalWarrant = data.totalWarrant ? data.totalWarrant : 0;
+        this.totalAssignedWarrant = data.totalAssignedWarrant ? data.totalAssignedWarrant : 0;
+        this.totalNotAssignedWarrant = data.totalNotAssignedWarrant ? data.totalNotAssignedWarrant : 0;
         this.totalPendingWarrant = data.totalPendingWarrant ? data.totalPendingWarrant : 0;
         this.totalCompletedWarrant = data.totalCompletedWarrant ? data.totalCompletedWarrant : 0;
         this.totalNewWarrant = data.totalNewWarrant ? data.totalNewWarrant : 0;

@@ -15,9 +15,38 @@
       </ol>
     </nav>
     <!-- breadcrumb end -->
-    <div class="lg:flex justify-between items-center mb-6">
-      <p class="text-2xl font-semibold mb-2 lg:mb-0">Welcome, {{ name }}!</p>
+    <div class="flex flex-col justify-start gap-2  lg:flex-row lg:justify-between items-center mb-6">
+      <div class="text-2xl text-gray-700 font-semibold mb-2 lg:mb-0">  
+        Welcome, {{ name }}! 
+      </div>
+      <!-- Filter Start -->
+      <div class="flex flex-row gap-2 items-center text-gray-500 cursor-pointer hover:text-gray-700 relative" @click="filterOption = !filterOption">
+        <div class="">
+          <svg class="h-6 w-6 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg> 
+        </div>
+        <div class="text-sm ">Filter by thana</div> 
+        <div class="bg-white h-40 py-3 px-4 flex flex-col space-y-1 text-sm rounded-md overflow-y-scroll absolute lg:right-5 top-7 shadow-xl" v-if="filterOption" @click="filterOption = !file">
+          <div class="w-full p-1 rounded-sm cursor-pointer hover:bg-gray-200 mr-12" 
+          @click="(selectedOption = 'সকল থানা', filterByThana() )" 
+          :class="{'bg-gray-200': selectedOption == 'সকল থানা' }"  >
+            --সকল থানা--
+          </div>
+          <div class="w-full p-1 rounded-sm cursor-pointer hover:bg-gray-200 mr-12" 
+              v-for="thana in thanas" 
+              :key="thana.id" 
+              @click="(selectedOption = thana.name + ' থানা',  filterByThana() )" 
+              :class="{'bg-gray-200': selectedOption == thana.name + ' থানা' }" >
+            {{ thana.name }} থানা 
+          </div>
+
+        </div>
+      </div> 
+      <!-- Filter End -->
     </div>
+
+    <h2 class="text-sm text-gray-500">থানা: {{selectedOption}}</h2>
     <!-- First Cards Start -->
     <div class="flex justify-between -mx-3 mb-8">
       <div class="w-1/2 xl:w-1/4 px-1">
@@ -124,6 +153,10 @@ export default {
       pending: 0,
       executed: 0,
       newWarrant: 0,
+      thanas: [],
+      filterOption: false,
+      selectedOption: 'সকল থানা',
+      selectedClass: 'bg-gray-200'
     };
   },
   methods: {
@@ -142,10 +175,10 @@ export default {
     },
     getDashboardData(){
       axios
-      .get("api/get-si-dashboard-data/" + this.user.id)
+      .get("api/get-sp-dashboard-data/" + this.user.id)
       .then(response => {
         let data = response.data.data;
-         this.totalWarrant = data.totalWarrant ? data.totalWarrant : 0;
+        this.totalWarrant = data.totalWarrant ? data.totalWarrant : 0;
         this.totalPendingWarrant = data.totalPendingWarrant ? data.totalPendingWarrant : 0;
         this.totalCompletedWarrant = data.totalCompletedWarrant ? data.totalCompletedWarrant : 0;
         this.totalNewWarrant = data.totalNewWarrant ? data.totalNewWarrant : 0;
@@ -154,6 +187,38 @@ export default {
       .catch(error => {
         alert(error);
       });
+    },
+    getDashboardDataByThana(){
+      axios
+      .get("api/get-sp-dashboard-data-by-thana/" + this.selectedOption)
+      .then(response => {
+        let data = response.data.data;
+        this.totalWarrant = data.totalWarrant ? data.totalWarrant : 0;
+        this.totalPendingWarrant = data.totalPendingWarrant ? data.totalPendingWarrant : 0;
+        this.totalCompletedWarrant = data.totalCompletedWarrant ? data.totalCompletedWarrant : 0;
+        this.totalNewWarrant = data.totalNewWarrant ? data.totalNewWarrant : 0;
+        this.totalTodayCompletedWarrant = data.totalTodayCompletedWarrant ? data.totalTodayCompletedWarrant : 0;
+      })
+      .catch(error => {
+        alert(error);
+      });
+    },
+    getThana(){
+      axios
+      .get("api/thanas-by-district/" + this.user.district)
+      .then(response => {
+       this.thanas = response.data.data;
+      })
+      .catch(error => {
+        alert(error);
+      });
+    },
+    filterByThana(){
+      if(this.selectedOption == 'সকল থানা'){
+        this.getDashboardData();
+      } else{
+        this.getDashboardDataByThana();
+      }
     }
   },
   created() {
@@ -161,6 +226,7 @@ export default {
     this.name = this.user.name;
     
     this.getDashboardData();
+    this.getThana();
 
 
 

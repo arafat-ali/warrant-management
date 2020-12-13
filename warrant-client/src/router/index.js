@@ -4,8 +4,11 @@ import Router from 'vue-router';
 import login from '@/components/dashboard/login';
 import registration from '@/components/dashboard/registration';
 import dashboard from '@/components/dashboard/home';
-import dashboardSI from '@/components/dashboard/homeSI';
 import dashboardCI from '@/components/dashboard/homeCI';
+import dashboardSP from '@/components/dashboard/homeSP';
+import dashboardDIG from '@/components/dashboard/homeDIG';
+import dashboardOC from '@/components/dashboard/homeOC';
+import dashboardSI from '@/components/dashboard/homeSI';
 import warrantAdd from '@/components/dashboard/warrant-add';
 import warrantList from '@/components/dashboard/warrant-list';
 import ImportFromCI from '@/components/dashboard/importFromCI';
@@ -55,15 +58,33 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
-			path: '/dashboard-si',
-			name: 'dashboardSI',
-			component: dashboardSI,
-			meta: {requiresAuth: true}
-		},
-		{
 			path: '/dashboard-ci',
 			name: 'dashboardCI',
 			component: dashboardCI,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dashboard-sp',
+			name: 'dashboardSP',
+			component: dashboardSP,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dashboard-dig',
+			name: 'dashboardDIG',
+			component: dashboardDIG,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dashboard-oc',
+			name: 'dashboardOC',
+			component: dashboardOC,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dashboard-si',
+			name: 'dashboardSI',
+			component: dashboardSI,
 			meta: {requiresAuth: true}
 		},
 		{
