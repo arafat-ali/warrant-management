@@ -1,6 +1,5 @@
 <template>
-  <div id="home">
-
+    <div id="home">
 
 
       <div class="lg:flex justify-between items-center mb-6">
@@ -10,7 +9,6 @@
         >
           View Logs
         </button> -->
-
       </div>
 
       <div class="flex flex-wrap -mx-3 mb-6">
@@ -51,7 +49,6 @@
               <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">
                 {{ siAsiTotalWarrant.totalNewWarrant }}
               </p>
-
               <p class="font-semibold text-3xl" v-else>{{ newWarrant }}</p>
               <p>মোট নতুন ওয়ারেন্ট</p>
             </div>
@@ -110,17 +107,13 @@
                   
                 </div>
 
-
-
-                  <div class="text-gray-700">
-                    <div class="flex flex-row gap-10">
-                      <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">
-                        {{ siAsiTotalWarrant.totalTodayCompletedWarrant }}
-                      </p>
-                      <p class="font-semibold text-3xl" v-else>10</p>
-                      <p class="text-sm">{{ dateCreate(new Date(Date.now() - 864e5)) }}</p>
-                    </div>
-                    <p>মোট তামিল ওয়ারেন্ট</p>
+                <div class="text-gray-700">
+                  <div class="flex flex-row gap-10">
+                    <p class="font-semibold text-3xl" v-if="user.role_id == 5 || user.role_id == 6">
+                      {{ siAsiTotalWarrant.totalTodayCompletedWarrant }}
+                    </p>
+                    <p class="font-semibold text-3xl" v-else>10</p>
+                    <p class="text-sm">{{ dateCreate(new Date(Date.now() - 864e5)) }}</p>
                   </div>
                   <p>মোট তামিল ওয়ারেন্ট</p>
                 </div>
@@ -130,7 +123,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -231,4 +223,90 @@ export default {
   },
 };
 </script>
+<script>
+//     name: 'DashboardHome',
+//     data() {
+//         return {
+//             buyersData: {
+//                 type: 'line',
+//                 data: {
+//                     labels : ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+//                     datasets:[{
+//                         backgroundColor : "rgba(99,179,237,0.4)",
+//                         strokeColor : "#63b3ed",
+//                         pointColor : "#fff",
+//                         pointStrokeColor : "#63b3ed",
+//                         data : [203,156,99,251,305,247,256]
+//                     },
+//                     {
+//                         backgroundColor : "rgba(198,198,198,0.4)",
+//                         strokeColor : "#f7fafc",
+//                         pointColor : "#fff",
+//                         pointStrokeColor : "#f7fafc",
+//                         data : [86,97,144,114,94,108,156]
+//                     }]
+//                 },
+//                 options: {
+//                     legend: {
+//                         display: false
+//                     },
+//                     scales: {
+//                         yAxes: [{
+//                             gridLines: {
+//                                 display:false
+//                             },  
+//                             ticks: {
+//                                 display: false
+//                             }
+//                         }],
+//                         xAxes: [{
+//                             gridLines: {
+//                                 display: false
+//                             }
+//                         }]
+//                     }
+//                 }
+//             },
+//             reviewsData: {
+//                 type: 'bar',
+//                 data: {
+//                     labels : ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+//                     datasets:[{
+//                         backgroundColor : "rgba(99,179,237,0.4)",
+//                         strokeColor : "#63b3ed",
+//                         pointColor : "#fff",
+//                         pointStrokeColor : "#63b3ed",
+//                         data : [203,156,99,251,305,247,256]
+//                     }]
+//                 },
+//                 options: {
+//                     legend: {
+//                         display: false
+//                     },
+//                     scales: {
+//                         yAxes: [{
+//                             gridLines: {
+//                                 display:false
+//                             },  
+//                             ticks: {
+//                                 display: false
+//                             }
+//                         }],
+//                         xAxes: [{
+//                             gridLines: {
+//                                 display: false
+//                             }
+//                         }]
+//                     }
+//                 }
+
+//             }
+//         }
+//     },
+//     mounted () {
+//         new Chart(document.getElementById('buyers-chart'), this.buyersData)
+//         new Chart(document.getElementById('reviews-chart'), this.reviewsData)
+//     }
+// }
+// </script>
 
