@@ -4,6 +4,8 @@ import Router from 'vue-router';
 import login from '@/components/dashboard/login';
 import registration from '@/components/dashboard/registration';
 import dashboard from '@/components/dashboard/home';
+import dashboardSI from '@/components/dashboard/homeSI';
+import dashboardCI from '@/components/dashboard/homeCI';
 import warrantAdd from '@/components/dashboard/warrant-add';
 import warrantList from '@/components/dashboard/warrant-list';
 import ImportFromCI from '@/components/dashboard/importFromCI';
@@ -50,6 +52,18 @@ const router = new Router({
 			path: '/dashboard',
 			name: 'dashboard',
 			component: dashboard,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dashboard-si',
+			name: 'dashboardSI',
+			component: dashboardSI,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dashboard-ci',
+			name: 'dashboardCI',
+			component: dashboardCI,
 			meta: {requiresAuth: true}
 		},
 		{

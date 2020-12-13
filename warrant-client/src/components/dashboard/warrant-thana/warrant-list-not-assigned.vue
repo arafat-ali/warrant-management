@@ -74,6 +74,7 @@
                       <option value="" >--নির্বাচন করুন--</option>
                       <option v-for="SI in SIList" :value="SI.id">{{SI.name_bangla}} ({{SI.total_unExecuted_warrants}})</option>
                       </select>
+
                     </div>
 
                   </div>
