@@ -71,6 +71,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/get-completed-si-warrants','App\Http\Controllers\Api\SiController@getCompletedWarrant');
 
 
+
     // Dashboard APIs
     Route::get('/get-ci-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getCiDashboardData');
     Route::get('/get-sp-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getSpDashboardData');
@@ -78,5 +79,15 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/get-sp-dashboard-data-by-thana/{thana}','App\Http\Controllers\Api\DashboardController@getSpDashboardDataByThana');
     Route::get('/get-oc-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getOcDashboardData');
     Route::get('/get-si-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getSiDashboardData');
+});
+
+
+    //Activity
+    Route::get('/save-execution/{id}/{msg}','App\Http\Controllers\Api\ActivityController@saveExecutionInfo');
+    Route::post('/add-non-execution','App\Http\Controllers\Api\ActivityController@addNonExecutionInfo');
+
+     Route::get('/view-activity/{id}','App\Http\Controllers\Api\ActivityController@viewSIActivity');
+
+    
 });
 

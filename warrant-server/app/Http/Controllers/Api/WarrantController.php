@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Image;
 use DB;
+use Auth;
 use App\Models\Warrant;
 
 class WarrantController extends Controller
@@ -94,7 +95,7 @@ class WarrantController extends Controller
     }
 
     public function getNonAssingedThanaWarrantInfo(){
-        $warrants = Warrant::orderBy('created_at', 'desc')
+        $warrants = DB::table('warrants')
                         ->where('is_assigned','=',null)
                         ->get();
         return response()->json([
@@ -104,8 +105,12 @@ class WarrantController extends Controller
     }
 
     public function getAssingedThanaWarrantInfo(){
-        $warrants = DB::table('warrants')
-                    ->join('users','warrants.is_assigned','=','users.id')
+        $userId = Auth::user()->id;
+        $warrants = DB::table('assigned_warrants')
+                    ->join('warrants','assigned_warrants.warrant_id','=','warrants.id')
+                    ->join('users','users.id','=','assigned_warrants.assigned_to')
+                    ->where('assigned_warrants.assigned_by','=',$userId)
+                    ->select('assigned_warrants.*','users.name_bangla','warrants.process_number','warrants.case_section_and_date','warrants.criminal_name','criminal_father_name','criminal_address','warrant_type','arrest_warrant_to_thana')
                     ->orderBy('warrants.created_at', 'desc')
                     ->get();
         // $warrants = Warrant::orderBy('created_at', 'desc')

@@ -17,6 +17,7 @@
                         <th class="border">আসামির ঠিকানা</th>
                         <th class="border">অপরাধের ধরন</th>
                         <th class="border">থানায় প্রেরনের তারিখ</th>
+                        <th class="border">মূলতবির সময়</th>
                         <th class="border">অ্যাসাইন্ড</th>
 
                         </tr>
@@ -30,6 +31,7 @@
                             <td class="border">{{warrant.criminal_address}}</td>
                             <td class="border">{{warrant.warrant_type}}</td>
                             <td class="border">{{warrant.arrest_warrant_to_thana}}</td>
+                            <td class="border">{{warrant.created_at | moment("from", "now", true)}}</td>
                             <td class="border">{{warrant.name_bangla}}</td>
                         </tr>
                     </tbody>

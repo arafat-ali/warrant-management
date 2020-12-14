@@ -70,7 +70,8 @@
                     <div>
                       <select v-model="SI_id" class="select" >
                       <option value="" >--নির্বাচন করুন--</option>
-                      <option v-for="SI in SIList" :key="SI.id" :value="SI.id">{{SI.name}}</option>
+
+                      <option v-for="SI in SIList" :value="SI.id">{{SI.name_bangla}} (মূলতবি {{SI.total_unExecuted_warrants ? SI.total_unExecuted_warrants:0}})</option>
                       </select>
                       <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
