@@ -30,6 +30,8 @@ import warrantListDig from '@/components/dashboard/warrant-list-dig';
 
 import warrantListSI from '@/components/dashboard/warrantListSI';
 import warrantListCompletedSI from '@/components/dashboard/warrantListCompletedSI';
+import SIActivity from '@/components/dashboard/warrant_si_activity';
+
 
 
 Vue.use(Router);
@@ -166,6 +168,12 @@ const router = new Router({
 			path: '/warrant-list-si-completed',
 			name: 'warrantListCompletedSI',
 			component: warrantListCompletedSI,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/si-activity/:id',
+			name: 'SIActivity',
+			component: SIActivity,
 			meta: {requiresAuth: true}
 		},
 	]

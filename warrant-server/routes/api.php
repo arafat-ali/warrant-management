@@ -64,5 +64,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/get-assigned-si-warrants','App\Http\Controllers\Api\SiController@getAssignedWarrant');
     Route::get('/get-completed-si-warrants','App\Http\Controllers\Api\SiController@getCompletedWarrant');
 
+    //Activity
+    Route::get('/save-execution/{id}/{msg}','App\Http\Controllers\Api\ActivityController@saveExecutionInfo');
+    Route::post('/add-non-execution','App\Http\Controllers\Api\ActivityController@addNonExecutionInfo');
+
+     Route::get('/view-activity/{id}','App\Http\Controllers\Api\ActivityController@viewSIActivity');
+
     
 });

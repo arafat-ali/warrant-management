@@ -72,7 +72,7 @@
                     <div>
                       <select v-model="SI_id" class="select" >
                       <option value="" >--নির্বাচন করুন--</option>
-                      <option v-for="SI in SIList" :value="SI.id">{{SI.name_bangla}} ({{SI.total_unExecuted_warrants}})</option>
+                      <option v-for="SI in SIList" :value="SI.id">{{SI.name_bangla}} (মূলতবি {{SI.total_unExecuted_warrants ? SI.total_unExecuted_warrants:0}})</option>
                       </select>
 
                     </div>

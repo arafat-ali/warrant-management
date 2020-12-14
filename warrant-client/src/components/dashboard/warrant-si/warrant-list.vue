@@ -132,6 +132,7 @@
                     <th class="border">#</th>
                     <th v-for="field in fields" :key="field.id" class="border">{{ field.name }}</th>
                     
+                    <th class="border">অ্যাটেম্প</th>
                     <th class="border">একশন</th>
                   </tr>
                 </thead>
@@ -144,8 +145,8 @@
                     <td class="border">{{ warrant.criminal_name }}</td>
                     <td class="border">{{ warrant.criminal_father_name }}</td>
                     <td class="border">{{ warrant.criminal_address }}</td>
-                    <td class="border">{{ warrant.criminal_mobile_no }}</td>
                     <td class="border">{{ warrant.created_at }}</td>
+                    <td class="border"><router-link :to="{name: 'SIActivity', params:{id:warrant.warrant_id} }">{{warrant.totalActivity}} </router-link></td>
                     <!-- <td class="border">{{ warrant.criminal_mobile_no }}</td> -->
                     <!-- <td class="border">{{ warrant.criminal_mobile_no }}</td> -->
                     <td class="border flex gap-2">
@@ -197,7 +198,7 @@
                             </div>
                             <div v-if="selectedExecutionType == 'Otherway'">
                              <label for="">অন্যান্য ধরন</label>
-                              <select name="" class="select">
+                              <select v-model="otherwaysExecution" name="" class="select">
                                 <option value="">--নির্বাচন করুন</option>
                                 <option value="Death">Death</option>
                                 <option value="NER">NER</option>
@@ -211,7 +212,7 @@
                     </div>
                   </div>
                   <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <button @click="executionModal = false" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    <button @click="saveExecutionInfo" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
                       Save
                     </button>
                     <button @click="executionModal = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
@@ -240,19 +241,19 @@
                           <div class="flex flex-col space-y-2">
                             <div>
                               <label for="">Relative Name</label>
-                              <input type="text" class="input" placeholder="Relative Name">
+                              <input v-model="name" type="text" class="input" placeholder="Relative Name">
                             </div>
                             <div>
                               <label for="">Relative address</label>
-                              <input type="text" class="input" placeholder="Relative address">
+                              <input v-model="address" type="text" class="input" placeholder="Relative address">
                             </div>
                             <div>
                               <label for="">Relative contact no</label>
-                              <input type="text" class="input" placeholder="Relative contact no">
+                              <input v-model="contact_no" type="text" class="input" placeholder="Relative contact no">
                             </div>
                             <div>
                               <label for="">Description</label>
-                              <input type="text" class="input" placeholder="Description">
+                              <input v-model="description" type="text" class="input" placeholder="Description">
                             </div>
                             <div>
                               <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded inline-flex items-center">
@@ -268,7 +269,7 @@
                     </div>
                   </div>
                   <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <button @click="nonExecutedModal = false" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    <button @click="saveNonExecutionInfo" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
                       Save
                     </button>
                     <button @click="nonExecutedModal = false" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
@@ -298,7 +299,6 @@ export default {
         { id: "10", name: "আসামির নাম", nameArr: "criminal_name" },
         { id: "11", name: "আসামির পিতার নাম", nameArr: "criminal_father_name" },
         { id: "12", name: "আসামির ঠিকানা", nameArr: "criminal_address" },
-        { id: "13", name: "মোবাইল নং", nameArr: "criminal_mobile_no" },
         { id: '16', name: "অ্যাসাইনের তারিখ"},
         // { id: '17', name: "বিলম্ব"},
       ],
@@ -311,6 +311,12 @@ export default {
       executionModal: false,
       nonExecutedModal: false,
       selectedExecutionType: '',
+      otherwaysExecution:'',
+
+      name:'',
+      address:'',
+      contact_no: '',
+      description: ''
     };
   },
   methods: {
@@ -343,6 +349,47 @@ export default {
         alert(error);
       });
     },
+    saveExecutionInfo(){
+      this.executionModal = false;
+      let msg = this.otherwaysExecution;
+      if(msg==''){
+        msg = this.selectedExecutionType;
+      }
+      //console.log(this.optionId, msg);
+      this.otherwaysExecution = '';
+      this.selectedExecutionType='';
+      axios
+        .get('api/save-execution/'+this.optionId+'/'+msg)
+        .then(response => {
+          console.log('successful');
+        })
+        .catch(error => {
+          console.log(error)
+        });
+    },
+
+    saveNonExecutionInfo(e){
+      this.nonExecutedModal = false
+      e.preventDefault();
+        const config = {
+            headers: { 'content-type': 'multipart/form-data' }
+        }
+      let data = new FormData();
+      data.append('assigned_warrants_id', this.optionId);
+      data.append('name', this.name);
+      data.append('address', this.address);
+      data.append('contact_no', this.contact_no);
+      data.append('description', this.description);
+
+      axios
+          .post('api/add-non-execution', data, config)
+          .then(response => {
+            this.getSiWarrants();
+            console.log(response.data.Message);
+          })
+          .catch(response => {
+          });
+    }
     
  
   },

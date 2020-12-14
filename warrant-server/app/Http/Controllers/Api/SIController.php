@@ -41,11 +41,14 @@ class SIController extends Controller
     }
 
     public function assignSItoWarrant($id, $si_id){
+    	$warrant = Warrant::where('id','=', $id)->first();
+    	$warrant->is_assigned = $si_id;
+    	$warrant->save();
+
     	$userId = Auth::user()->id;
     	$assigned_warrants = new AssignedWarrant();
     	$assigned_warrants->warrant_id = $id;
     	$assigned_warrants->assigned_to = $si_id;
-    	$assigned_warrants->assigned_by = $userId;
     	$assigned_warrants->assigned_by = $userId;
     	if($assigned_warrants->save()){
     		return response()->json([
@@ -61,19 +64,35 @@ class SIController extends Controller
 	public function getAssignedWarrant()
 	{	
 		$userId = Auth::user()->id;
-		// $userId = 6;
+		//// $userId = 6;
 		$warrants = DB::table('assigned_warrants')
 			->join('warrants', 'assigned_warrants.warrant_id', '=', 'warrants.id')
-			->where('assigned_warrants.assigned_to', $userId)->where('assigned_warrants.is_completed', 0)
+			->where('assigned_warrants.assigned_to', $userId)
+			->where('assigned_warrants.is_completed', 0)
             // ->join('orders', 'users.id', '=', 'orders.user_id')
-			->select('assigned_warrants.*', 'warrants.*')
+			->select('assigned_warrants.*', 'warrants.process_number','gr_number','warrant_type','criminal_name','criminal_father_name','criminal_address')
 			->orderBy('assigned_warrants.created_at', 'DESC')
             ->get();
 
+        $warrants2 = DB::table('assigned_warrants')
+			->join('activities', 'activities.warrant_id','=','assigned_warrants.warrant_id')
+			->select(DB::raw('assigned_warrants.warrant_id,count(activities.warrant_id) as totalActivity'))
+			->groupBy('assigned_warrants.warrant_id')
+            ->get();
+
+        for($i=0; $i<sizeof($warrants); $i++){
+        	for($j=0; $j<sizeof($warrants2); $j++){
+        		if($warrants[$i]->warrant_id==$warrants2[$j]->warrant_id){
+        			$warrants[$i]->totalActivity = $warrants2[$j]->totalActivity;
+        			break;
+        		}
+        	}
+        }
 
 		return response()->json([
 				'message'=> sizeof($warrants) == 0 ?  'Not Found' : 'Data Retrieved' ,
-            	'data' => sizeof($warrants) == 0 ?  null : $warrants
+            	'data' => sizeof($warrants) == 0 ?  null : $warrants,
+            	'Warrants2' => $warrants2
 	        ]);
 	}
 
@@ -93,7 +112,6 @@ class SIController extends Controller
             	'data' => sizeof($warrants) == 0 ?  null : $warrants
 	        ]);
 	}
-	
 
 	public function storeActivity(Request $request)
 	{
