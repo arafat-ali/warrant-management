@@ -15,13 +15,13 @@ class ActivityController extends Controller
     	$assign_warrants = AssignedWarrant::where('id',$id)->first();
     	$warrant_id = $assign_warrants->warrant_id;
     	$assign_warrants->is_completed = 1;
-    	$assign_warrants->save();
+    	$assign_warrants->executed_at = date('Y-m-d h:i:s');
 
     	$activity = new Activity();
     	$activity->execution_type = $msg;
     	$activity->warrant_id = $warrant_id;
     	$activity->created_by = $user_id;
-    	if($activity->save()){
+    	if($assign_warrants->save() && $activity->save()){
     		return response()->json([
 	            'success' => true,
 	            'Message' => 'Successfully saved'
