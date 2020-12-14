@@ -15,9 +15,62 @@
       </ol>
     </nav>
     <!-- breadcrumb end -->
-    <div class="lg:flex justify-between items-center mb-6">
-      <p class="text-2xl font-semibold mb-2 lg:mb-0">Welcome, {{ name }}!</p>
+    <div class="flex flex-col justify-start gap-2  lg:flex-row lg:justify-between items-center mb-6">
+      <div class="text-2xl text-gray-700 font-semibold mb-2 lg:mb-0">  
+        Welcome, {{ name }}! 
+      </div>
+      <div class="flex flex-col lg:flex-row lg:justify-end gap-4">
+        <!--District Filter Start -->
+        <div class="flex flex-row gap-2 items-center text-gray-500 cursor-pointer hover:text-gray-700 relative" @click="districtFilterOption = !districtFilterOption, filterOption = false">
+          <div>
+            <svg class="h-6 w-6 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg> 
+          </div>
+          <div class="text-sm ">Filter by district</div> 
+          <div class="bg-white  h-40 py-3 px-4 flex flex-col space-y-1 text-sm rounded-md overflow-y-scroll absolute lg:right-5 top-7 shadow-xl" v-if="districtFilterOption" @click="districtFilterOption = !file">
+            <div class="w-full p-1 rounded-sm cursor-pointer hover:bg-gray-200 mr-12" 
+            @click="(selectedDistrict = 1 )"  :class="{'bg-gray-200': selectedDistrict == 'সকল জেলা' }"  >
+             Chittagong
+            </div>
+            <div class="w-full p-1 rounded-sm cursor-not-allowed text-gray-200  hover:bg-gray-50 mr-12"  v-for="(district, index) in districts" :key="district.id"
+                v-show="index > 0" >
+              {{ district.name }} 
+            </div>
+
+          </div>
+        </div> 
+        <!--District Filter End -->
+
+        <!--Thana Filter Start -->
+        <div class="flex flex-row gap-2 items-center text-gray-500 cursor-pointer hover:text-gray-700 relative" @click="filterOption = !filterOption, districtFilterOption = false">
+          <div>
+            <svg class="h-6 w-6 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg> 
+          </div>
+          <div class="text-sm ">Filter by thana</div> 
+          <div class="bg-white h-40 py-3 px-4 flex flex-col space-y-1 text-sm rounded-md overflow-y-scroll absolute lg:right-5 top-7 shadow-xl" v-if="filterOption" @click="filterOption = !file">
+            <div class="w-full p-1 rounded-sm cursor-pointer hover:bg-gray-200 mr-12" 
+            @click="(selectedOption = 'সকল থানা', filterByThana() )" 
+            :class="{'bg-gray-200': selectedOption == 'সকল থানা' }"  >
+              --সকল থানা--
+            </div>
+            <div class="w-full p-1 rounded-sm cursor-pointer hover:bg-gray-200 mr-12" 
+                v-for="thana in thanas" 
+                :key="thana.id" 
+                @click="(selectedOption = thana.name + ' থানা',  filterByThana() )" 
+                :class="{'bg-gray-200': selectedOption == thana.name + ' থানা' }" >
+              {{ thana.name }} থানা 
+            </div>
+
+          </div>
+        </div> 
+        <!--Thana Filter End -->
+      </div>
     </div>
+
+    <h2 class="text-sm text-gray-500">থানা: {{selectedOption}}</h2>
     <!-- First Cards Start -->
     <div class="flex justify-between -mx-3 mb-8">
       <div class="w-1/2 xl:w-1/4 px-1">
@@ -124,6 +177,13 @@ export default {
       pending: 0,
       executed: 0,
       newWarrant: 0,
+      thanas: [],
+      districts: [],
+      filterOption: false,
+      districtFilterOption: false,
+      selectedOption: 'সকল থানা',
+      selectedDistrict: 1,
+      selectedClass: 'bg-gray-200'
     };
   },
   methods: {
@@ -142,10 +202,10 @@ export default {
     },
     getDashboardData(){
       axios
-      .get("api/get-si-dashboard-data/" + this.user.id)
+      .get("api/get-dig-dashboard-data/" + this.user.id)
       .then(response => {
         let data = response.data.data;
-         this.totalWarrant = data.totalWarrant ? data.totalWarrant : 0;
+        this.totalWarrant = data.totalWarrant ? data.totalWarrant : 0;
         this.totalPendingWarrant = data.totalPendingWarrant ? data.totalPendingWarrant : 0;
         this.totalCompletedWarrant = data.totalCompletedWarrant ? data.totalCompletedWarrant : 0;
         this.totalNewWarrant = data.totalNewWarrant ? data.totalNewWarrant : 0;
@@ -154,6 +214,48 @@ export default {
       .catch(error => {
         alert(error);
       });
+    },
+    getDashboardDataByThana(){
+      axios
+      .get("api/get-sp-dashboard-data-by-thana/" + this.selectedOption)
+      .then(response => {
+        let data = response.data.data;
+        this.totalWarrant = data.totalWarrant ? data.totalWarrant : 0;
+        this.totalPendingWarrant = data.totalPendingWarrant ? data.totalPendingWarrant : 0;
+        this.totalCompletedWarrant = data.totalCompletedWarrant ? data.totalCompletedWarrant : 0;
+        this.totalNewWarrant = data.totalNewWarrant ? data.totalNewWarrant : 0;
+        this.totalTodayCompletedWarrant = data.totalTodayCompletedWarrant ? data.totalTodayCompletedWarrant : 0;
+      })
+      .catch(error => {
+        alert(error);
+      });
+    },
+    getThana(district_id){
+      axios
+      .get("api/thanas-by-district/" + district_id)
+      .then(response => {
+       this.thanas = response.data.data;
+      })
+      .catch(error => {
+        alert(error);
+      });
+    },
+    getDistrict(){
+      axios
+      .get("api/districts/")
+      .then(response => {
+       this.districts = response.data.data;
+      })
+      .catch(error => {
+        alert(error);
+      });
+    },
+    filterByThana(){
+      if(this.selectedOption == 'সকল থানা'){
+        this.getDashboardData();
+      } else{
+        this.getDashboardDataByThana();
+      }
     }
   },
   created() {
@@ -161,6 +263,8 @@ export default {
     this.name = this.user.name;
     
     this.getDashboardData();
+    this.getThana(1);
+    this.getDistrict();
 
 
 

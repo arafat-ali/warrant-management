@@ -43,6 +43,7 @@ class SIController extends Controller
     public function assignSItoWarrant($id, $si_id){
     	$warrant = Warrant::where('id','=', $id)->first();
     	$warrant->is_assigned = $si_id;
+
     	$warrant->save();
 
     	$userId = Auth::user()->id;
