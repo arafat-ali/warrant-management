@@ -5,9 +5,9 @@
           <p class="text-xl font-semibold mb-4">
             এসআই পারফর্মেন্স
           </p>
-          <div class="w-full bg-white border rounded-lg p-8 mb-8">
-            <div class="flex flex-col space-y-6 ">
-              <div class="h-20 flex flex-col justify-start lg:flex-row lg:justify-between gap-4">
+          <!-- Filter Start -->
+          <div class="w-full bg-white border rounded-lg p-8 mb-8 flex flex-col space-y-6">
+            <div class="h-20 flex flex-col justify-start lg:flex-row lg:justify-between gap-4">
                 <div class="w-full">
                   <label for="">জেলা</label>
                   <select class="w-full block border rounded py-2 px-4" v-model="districtId" @change="getThanaByDistrictId(districtId)">
@@ -29,64 +29,21 @@
                     <!-- <option v-for="district in districts" :key="district.id" :value="district.id">{{district.name}}</option> -->
                   </select>
                 </div>
+            </div>       
+            <div class="h-20 flex flex-col justify-start lg:flex-row lg:justify-between gap-4">
+              <div class="w-full">
+                <label for="">তারিখ হতে</label>
+                <input type="date" class="input">
               </div>
-                
-                <!-- <div class="px-6" v-if="selectedField">
-                  <label for="">{{selectedField.name}}</label>
-                  <input type="text" class="input" v-model="searchText" :placeholder="selectedField.name" @keyup="search(selectedField.nameArr)" >
-                </div> -->
-                <!-- <div>
-                  <table class="border table-auto overscroll-hidden">
-                    <thead class="border text-xs ">
-                      <tr class="border">
-                        <th class="border">#</th>
-                        <th class="border">প্রসেস নং</th>
-                        <th class="border">জিআর নম্বর</th>
-                        <th class="border">অন্যান্য কোর্টের নাম্বার</th>
-                        <th class="border">কোর্ট হতে প্রেরণের তারিখ</th>
-                        <th class="border">থানা</th>
-                        <th class="border">অপরাধের ধরন</th> 
-                        <th class="border">ইস্যুকারি আদালত</th>
-                        <th class="border">থানায় প্রেরনের তারিখ</th>
-                        <th class="border">আদালতে হাজিরের তারিখ</th>
-                        <th class="border">আসামির নাম</th>
-                        <th class="border">আসামির পিতার নাম</th>
-                        <th class="border">আসামির ঠিকানা</th>
-                        <th class="border">মোবাইল নং</th>
-                        <th class="border">আসামির এনআইডি</th>
-                        <th class="border">আসামির জন্ম নিবন্ধন</th>
-                        <th class="border">স্ট্যাটাস</th>
-                      </tr> 
-                    </thead>
-                    <tbody class="text-xs">
-                      <tr class="border text-center" v-for="(warrant, index) in searchedWarrant" :key="warrant.id">
-                        <td class="border">{{index}}</td>
-                          <td class="border">{{warrant.process_number}}</td>
-                          <td class="border">{{warrant.gr_number}}</td>
-                          <td class="border">{{warrant.other_number}}</td>
-                          <td class="border">{{warrant.send_date}}</td>
-                          <td class="border">{{warrant.thana_name}}</td>
-                          <td class="border">{{warrant.warrant_type}}</td>
-                          <td class="border">{{warrant.court_id}}</td>
-                          <td class="border">{{warrant.arrest_warrant_to_thana}}</td>
-                          <td class="border">{{warrant.arrest_criminal_to_court}}</td>
-                          <td class="border">{{warrant.criminal_name}}</td>
-                          <td class="border">{{warrant.criminal_father_name}}</td>
-                          <td class="border">{{warrant.criminal_address}}</td>
-                          <td class="border">{{warrant.criminal_mobile_no}}</td>
-                          <td class="border">{{warrant.criminal_NID}}</td>
-                          <td class="border">{{warrant.birth_cirtificate}}</td>
-                          <td class="border">
-                            <div class="rounded-full py-1 px-3 bg-yellow-500 text-white" v-if="warrant.is_executed == 0">Pending</div>
-                            <div class="rounded-full py-1 px-3 bg-green-500 text-white" v-if="warrant.is_executed == 1">Executed</div>
-                          </td> 
-                      </tr>
-                    </tbody>
-                  </table>
-                </div> -->
+              <div class="w-full">
+                <label for="">তারিখ পর্যন্ত</label>
+                <input type="date" class="input">
+              </div>
             </div>
           </div>
-
+          <!-- Filter End -->
+          
+          <!-- Dashboard Start -->
           <div class="w-full px-4 mb-8">
             <div class="flex justify-between -mx-3 mb-8">
               <div class="w-1/2 xl:w-1/4">
@@ -126,7 +83,9 @@
               </div>
             </div>
           </div>
+          <!-- Dashboard End -->
 
+          <!-- Table Start -->
           <div class="w-full bg-white border rounded-lg p-4">
             <div class="flex flex-col">
                 <div class=" h-96  overflow-x-auto">
@@ -169,7 +128,7 @@
                 </div>
             </div>
           </div>
-
+          <!-- Table End -->
         </div>
       </div>
     </div>
