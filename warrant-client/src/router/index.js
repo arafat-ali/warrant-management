@@ -35,6 +35,8 @@ import warrantListSI from '@/components/dashboard/warrantListSI';
 import warrantListCompletedSI from '@/components/dashboard/warrantListCompletedSI';
 import SIActivity from '@/components/dashboard/warrant_si_activity';
 
+import siPerformanceDIG from '@/components/dashboard/siPerformanceDIG';
+
 
 
 Vue.use(Router);
@@ -195,6 +197,12 @@ const router = new Router({
 			path: '/si-activity/:id',
 			name: 'SIActivity',
 			component: SIActivity,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dig-si-performance',
+			name: 'siPerformanceDIG',
+			component: siPerformanceDIG,
 			meta: {requiresAuth: true}
 		},
 	]
