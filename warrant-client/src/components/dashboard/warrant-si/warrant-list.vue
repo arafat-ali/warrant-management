@@ -371,9 +371,9 @@ export default {
     saveNonExecutionInfo(e){
       this.nonExecutedModal = false
       e.preventDefault();
-        const config = {
-            headers: { 'content-type': 'multipart/form-data' }
-        }
+      const config = {
+          headers: { 'content-type': 'multipart/form-data' }
+      }
       let data = new FormData();
       data.append('assigned_warrants_id', this.optionId);
       data.append('name', this.name);
@@ -385,6 +385,10 @@ export default {
           .post('api/add-non-execution', data, config)
           .then(response => {
             this.getSiWarrants();
+            this.name='';
+            this.address='';
+            this.contact_no='';
+            this.description='';
             console.log(response.data.Message);
           })
           .catch(response => {

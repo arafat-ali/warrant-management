@@ -79,7 +79,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/get-sp-dashboard-data-by-thana/{thana}','App\Http\Controllers\Api\DashboardController@getSpDashboardDataByThana');
     Route::get('/get-oc-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getOcDashboardData');
     Route::get('/get-si-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getSiDashboardData');
-});
 
 
     //Activity

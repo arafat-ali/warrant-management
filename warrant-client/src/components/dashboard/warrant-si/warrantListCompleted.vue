@@ -137,16 +137,16 @@
                 </thead>
                 <tbody class="text-xs">
                   <tr class="border text-center" v-for="(warrant, index) in assignedWarrants" :key="warrant.id">
-                    <td class="border">{{ index }}</td>
+                    <td class="border">{{ index+1 }}</td>
                     <td class="border">{{ warrant.process_number }}</td>
                     <td class="border">{{ warrant.gr_number }}</td>
                     <td class="border">{{ warrant.warrant_type }}</td>
                     <td class="border">{{ warrant.criminal_name }}</td>
                     <td class="border">{{ warrant.criminal_father_name }}</td>
                     <td class="border">{{ warrant.criminal_address }}</td>
-                    <td class="border">{{ warrant.criminal_mobile_no }}</td>
-                    <td class="border">{{ warrant.created_at }}</td>
-                    <td class="border">{{ warrant.executed_at }}</td>
+                    <td class="border">{{ warrant.created_at | moment("dddd, MMMM Do YYYY") }}</td>
+                    <td class="border">{{ warrant.execution_type }}</td>
+                    <td class="border">{{ warrant.executed_at | moment("dddd, MMMM Do YYYY") }}</td>
                     <!-- <td class="border">{{ warrant.criminal_mobile_no }}</td> -->
                     <!-- <td class="border">{{ warrant.criminal_mobile_no }}</td> -->
                     <!-- <td class="border flex gap-2">
@@ -177,8 +177,8 @@ export default {
         { id: "10", name: "আসামির নাম", nameArr: "criminal_name" },
         { id: "11", name: "আসামির পিতার নাম", nameArr: "criminal_father_name" },
         { id: "12", name: "আসামির ঠিকানা", nameArr: "criminal_address" },
-        { id: "13", name: "মোবাইল নং", nameArr: "criminal_mobile_no" },
-        { id: '16', name: "অ্যাসাইনের তারিখ"},
+        { id: "12", name: "অ্যাসাইনের তারিখ", nameArr: "criminal_address" },
+        { id: '17', name: "তামিলের ধরন"}, 
         { id: '17', name: "তামিলের তারিখ"},
         // { id: '17', name: "বিলম্ব"},
       ],

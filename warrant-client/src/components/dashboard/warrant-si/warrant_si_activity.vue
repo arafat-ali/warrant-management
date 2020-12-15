@@ -3,7 +3,7 @@
     <div class="flex flex-wrap -mx-3">
       <div class="w-full px-3">
         <p class="text-xl font-semibold mb-4">
-           সকল ওয়ারেন্ট(তামিল)
+           এসআই এক্টিভিটি
         </p>
         <div class="w-full bg-white border rounded-lg p-8 mb-8 xl:mb-0 ">
           <div class="flex flex-col space-y-6 ">
