@@ -78,7 +78,6 @@ class WarrantController extends Controller
 
     public function getCourtWarrantInfo(){
         $warrants = Warrant::orderBy('created_at', 'desc')
-                        ->where('arrest_warrant_to_thana','!=', null)
                         ->get();
         return response()->json([
             'success' => true,
