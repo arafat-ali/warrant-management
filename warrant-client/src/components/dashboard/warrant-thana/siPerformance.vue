@@ -9,14 +9,6 @@
           <div class="w-full bg-white border rounded-lg p-8 mb-8 flex flex-col space-y-6">
             <div class="h-20 flex flex-col justify-start lg:flex-row lg:justify-between gap-4">
                 <div class="w-full">
-                  <label for="">থানা</label>
-                  <select class="w-full block border rounded py-2 px-4" v-model="thanaId"
-                  @change="getSiList()" >
-                    <option value="" selected>--নির্বাচন করুন--</option>
-                    <option v-for="thana in thanas" :key="thana.id" :value="thana.id">{{thana.name}}</option>
-                  </select>
-                </div>
-                <div class="w-full">
                   <label for="">এসআই</label>
                   <select class="w-full block border rounded py-2 px-4" v-model="siId">
                     <option value="" selected>--নির্বাচন করুন--</option>
@@ -346,8 +338,8 @@
     },
     created(){
       var user = store.getters.getCurrentUser;
-      this.districtId = user.district;
-      this.getThanaByDistrictId();
+      this.thanaId = user.thana;
+      this.getSiList();
     }
 }
 </script>

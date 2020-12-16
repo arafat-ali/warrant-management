@@ -40,11 +40,12 @@
                 <label for="">তারিখ পর্যন্ত</label>
                 <input v-model="end_date" type="date" class="input">
               </div>
-              <div class="w-full">
-                <button @click="formSubmit" class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-40 px-10 mb-6 float-right">
-                  Submit
-                </button>
-              </div>
+            </div>
+            <div class="w-full flex justify-center">
+              <button @click="formSubmit" class="bg-blue-500 py-3 px-8 text-white rounded-md">
+                সাবমিট  
+              </button>
+            </div>
             </div>
           </div>
           <!-- Filter End -->

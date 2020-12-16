@@ -37,6 +37,7 @@ import SIActivity from '@/components/dashboard/warrant_si_activity';
 
 import siPerformanceDIG from '@/components/dashboard/siPerformanceDIG';
 import siPerformanceSP from '@/components/dashboard/siPerformanceSP';
+import siPerformanceOC from '@/components/dashboard/siPerformanceOC';
 
 
 
@@ -210,6 +211,12 @@ const router = new Router({
 			path: '/sp-si-performance',
 			name: 'siPerformanceSP',
 			component: siPerformanceSP,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/oc-si-performance',
+			name: 'siPerformanceOC',
+			component: siPerformanceOC,
 			meta: {requiresAuth: true}
 		},
 	]
