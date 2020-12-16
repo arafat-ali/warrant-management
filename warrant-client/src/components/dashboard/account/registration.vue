@@ -1,6 +1,7 @@
 <template>
 	<div id = "home">
 		<div class="w-full">
+			<div class="text-2xl font-bold">রেজিস্ট্রেশন</div>
 			<div class="bg-white py-8 px-6 shadow sm:rounded-lg sm:px-10">
 				<form @submit.prevent="register()">
 					<div class="flex flex-col xl:flex-row xl:justify-center xl:gap-4 xl:mb-4">

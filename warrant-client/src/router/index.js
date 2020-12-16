@@ -36,6 +36,7 @@ import warrantListCompletedSI from '@/components/dashboard/warrantListCompletedS
 import SIActivity from '@/components/dashboard/warrant_si_activity';
 
 import siPerformanceDIG from '@/components/dashboard/siPerformanceDIG';
+import siPerformanceSP from '@/components/dashboard/siPerformanceSP';
 
 
 
@@ -203,6 +204,12 @@ const router = new Router({
 			path: '/dig-si-performance',
 			name: 'siPerformanceDIG',
 			component: siPerformanceDIG,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/sp-si-performance',
+			name: 'siPerformanceSP',
+			component: siPerformanceSP,
 			meta: {requiresAuth: true}
 		},
 	]

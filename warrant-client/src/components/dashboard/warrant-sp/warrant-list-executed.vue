@@ -2,176 +2,103 @@
   <div id="home">
     <div class="flex flex-wrap -mx-3">
       <div class="w-full px-3">
-        <p class="text-xl font-semibold mb-4">
-          ওয়ারেন্ট লিস্ট (মুলতবি)
+        <p class="text-xl font-semibold mb-2">
+          ওয়ারেন্ট লিস্ট (তামিল)
         </p>
-        <div class="w-full bg-white border rounded-lg p-8 mb-8 xl:mb-0 ">
-          <div class="flex flex-col space-y-6 ">
-            <div class="h-20 flex flex-col lg:flex-row justify-start">
-              <div class="px-6">
-                <label for="">সার্চ</label>
-                <select
-                  v-model="selectedField"
-                  class="select"
-                  @change="searchText = '', searchedWarrant = warrants"
-                >
-                  <option value="" selected>--নির্বাচন করুন--</option>
-                  <option
-                    v-for="field in fields"
-                    :key="field.id"
-                    :value="field"
-                    >{{ field.name }}</option
-                  >
-                </select>
+        <div class="w-full bg-white border rounded-lg px-8 py-6 mb-8 xl:mb-0 ">
+          <div class="flex flex-col gap-1 lg:flex-row justify-between items-center lg:gap-0">
+            <div class="text-sm text-gray-400 font-medium"> Showing: {{ searchedWarrant.length }} executed warrants</div>
+            <div class="flex flex-col lg:flex-row-reverse mb-2 gap-1.5 items-center">
+              <div v-if="selectedField">
+                <button @click="selectedField=''" class="h-6 w-6 focus:border-none">
+                  <span>
+                    <svg class="" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                  </span>
+                </button>
+              </div>
+              <div class="">
+                <div class="relative text-gray-500">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                  </span>
+                  <select v-model="selectedField" 
+                  class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" @change="searchText = '', searchedWarrant = warrants">
+                    <option value="" selected>সার্চ করুন...</option>
+                    <option v-for="field in fields" :key="field.id" :value="field" >{{ field.name }}</option>
+                  </select>
+                  <span class="absolute inset-y-0 right-0 flex items-center pr-1">
+                    <svg class="w-5 h-5"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                  
+                </div>
               </div>
               <!-- After Selection Start -->
-              <div class="px-6" v-if="selectedField">
+              <div class="" v-if="selectedField">
                 <!-- Date Range Start-->
-                <div
-                  v-if="selectedField.id == 4 || selectedField.id == 8"
-                  class="flex gap-2"
-                >
+                <div v-if="selectedField.type == 'date'" class="flex flex-col lg:flex-row gap-2 items-center" >
+                  <p>From</p>
+                  <input type="date" v-model="startDate" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" /> 
+                  <p>to</p>
+                  <input type="date" v-model="endDate" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" />
                   <div>
-                    <label for="">থেকে</label>
-                    <input
-                      type="date"
-                      class="input"
-                      v-model="startDate"
-                      :placeholder="selectedField.name"
-                    />
-                  </div>
-                  <div>
-                    <label for="">পর্যন্ত</label>
-                    <input
-                      type="date"
-                      class="input"
-                      v-model="endDate"
-                      :placeholder="selectedField.name"
-                    />
-                  </div>
-                  <div>
-                    <button
-                      class="bg-blue-500 p-3 mt-4 rounded-lg text-white"
-                      @click="getData()"
-                    >
+                    <button class="bg-blue-500 py-2 px-3 text-sm rounded-lg text-white" @click="getData()" >
                       Search
                     </button>
                   </div>
                 </div>
                 <!-- Date Range End -->
-
-                <div class="" v-else-if="selectedField.id == 7">
-                  <label for="">{{ selectedField.name }}</label>
-                  <select
-                    v-model="searchText"
-                    class="select"
-                    @change="search(selectedField.nameArr)"
-                  >
-                    <option value="" selected>--নির্বাচন করুন--</option>
-                    <option
-                      v-for="court in courts"
-                      :key="court.id"
-                      :value="court.name"
-                      >{{ court.name }}</option
-                    >
+                <div class="" v-else-if="selectedField.type == 'dropdown'">
+                  <select v-model="searchText" class="py-2 text-sm rounded-md pl-6 pr-6 border focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" @change="search(selectedField.nameArr)" >
+                    <option value="" selected>--{{ selectedField.name }} নির্বাচন করুন--</option>
+                    <option v-for="court in courts" :key="court.id" :value="court.name" v-if="selectedField.id == 7">{{ court.name }}</option>
+                    <option v-for="thana in thanas" :key="thana.id" :value="thana.name" v-if="selectedField.id == 5">{{ thana.name }}</option>
+                    <option v-for="warrantType in warrantTypes" :key="warrantType" :value="warrantType" v-if="selectedField.id == 6">{{ warrantType }}</option>
+                    <option v-for="crimeType in crimeTypes" :key="crimeType" :value="crimeType.id" v-if="selectedField.id == 16">{{ crimeType.name }}</option>
                   </select>
                 </div>
-                <div class="" v-else-if="selectedField.id == 5">
-                  <label for="">{{ selectedField.name }}</label>
-                  <select
-                    v-model="searchText"
-                    class="select"
-                    @change="search(selectedField.nameArr)"
-                  >
-                    <option value="" selected>--নির্বাচন করুন--</option>
-                    <!-- <option value="সাতকানিয়া থানা">সাতকানিয়া থানা</option> -->
-                    <option
-                      v-for="thana in thanas"
-                      :key="thana.id"
-                      :value="thana.name"
-                      >{{ thana.name }}</option
-                    >
-                  </select>
-                </div>
-                <div class="" v-else-if="selectedField.id == 6">
-                  <label for="">{{ selectedField.name }}</label>
-                  <select
-                    v-model="searchText"
-                    class="select"
-                    @change="search(selectedField.nameArr)"
-                  >
-                    <option value="" selected>--নির্বাচন করুন--</option>
-                    <option value="সিআর পরোয়ানা">সিআর পরোয়ানা</option>
-                    <option value="সিআর গ্রেফতার">সিআর গ্রেফতার</option>
-                    <option value="জিআর পরোয়ানা">জিআর পরোয়ানা</option>
-                    <option value="জিআর গ্রেফতার">জিআর গ্রেফতার</option>
-                  </select>
-                </div>
-
                 <div v-else>
-                  <label for="">{{ selectedField.name }}</label>
-                  <input
-                    type="text"
-                    class="input"
-                    v-model="searchText"
-                    :placeholder="selectedField.name"
-                    @keyup="search(selectedField.nameArr)"
-                  />
+                  <input type="text" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-blue-400 focus:text-gray-500" 
+                  v-model="searchText" :placeholder="selectedField.name + ' লিখুন...'" @keyup="search(selectedField.nameArr)" />
                 </div>
               </div>
               <!-- After Selection End -->
+              
             </div>
-
-            <div>
-              <div class="flex flex-row justify-end mb-2 ">
-                <p class="font-bold">Total: {{ searchedWarrant.length }}</p>
-              </div>
-              <table class="border table-auto overscroll-hidden">
-                <thead class="border text-xs ">
-                  <tr class="border">
-                    <th class="border">#</th>
-                    <th v-for="field in fields" :key="field.id" class="border">
-                      {{ field.name }}
-                    </th>
-                    <th class="border">স্ট্যাটাস</th>
+          </div>
+          <!-- Table Start -->
+          <div class="h-96 overflow-auto">
+            <div class="align-middle inline-block min-w-full overflow-hidden sm:rounded-lg border-b">
+              <table class="min-w-full">
+                <thead>
+                    <tr class="text-xs">
+                      <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">#</th>
+                      <th v-for="field in fields" :key="field.id" 
+                      class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold" >
+                        {{ field.name }}
+                      </th>
+                      <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">স্ট্যাটাস</th> 
                   </tr>
                 </thead>
-                <tbody class="text-xs">
-                  <tr
-                    class="border text-center"
-                    v-for="(warrant, index) in searchedWarrant"
-                    :key="warrant.id"
-                  >
-                    <td class="border">{{ index }}</td>
-                    <td class="border">{{ warrant.process_number }}</td>
-                    <td class="border">{{ warrant.gr_number }}</td>
-                    <td class="border">{{ warrant.other_number }}</td>
-                    <td class="border"> {{ warrant.send_date }}</td>
-                    <td class="border">{{ warrant.thana_name }}</td>
-                    <td class="border">{{ warrant.warrant_type }}</td>
-                    <td class="border">{{ warrant.court_name }}</td>
-                    <td class="border">
-                      {{ warrant.arrest_warrant_received_to_thana }}
+                <tbody class="text-sm">
+                  <tr class="border-l border-r" v-for="(warrant,index) in searchedWarrant" :key="warrant.id">
+                    <td class="p-2 text-center border-b border-r  border-gray-200">{{index + 1}}</td>
+                    <td v-for="field in fields" :key="field.id" class="p-2  border-b border-r  border-gray-200"
+
+                    :class="{'bg-gray-100': selectedField.name == field.name}"
+                    >
+                      <p v-if="field.type == 'date'">{{warrant[''+field.nameArr] | moment("ddd, MM Do YY")}}</p>
+                      <p v-else>{{ warrant[''+field.nameArr] }}</p>
                     </td>
-                    <!-- <td class="border w-4">{{warrant.case_section_and_date}}</td> -->
-                    <!-- <td class="border">{{warrant.arrest_criminal_to_court}}</td> -->
-                    <td class="border">{{ warrant.criminal_name }}</td>
-                    <td class="border">{{ warrant.criminal_father_name }}</td>
-                    <td class="border">{{ warrant.criminal_address }}</td>
-                    <td class="border">{{ warrant.criminal_mobile_no }}</td>
-                    <td class="border">{{ warrant.criminal_NID }}</td>
-                    <td class="border">{{ warrant.birth_cirtificate }}</td>
-                    <td class="border">
-                      <div
-                        class="rounded-full py-1 px-3 bg-yellow-500 text-white"
-                        v-if="warrant.is_executed == 0"
-                      >
-                        Pending
-                      </div>
-                      <div
-                        class="rounded-full py-1 px-3 bg-green-500 text-white"
-                        v-if="warrant.is_executed == 1"
-                      >
+                    <td class="p-2  border-b  border-gray-200">
+
+                      <div class="rounded-full py-1 px-3 bg-green-500 text-white" v-if="warrant.is_executed == 1" >
                         Executed
                       </div>
                     </td>
@@ -179,47 +106,8 @@
                 </tbody>
               </table>
             </div>
-            <!-- <div class="border flex flex-col overflow-scroll overscroll-none h-96" style="width: 62rem">
-                  <div class="flex flex-row justify-between">
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm" >#</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 2</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 3</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 4</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 5</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 6</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 7</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 8</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 9</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 10</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 11</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 12</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 13</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 14</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 15</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 16</div>
-                    <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 17</div>
-                  </div> 
-                    <div class="flex flex-row justify-between">
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm" >head 1</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 2</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 3</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 4</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 5</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 6</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 7</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 8</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 9</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 10</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 11</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 12</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 13</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 14</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 15</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 16</div>
-                      <div class="border-r border-b w-full text-center py-2 px-3 text-sm">head 17</div>
-                    </div>         
-                </div>   -->
           </div>
+          <!-- Table End -->
         </div>
       </div>
     </div>
@@ -233,35 +121,40 @@ export default {
     return {
       warrants: [],
       searchedWarrant: [],
-       fields: [
-        { id: "1", name: "প্রসেস নং", nameArr: "process_number" },
-        { id: "2", name: "জিআর নম্বর", nameArr: "gr_number" },
-        { id: "3", name: "অন্যান্য আদালতের নাম্বার", nameArr: "other_number" },
-        { id: "4", name: "কোর্ট হতে প্রেরণের তারিখ", nameArr: "send_date" },
-        { id: "5", name: "থানা", nameArr: "thana_name" },
-        { id: "6", name: "অপরাধের ধরন", nameArr: "warrant_type" },
-        { id: "7", name: "ইস্যুকারি আদালত", nameArr: "court_name" },
-        { id: "8",name: "থানায় রিসিভের তারিখ", nameArr: "arrest_warrant_received_to_thana",},
-        // { id: "9",name: "মামলার ধারা ও তারিখ", nameArr: "case_section_and_date",},
-        // { id: '9', name:'আদালতে হাজিরের তারিখ', nameArr: 'arrest_criminal_to_court'},
-        { id: "10", name: "আসামির নাম", nameArr: "criminal_name" },
-        { id: "11", name: "আসামির পিতার নাম", nameArr: "criminal_father_name" },
-        { id: "12", name: "আসামির ঠিকানা", nameArr: "criminal_address" },
-        { id: "13", name: "মোবাইল নং", nameArr: "criminal_mobile_no" },
-        { id: "14", name: "আসামির এনআইডি", nameArr: "criminal_NID" },
-        { id: "15", name: "আসামির জন্ম নিবন্ধন", nameArr: "birth_cirtificate" },
+      fields: [
+        { id: "1", name: "প্রসেস নং", type:null, nameArr: "process_number" },
+        { id: "2", name: "জিআর নম্বর", type:null, nameArr: "gr_number" },
+        { id: "3", name: "অন্যান্য আদালতের নাম্বার", type:null, nameArr: "other_number" },
+        { id: "4", name: "কোর্ট হতে প্রেরণের তারিখ", type:'date', nameArr: "send_date" },
+        { id: "5", name: "থানা", type:'dropdown', nameArr: "thana_name" },
+        { id: "6", name: "ওয়ারেন্টের ধরন", type:'dropdown', nameArr: "warrant_type" },
+        { id: "16", name: "অপরাধের ধরন", type:'dropdown', nameArr: "crime_category_name" }, 
+        { id: "7", name: "ইস্যুকারি আদালত", type:'dropdown', nameArr: "court_name" },
+        { id: "8",name: "থানায় রিসিভের তারিখ", type:'date', nameArr: "arrest_warrant_received_to_thana",},
+        // { id: "9",name: "মামলার ধারা ও তারিখ", type:null, nameArr: "case_section_and_date",},
+        // { id: '9', name:'আদালতে হাজিরের তারিখ', type:null, nameArr: 'arrest_criminal_to_court'},
+        { id: "10", name: "আসামির নাম", type:null, nameArr: "criminal_name" },
+        { id: "11", name: "আসামির পিতার নাম", type:null, nameArr: "criminal_father_name" },
+        { id: "12", name: "আসামির ঠিকানা", type:null, nameArr: "criminal_address" },
+        { id: "13", name: "মোবাইল নং", type:null, nameArr: "criminal_mobile_no" },
+        { id: "14", name: "আসামির এনআইডি", type:null, nameArr: "criminal_NID" },
+        { id: "15", name: "আসামির জন্ম নিবন্ধন", type:null, nameArr: "birth_cirtificate" },
       ],
       courts: [],
       thanas: [],
+      warrantTypes: ['সিআর সাজা', 'সিআর গ্রেফতার', 'জিআর সাজা', 'জিআর গ্রেফতার'],
+      crimeTypes:[],
       selectedField: "",
       searchText: "",
       courtID: "",
       startDate: "",
       endDate: "",
+      startDateType: 'text',
+      endDateType: 'text',
     };
   },
   methods: {
-    search(fieldName) {
+   search(fieldName) {
       this.searchedWarrant = this.warrants;
       let searchArr = [];
       for (let i = 0; i < this.warrants.length; i++) {
@@ -278,14 +171,15 @@ export default {
       console.log(fieldName);
       console.log(this.warrants);
     },
-    pendingWarrantCreate(data) {
-      let pendingWarrants = [];
+    executedWarrantCreate(data) {
+      let executedWarrants = [];
+      console.log(data);
       for (let i = 0; i < data.length; i++) {
         if (data[i].is_executed === 1) {
-          pendingWarrants.push(data[i]);
+          executedWarrants.push(data[i]);
         }
       }
-      return pendingWarrants;
+      return executedWarrants;
     },
    getData() {
       console.log(this.startDate);
@@ -330,13 +224,25 @@ export default {
           console.log(error);
         });
     },
+    getCrimeType() {
+      axios
+        .get("api/crime-categories")
+        .then((response) => {
+          this.crimeTypes = response.data.data;
+          // console.log(this.thanas);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   created() {
     store.dispatch("fetchThanaWarrants");
-    this.warrants = this.pendingWarrantCreate(store.getters.getThanaWarrants);
+    this.warrants = this.executedWarrantCreate(store.getters.getThanaWarrants);
     this.searchedWarrant = this.warrants;
     this.getCourt();
     this.getThana();
+    this.getCrimeType();
   },
 };
 </script>

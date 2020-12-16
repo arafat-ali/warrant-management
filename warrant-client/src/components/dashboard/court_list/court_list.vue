@@ -6,23 +6,23 @@
             পরোয়ানা ইস্যুকারি আদালত
           </p>
           <div class="w-full bg-white border rounded-lg p-8 mb-8 xl:mb-0">
-            <div class="flex flex-col space-y-6">
-                <table class="border">
-                    <thead class="border text-xs">
-                        <tr class="border">
-                        <th class="border">ক্রমিক নং</th>
-                        <th class="border">আদালতের নাম</th>
-                        
-
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        <tr class="border text-center" v-for="(court,index) in courts" :key="court.id">
-                            <td class="border">{{index}}</td>
-                            <td class="border">{{court.name}}</td>
-                        </tr>
-                    </tbody>
+            <div class="h-96 overflow-auto">
+              <div class="align-middle inline-block min-w-full overflow-hidden sm:rounded-lg border-b">
+                <table class="min-w-full">
+                  <thead>
+                      <tr class="">
+                        <th class="px-6 py-3 border bg-gray-50 text-center text-sm leading-5 font-semibold">#</th>
+                        <th class="px-6 py-3 border bg-gray-50 text-center text-sm leading-5 font-semibold">অপরাধের ধরন</th> 
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm">
+                    <tr class="border-l border-r" v-for="(court,index) in courts" :key="court.id">
+                      <td class="p-2 text-center border-b border-r  border-gray-200">{{index + 1}}</td>
+                      <td class="p-2  text-center border-b  border-gray-200">{{ court.name }} </td>
+                    </tr>
+                  </tbody>
                 </table>
+              </div>
             </div>
           </div>
         </div>
