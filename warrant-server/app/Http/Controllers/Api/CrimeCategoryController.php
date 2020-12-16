@@ -13,8 +13,8 @@ class CrimeCategoryController extends Controller
     public function getAllCrimeCategories(){
     	$crimeCategories = CrimeCategory::all();
     	return response()->json([
-            'success' => true,
-            'CrimeCategories' => $crimeCategories
+            'message' => sizeof($crimeCategories) == 0 ? 'Not Found' : 'Data Retrieved' ,
+            'data' => sizeof($crimeCategories) == 0 ? null : $crimeCategories,
         ]);
     }
 
