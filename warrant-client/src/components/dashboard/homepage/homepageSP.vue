@@ -20,7 +20,7 @@
         Welcome, {{ name }}! 
       </div>
       <!-- Filter Start -->
-      <div class="flex flex-row gap-2 items-center text-gray-500 cursor-pointer hover:text-gray-700 relative" @click="filterOption = !filterOption">
+      <!-- <div class="flex flex-row gap-2 items-center text-gray-500 cursor-pointer hover:text-gray-700 relative" @click="filterOption = !filterOption">
         <div class="">
           <svg class="h-6 w-6 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -42,7 +42,7 @@
           </div>
 
         </div>
-      </div> 
+      </div>  -->
       <!-- Filter End -->
     </div>
 
@@ -154,7 +154,7 @@ export default {
       executed: 0,
       newWarrant: 0,
       thanas: [],
-      filterOption: false,
+      // filterOption: false,
       selectedOption: 'সকল থানা',
       selectedClass: 'bg-gray-200'
     };
@@ -213,13 +213,13 @@ export default {
         alert(error);
       });
     },
-    filterByThana(){
-      if(this.selectedOption == 'সকল থানা'){
-        this.getDashboardData();
-      } else{
-        this.getDashboardDataByThana();
-      }
-    }
+    // filterByThana(){
+    //   if(this.selectedOption == 'সকল থানা'){
+    //     this.getDashboardData();
+    //   } else{
+    //     this.getDashboardDataByThana();
+    //   }
+    // }
   },
   created() {
     this.user = store.getters.getCurrentUser ? store.getters.getCurrentUser : false;
