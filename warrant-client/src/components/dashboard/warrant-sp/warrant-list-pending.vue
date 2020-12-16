@@ -88,14 +88,14 @@
                 </thead>
                 <tbody class="text-sm">
                   <tr class="border-l border-r" v-for="(warrant,index) in searchedWarrant" :key="warrant.id">
-                    <td class="p-2 text-center border-b border-r whitespace-nowrap border-gray-200">{{index + 1}}</td>
-                    <td v-for="field in fields" :key="field.id" class="p-2  border-b border-r whitespace-nowrap border-gray-200"
+                    <td class="p-2 text-center border-b border-r  border-gray-200">{{index + 1}}</td>
+                    <td v-for="field in fields" :key="field.id" class="p-2  border-b border-r  border-gray-200"
                     :class="{'bg-gray-100': selectedField.name == field.name}"
                     >
                       <p v-if="field.type == 'date'">{{warrant[''+field.nameArr] | moment("ddd, MM Do YY")}}</p>
                       <p v-else>{{ warrant[''+field.nameArr] }}</p>
                     </td>
-                    <td class="p-2  border-b whitespace-nowrap border-gray-200">
+                    <td class="p-2  border-b  border-gray-200">
                       <div class="rounded-full py-1 px-3 bg-yellow-500 text-white" v-if="warrant.is_executed == 0" >
                         Pending
                       </div>
