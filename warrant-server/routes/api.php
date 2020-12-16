@@ -87,8 +87,10 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/save-execution/{id}/{msg}','App\Http\Controllers\Api\ActivityController@saveExecutionInfo');
     Route::post('/add-non-execution','App\Http\Controllers\Api\ActivityController@addNonExecutionInfo');
 
-     Route::get('/view-activity/{id}','App\Http\Controllers\Api\ActivityController@viewSIActivity');
+    Route::get('/view-activity/{id}','App\Http\Controllers\Api\ActivityController@viewSIActivity');
 
-    
+     //SI performenct
+
+    Route::get('get-si-performence-data/{si}/{start}/{end}','App\Http\Controllers\Api\SIController@getSiPerformenceData');
 });
 

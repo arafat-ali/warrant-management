@@ -60,6 +60,39 @@ class SIController extends Controller
 	}
 
 
+
+	public function getSiPerformenceData($si, $start_date, $end_date){
+		$totalWarrant = DB::table('warrants')
+						->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
+						->where('assigned_warrants.assigned_to',$si)
+						->whereBetween('assigned_warrants.created_at',[$start_date,$end_date])
+						->select('assigned_warrants.created_at','assigned_warrants.executed_at', 'warrants.process_number','gr_number','warrant_type','criminal_name','criminal_father_name','criminal_address','send_date','arrest_warrant_received_to_thana')
+						->get();
+		$totalPendingWarrant = DB::table('warrants')
+						->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
+						->where('assigned_warrants.assigned_to',$si)
+						->whereBetween('assigned_warrants.created_at',[$start_date,$end_date])
+						->where('assigned_warrants.is_completed',0)
+						->get();
+		$totalCompletedWarrant = DB::table('warrants')
+						->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
+						->where('assigned_warrants.assigned_to',$si)
+						->whereBetween('assigned_warrants.created_at',[$start_date,$end_date])
+						->where('assigned_warrants.is_completed',1)
+						->get();
+        
+        $data = array(
+			'totalWarrant' =>$totalWarrant, 
+			'totalPendingWarrant' => $totalPendingWarrant, 
+	 		'totalCompletedWarrant' => $totalCompletedWarrant
+		);
+		
+		return response()->json([
+				'message' => sizeof($data) == 3 ? 'Data Retrieved' : 'Not Found' ,
+				'data' => sizeof($data) ==  3? $data : null,
+	        ]);
+    }
+
 	
 	//-------------Susmoy-------------//
 	public function getAssignedWarrant()
