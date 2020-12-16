@@ -21,7 +21,7 @@ class SIController extends Controller
                     ->join('warrants','warrants.is_assigned','=','users.id')
                     ->where('thana','=', $thana_id)
     				->where('role_id','=','5')
-    				->where('warrants.is_executed','=','0')
+    				->where('warrants.is_executed','=',0)
                     ->select(DB::raw('users.*, count(warrants.is_assigned) as total_unExecuted_warrants'))
                     ->groupBy('users.id','users.name','users.name_bangla','users.email','users.email_verified_at','users.password','users.bp','users.mobile','users.gender','users.district','users.thana','users.outpost','users.role_id','users.created_by','users.remember_token','users.created_at','users.updated_at')
                     ->get();
@@ -66,19 +66,21 @@ class SIController extends Controller
 						->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
 						->where('assigned_warrants.assigned_to',$si)
 						->whereBetween('assigned_warrants.created_at',[$start_date,$end_date])
-						->select('assigned_warrants.created_at','assigned_warrants.executed_at', 'warrants.process_number','gr_number','warrant_type','criminal_name','criminal_father_name','criminal_address','send_date','arrest_warrant_received_to_thana')
+						->select('assigned_warrants.created_at','assigned_warrants.executed_at', 'warrants.process_number','gr_number','case_section_and_date','warrant_type','criminal_name','criminal_father_name','criminal_address','send_date','arrest_warrant_received_to_thana')
 						->get();
 		$totalPendingWarrant = DB::table('warrants')
 						->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
 						->where('assigned_warrants.assigned_to',$si)
 						->whereBetween('assigned_warrants.created_at',[$start_date,$end_date])
 						->where('assigned_warrants.is_completed',0)
+						->select('assigned_warrants.created_at','assigned_warrants.executed_at', 'warrants.process_number','gr_number','case_section_and_date','warrant_type','criminal_name','criminal_father_name','criminal_address','send_date','arrest_warrant_received_to_thana')
 						->get();
 		$totalCompletedWarrant = DB::table('warrants')
 						->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
 						->where('assigned_warrants.assigned_to',$si)
 						->whereBetween('assigned_warrants.created_at',[$start_date,$end_date])
 						->where('assigned_warrants.is_completed',1)
+						->select('assigned_warrants.created_at','assigned_warrants.executed_at', 'warrants.process_number','gr_number','case_section_and_date','warrant_type','criminal_name','criminal_father_name','criminal_address','send_date','arrest_warrant_received_to_thana')
 						->get();
         
         $data = array(
