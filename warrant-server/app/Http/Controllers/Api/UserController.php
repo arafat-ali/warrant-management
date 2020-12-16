@@ -29,9 +29,20 @@ class UserController extends Controller
     	else{
     		return response()->json([
 	            'success' => false,
-	            'Message' => 'Faile to add'
+	            'Message' => 'Failed to add'
 	        ]);
 
     	}
     }
+
+
+    public function getAllSIByThanaid($thana_id){
+        $users = User::where('role_id',5)->where('thana',$thana_id)->get();
+        return response()->json([
+            'success' => false,
+            'data' => $users
+        ]);
+    }
+
+
 }

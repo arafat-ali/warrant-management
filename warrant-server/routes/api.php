@@ -31,6 +31,8 @@ Route::middleware(['auth:api'])->group(function () {
         return auth()->user();
     });
 
+    Route::get('/SI-list/{thana_id}','App\Http\Controllers\Api\UserController@getAllSIByThanaid');
+
     Route::get('/districts','App\Http\Controllers\Api\DistrictController@getAllDistrict');
 
     Route::get('/thanas','App\Http\Controllers\Api\ThanaController@getAllThanas');

@@ -10,34 +10,40 @@
             <div class="h-20 flex flex-col justify-start lg:flex-row lg:justify-between gap-4">
                 <div class="w-full">
                   <label for="">জেলা</label>
-                  <select class="w-full block border rounded py-2 px-4" v-model="districtId" @change="getThanaByDistrictId(districtId)">
+                  <select class="w-full block border rounded py-2 px-4" v-model="districtId" @change="getThanaByDistrictId()">
                     <option value="" selected>--নির্বাচন করুন--</option>
                     <option v-for="district in districts" :key="district.id" :value="district.id">{{district.name}}</option>
                   </select>
                 </div>
                 <div class="w-full">
                   <label for="">থানা</label>
-                  <select class="w-full block border rounded py-2 px-4" v-model="thanaId" >
+                  <select class="w-full block border rounded py-2 px-4" v-model="thanaId"
+                  @change="getSiList()" >
                     <option value="" selected>--নির্বাচন করুন--</option>
                     <option v-for="thana in thanas" :key="thana.id" :value="thana.id">{{thana.name}}</option>
                   </select>
                 </div>
                 <div class="w-full">
                   <label for="">এসআই</label>
-                  <select class="w-full block border rounded py-2 px-4" >
+                  <select class="w-full block border rounded py-2 px-4" v-model="siId">
                     <option value="" selected>--নির্বাচন করুন--</option>
-                    <!-- <option v-for="district in districts" :key="district.id" :value="district.id">{{district.name}}</option> -->
+                    <option v-for="si in users" :key="si.id" :value="si.id">{{si.name_bangla}}</option>
                   </select>
                 </div>
             </div>       
             <div class="h-20 flex flex-col justify-start lg:flex-row lg:justify-between gap-4">
               <div class="w-full">
                 <label for="">তারিখ হতে</label>
-                <input type="date" class="input">
+                <input v-model="start_date" type="date" class="input">
               </div>
               <div class="w-full">
                 <label for="">তারিখ পর্যন্ত</label>
-                <input type="date" class="input">
+                <input v-model="end_date" type="date" class="input">
+              </div>
+              <div class="w-full">
+                <button @click="formSubmit" class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mr-40 px-10 mb-6 float-right">
+                  Submit
+                </button>
               </div>
             </div>
           </div>
@@ -176,6 +182,10 @@
         executed: 0,
         newWarrant: 0,
 
+        users:[],
+        start_date: '',
+        end_date:''
+
       }
     },
     methods:{
@@ -189,8 +199,7 @@
          
         }
         this.searchedWarrant = searchArr;
-        console.log(searchArr);
-     
+        console.log(searchArr);     
       },
       getDistrict(){
         axios
@@ -219,7 +228,7 @@
       },
       getDashboardData(){
         axios
-        .get("api/get-si-dashboard-data/" + this.si_id)
+        .get("api/get-si-dashboard-data/" + this.siId)
         .then(response => {
           let data = response.data.data;
           this.totalWarrant = data.totalWarrant ? data.totalWarrant : 0;
@@ -231,11 +240,30 @@
         .catch(error => {
           alert(error);
         });
+      },
+      getSiList(){
+        if(this.thanaId){
+          axios
+            .get('api/SI-list/'+this.thanaId)
+            .then(response => {
+              this.users = response.data.data;
+            })
+            .catch(error =>{
+              alert(error);
+            })
+        }
+        else{
+          this.users = []
+        }
+      },
+      formSubmit(){
+
       }
       
     },
     created(){
       this.getDistrict();
+      
     }
 }
 </script>
