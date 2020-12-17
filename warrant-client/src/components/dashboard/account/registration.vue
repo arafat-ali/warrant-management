@@ -27,7 +27,7 @@
 					<div class="flex flex-col xl:flex-row xl:justify-center xl:gap-4 xl:mb-4">
 						<div class="mb-4 xl:mb-0">
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">বিপি নং</label>
-							<input type="number" v-model="bp" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="BP no.">
+							<input type="text" v-model="bp" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="BP no.">
 						</div>
 						<div class="mb-4 xl:mb-0">
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">মোবাইল নং </label>
@@ -44,24 +44,21 @@
 								<option value="2">মহিলা </option>
 							</select>
 						</div>
-						<div class="mb-4 xl:mb-0"> 
+						<div v-if="role_id==3" class="mb-4 xl:mb-0"> 
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">জেলা</label> 
 							<select name="" id="" v-model="district" required class="w-full xl:w-52 px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
 								<option value="">--নির্বাচন করুন--</option>
-								<option value="1">ঢাকা</option>
-								<option value="2">চট্রগ্রাম</option> 
-								<option value="2">কুমিল্লা</option>
-								<option value="2">রাজশাহী</option>
+								<option v-for="district in districts" :value="district.id">{{district.name}}</option>}
+								
 							</select>
 						</div>
 					</div>
 					<div class="flex flex-col xl:flex-row xl:justify-center xl:gap-4 xl:mb-4">
-						<div class="mb-4 xl:mb-0">
+						<div v-if="role_id==2" class="mb-4 xl:mb-0">
 							<label for="" class="block text-sm font-medium leading-5 text-gray-700">থানা</label> 
 							<select name="" id="" v-model="thana" required class="w-full xl:w-52 px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
 								<option value="">--নির্বাচন করুন--</option>
-								<option value="1">পটিয়া</option>
-								<option value="2">সাতকানিয়া</option>
+								<option v-for="thana in thanas" :value="thana.id">{{thana.name}}</option>
 							</select>
 						</div>
 						<div class="mb-4 xl:mb-0">
@@ -72,13 +69,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="flex flex-col xl:flex-row xl:justify-center xl:mb-4">
-						<div class="w-full xl:w-96 mb-4 xl:mb-0">
-							<label for="" class="block text-sm font-medium leading-5 text-gray-700">আউটপোস্ট</label> 
-							<input type="text" v-model="outpost" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" placeholder="Outpost">
-						</div>
-						
-					</div>
+					
 					<div class="flex flex-col xl:flex-row xl:justify-center xl:mb-4">
 						<span class="block w-full xl:w-96 rounded-md shadow-sm">
 							<button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
@@ -120,7 +111,10 @@
 				rank_SP:'',
 				rank_dig:'',
 				role_id: '',
-				rank_arr: []
+				rank_arr: [],
+
+				districts:[],
+				thanas:[]
 			}
 		},
 		methods: {
@@ -147,7 +141,27 @@
 					alert(response)
 				});
 
-			}
+			},
+			getDistrict(){
+		        axios
+		        .get('api/districts')
+		        .then(response => {
+		          this.districts = response.data.data;
+		        })
+		        .catch(error =>{
+		          alert(error);
+		        })
+		      },
+		    getThanas(){
+		        axios
+		        .get('api/thanas')
+		        .then(response => {
+		          this.thanas = response.data.Thana;
+		        })
+		        .catch(error =>{
+		          alert(error);
+		        })
+		      },
 		},
 		created(){
 			this.role_id = store.getters.getCurrentUser.role_id;
@@ -161,6 +175,10 @@
 			else if(this.role_id == 3){
 				this.rank_arr = [{id:2, name:'SP'}]
 			}
+
+
+			this.getDistrict();
+			this.getThanas();
 		}
 		
 	}

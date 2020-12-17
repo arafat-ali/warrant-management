@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/registration','App\Http\Controllers\Api\UserController@store');
+
 
 //search
 Route::get('/get-thana-data-by-date/{name}/{start_date}/{end_date}','App\Http\Controllers\Api\WarrantController@getThanaDataByDate');
@@ -30,6 +30,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', function (Request $request) {
         return auth()->user();
     });
+    Route::post('/registration','App\Http\Controllers\Api\UserController@store');
 
     Route::get('/SI-list/{thana_id}','App\Http\Controllers\Api\UserController@getAllSIByThanaid');
 
@@ -82,6 +83,10 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/get-oc-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getOcDashboardData');
     Route::get('/get-si-dashboard-data/{id}','App\Http\Controllers\Api\DashboardController@getSiDashboardData');
 
+    Route::get('all-non-executed-oc','App\Http\Controllers\Api\DashboardController@getAllNonExecutedWarrants');
+    Route::get('all-executed-oc','App\Http\Controllers\Api\DashboardController@getAllExecutedWarrants');
+    Route::get('all-warrant-oc','App\Http\Controllers\Api\DashboardController@getAllWarrantsOC');
+
 
     //Activity
     Route::get('/save-execution/{id}/{msg}','App\Http\Controllers\Api\ActivityController@saveExecutionInfo');
@@ -89,7 +94,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::get('/view-activity/{id}','App\Http\Controllers\Api\ActivityController@viewSIActivity');
 
-     //SI performenct
+     //SI performence
 
     Route::get('get-si-performence-data/{si}/{start}/{end}','App\Http\Controllers\Api\SIController@getSiPerformenceData');
 });

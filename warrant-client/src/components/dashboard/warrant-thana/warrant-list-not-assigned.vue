@@ -97,7 +97,7 @@
         SI_id:'',
         editable_warrant: 0,
         SIList: [],
-        warrants:[],
+        //warrants:[],
         searchedWarrant: [],
         fields: [
           { id: "1", name: "প্রসেস নং", type:null, nameArr: "process_number" },
@@ -118,7 +118,7 @@
           // { id: "14", name: "আসামির এনআইডি", type:null, nameArr: "criminal_NID" },
           // { id: "15", name: "আসামির জন্ম নিবন্ধন", type:null, nameArr: "birth_cirtificate" }, 
         ],
-         courts: [],
+        courts: [],
         thanas: [],
         warrantTypes: ['সিআর সাজা', 'সিআর গ্রেফতার', 'জিআর সাজা', 'জিআর গ্রেফতার'],
         crimeTypes:[],
@@ -129,9 +129,14 @@
         endDate: "",
       }
     },
+    computed:{
+      warrants(){
+        return store.getters.getNonAssignedThanaWarrants;
+      }
+    },
     created(){
-      // store.dispatch('fetchNonAssignedThanaWarrants');
-      this.warrants = store.getters.getNonAssignedThanaWarrants;
+      store.dispatch('fetchNonAssignedThanaWarrants');
+      //this.warrants = store.getters.getNonAssignedThanaWarrants;
       axios
         .get('api/SI-list')
         .then(response => {

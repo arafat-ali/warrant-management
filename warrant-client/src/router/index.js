@@ -42,6 +42,7 @@ import siPerformanceOC from '@/components/dashboard/siPerformanceOC';
 import warrantListPendingCI from '@/components/dashboard/warrantListPendingCI';
 import warrantListExecutedCI from '@/components/dashboard/warrantListExecutedCI';
 
+import dashboradWarrantOC from '@/components/dashboard/dashboard_warrant_OC';
 
 Vue.use(Router);
 
@@ -233,6 +234,13 @@ const router = new Router({
 			component: warrantListExecutedCI,
 			meta: {requiresAuth: true}
 		},
+		{
+			path: '/dashboard-warrant-oc/:id',
+			name: 'dashboradWarrantOC',
+			component: dashboradWarrantOC,
+			meta: {requiresAuth: true}
+		},
+
 	]
 });
 
