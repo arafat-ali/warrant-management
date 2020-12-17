@@ -25,6 +25,7 @@ class ActivityController extends Controller
 		
 		$warrant = Warrant::where('id', $warrant_id)->first();
 		$warrant->is_executed = 1;
+		$warrant->executed_at = date('Y-m-d h:i:s');
 
     	if($assign_warrant->save() && $activity->save() && $warrant->save()){
     		return response()->json([

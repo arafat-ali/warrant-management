@@ -87,6 +87,12 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('all-executed-oc','App\Http\Controllers\Api\DashboardController@getAllExecutedWarrants');
     Route::get('all-warrant-oc','App\Http\Controllers\Api\DashboardController@getAllWarrantsOC');
 
+    Route::get('/get-ci-dashboard-data-today','App\Http\Controllers\Api\DashboardController@getCiDashboardDataToday');
+    Route::get('/get-sp-dashboard-data-today','App\Http\Controllers\Api\DashboardController@getSpDashboardDataToday');
+    Route::get('/get-dig-dashboard-data-today','App\Http\Controllers\Api\DashboardController@getDigDashboardDataToday');
+    Route::get('/get-si-dashboard-data-today','App\Http\Controllers\Api\DashboardController@getSiDashboardDataToday');
+
+
 
     //Activity
     Route::get('/save-execution/{id}/{msg}','App\Http\Controllers\Api\ActivityController@saveExecutionInfo');

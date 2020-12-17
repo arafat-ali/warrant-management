@@ -2,13 +2,19 @@
   <div id="home">
     <div class="flex flex-wrap -mx-3">
       <div class="w-full px-3">
-        <p class="text-xl font-semibold mb-2">
-          ওয়ারেন্ট লিস্ট (তামিল) 
+        <p class="text-xl font-semibold mb-2" v-if="$route.params.id == '1'" >
+          সকল ওয়ারেন্ট লিস্ট 
+        </p>
+        <p class="text-xl font-semibold mb-2" v-if="$route.params.id == '2'" >
+          সকল ওয়ারেন্ট (মুলতবি)  
+        </p> 
+        <p class="text-xl font-semibold mb-2" v-if="$route.params.id == '3'" >
+          সকল ওয়ারেন্ট (তামিল)  
         </p>
         <div class="w-full bg-white border rounded-lg px-8 py-6 mb-8 xl:mb-0 ">
           <div class="flex flex-col gap-1 lg:flex-row justify-between items-center lg:gap-0">
-            <div class="text-sm text-gray-400 font-medium"> Showing: {{ searchedWarrant.length }} pending warrants</div>
-            <div class="flex flex-col lg:flex-row-reverse mb-2 gap-1.5 items-center">
+            <!-- <div class="text-sm text-gray-400 font-medium"> Showing: {{ todayWarrants.length }} pending warrants</div> -->
+            <!-- <div class="flex flex-col lg:flex-row-reverse mb-2 gap-1.5 items-center">
               <div v-if="selectedField">
                 <button @click="selectedField=''" class="h-6 w-6 focus:border-none">
                   <span>
@@ -39,9 +45,9 @@
                   
                 </div>
               </div>
-              <!-- After Selection Start -->
+
               <div class="" v-if="selectedField">
-                <!-- Date Range Start-->
+
                 <div v-if="selectedField.type == 'date'" class="flex flex-col lg:flex-row gap-2 items-center" >
                   <p>From</p>
                   <input type="date" v-model="startDate" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" /> 
@@ -53,7 +59,7 @@
                     </button>
                   </div>
                 </div>
-                <!-- Date Range End -->
+
                 <div class="" v-else-if="selectedField.type == 'dropdown'">
                   <select v-model="searchText" class="py-2 text-sm rounded-md pl-6 pr-6 border focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" @change="search(selectedField.nameArr)" >
                     <option value="" selected>--{{ selectedField.name }} নির্বাচন করুন--</option>
@@ -68,9 +74,9 @@
                   v-model="searchText" :placeholder="selectedField.name + ' লিখুন...'" @keyup="search(selectedField.nameArr)" />
                 </div>
               </div>
-              <!-- After Selection End -->
+   
               
-            </div>
+            </div> -->
           </div>
           <!-- Table Start -->
           <div class="h-96 overflow-auto">
@@ -86,8 +92,47 @@
                       <th class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">স্ট্যাটাস</th> 
                     </tr>
                 </thead>
-                <tbody class="text-sm">
-                  <tr class="border-l border-r" v-for="(warrant,index) in searchedWarrant" :key="warrant.id">
+                <tbody class="text-sm" v-if="$route.params.id == '1'">
+                  <tr class="border-l border-r" v-for="(warrant,index) in todayWarrants" :key="warrant.id">
+                  
+                    <td class="p-2 text-center border-b border-r  border-gray-200">{{index + 1}}</td>
+                    <td v-for="field in fields" :key="field.id" class="p-2  border-b border-r  border-gray-200"
+
+                    :class="{'bg-gray-100': selectedField.name == field.name}"
+                    >
+                      <p v-if="field.type == 'date'">{{warrant[''+field.nameArr] | moment("ddd, MM Do YY")}}</p>
+                      <p v-else>{{ warrant[''+field.nameArr] }}</p>
+                    </td>
+                    <td class="p-2  border border-gray-200">
+                      <div class="rounded-full py-1 px-3 bg-green-500 text-white text-center" v-if="warrant.is_executed == 1" >
+                        Executed
+                      </div>
+                    </td>
+                    
+                  </tr>
+                </tbody>
+                <tbody class="text-sm" v-if="$route.params.id == '2'">
+                  <tr class="border-l border-r" v-for="(warrant,index) in todayPendingWarrants" :key="warrant.id">
+                  
+                    <td class="p-2 text-center border-b border-r  border-gray-200">{{index + 1}}</td>
+                    <td v-for="field in fields" :key="field.id" class="p-2  border-b border-r  border-gray-200"
+
+                    :class="{'bg-gray-100': selectedField.name == field.name}"
+                    >
+                      <p v-if="field.type == 'date'">{{warrant[''+field.nameArr] | moment("ddd, MM Do YY")}}</p>
+                      <p v-else>{{ warrant[''+field.nameArr] }}</p>
+                    </td>
+                    <td class="p-2  border border-gray-200">
+                      <div class="rounded-full py-1 px-3 bg-green-500 text-white text-center" v-if="warrant.is_executed == 1" >
+                        Executed
+                      </div>
+                    </td>
+                    
+                  </tr>
+                </tbody>
+                <tbody class="text-sm" v-if="$route.params.id == '3'">
+                  <tr class="border-l border-r" v-for="(warrant,index) in todayExecutedWarrants" :key="warrant.id">
+                  
                     <td class="p-2 text-center border-b border-r  border-gray-200">{{index + 1}}</td>
                     <td v-for="field in fields" :key="field.id" class="p-2  border-b border-r  border-gray-200"
 
@@ -118,21 +163,24 @@
 import DataTable from "vue-materialize-datatable";
   export default {
 
-    name: 'warrant_list',
+    name: 'warrant_list_today_dig',
     data () {
       return {
         warrants: [],
         searchedWarrant: [],
+        todayWarrants: [],
+        todayPendingWarrants: [],
+        todayExecutedWarrants: [],
         fields: [
           { id: "1", name: "প্রসেস নং", type:null, nameArr: "process_number" },
           { id: "2", name: "জিআর নম্বর", type:null, nameArr: "gr_number" },
           { id: "3", name: "অন্যান্য আদালতের নাম্বার", type:null, nameArr: "other_number" },
           { id: "4", name: "কোর্ট হতে প্রেরণের তারিখ", type:'date', nameArr: "send_date" },
-          { id: "5", name: "থানা", type:'dropdown', nameArr: "thana_name" },
+        //   { id: "5", name: "থানা", type:'dropdown', nameArr: "thana_name" },
           { id: "6", name: "ওয়ারেন্টের ধরন", type:'dropdown', nameArr: "warrant_type" },
           { id: "16", name: "অপরাধের ধরন", type:'dropdown', nameArr: "crime_category_name" }, 
           { id: "7", name: "ইস্যুকারি আদালত", type:'dropdown', nameArr: "court_name" },
-          // { id: "8",name: "থানায় রিসিভের তারিখ", type:'date', nameArr: "arrest_warrant_received_to_thana",},
+          { id: "8",name: "থানায় রিসিভের তারিখ", type:'date', nameArr: "arrest_warrant_received_to_thana",},
           // { id: "9",name: "মামলার ধারা ও তারিখ", type:null, nameArr: "case_section_and_date",},
           // { id: '9', name:'আদালতে হাজিরের তারিখ', type:null, nameArr: 'arrest_criminal_to_court'},
           { id: "10", name: "আসামির নাম", type:null, nameArr: "criminal_name" },
@@ -156,7 +204,7 @@ import DataTable from "vue-materialize-datatable";
       }
     },
     methods:{
-      search(fieldName) {
+        search(fieldName) {
         this.searchedWarrant = this.warrants;
         let searchArr = [];
         for (let i = 0; i < this.warrants.length; i++) {
@@ -172,79 +220,80 @@ import DataTable from "vue-materialize-datatable";
         console.log(this.searchText);
         console.log(fieldName);
         console.log(this.warrants);
-      },
-      executedgWarrantCreate(data) {
-        let pendingWarrants = [];
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].is_executed === 1) {
-            pendingWarrants.push(data[i]);
-          }
-        }
-        return pendingWarrants;
-      },
-      getData() {
-        console.log(this.startDate);
-        console.log(this.endDate);
+        },
+        getWarrant() {
         axios
           .get(
-            "api/get-thana-data-by-date/" +
-              this.selectedField.nameArr +
-              "/" +
-              this.startDate +
-              "/" +
-              this.endDate
-          )
+            "api/get-sp-dashboard-data-today/")
           .then((response) => {
             console.log(response);
-            this.searchedWarrant = response.data.warrants;
+            this.todayWarrants = response.data.data;
             //alert('');
           })
           .catch((response) => {
             alert(response);
           });
-      },
-      getCourt() {
-        axios
-          .get("api/courts")
-          .then((response) => {
-            this.courts = response.data.Court;
-            //console.log(this.courts);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
-      getThana() {
-        axios
-          .get("api/thanas")
-          .then((response) => {
-            this.thanas = response.data.Thana;
-            // console.log(this.thanas);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
-      getCrimeType() {
-        axios
-          .get("api/crime-categories")
-          .then((response) => {
-            this.crimeTypes = response.data.data;
-            // console.log(this.thanas);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
+        },
+        pendingWarrantCreate(){
+            if(this.warrants){
+                for (let i = 0; i < this.warrants.length; i++) {
+                    if (this.warrants[i].is_executed === 0) {
+                        this.pendingWarrants.push(data[i]);
+                    }
+                }
+            }
+            
+        },
+        executedWarrantCreate(){
+            if(this.warrants){
+                for (let i = 0; i < this.warrants.length; i++) {
+                    if (this.warrants[i].is_executed === 1) {
+                        this.todayExecutedWarrants.push(data[i]);
+                    }
+                }
+            }
+        },
+        getCourt() {
+            axios
+            .get("api/courts")
+            .then((response) => {
+                this.courts = response.data.Court;
+                //console.log(this.courts);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        getThana() {
+            axios
+            .get("api/thanas")
+            .then((response) => {
+                this.thanas = response.data.Thana;
+                // console.log(this.thanas);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        getCrimeType() {
+            axios
+            .get("api/crime-categories")
+            .then((response) => {
+                this.crimeTypes = response.data.data;
+                // console.log(this.thanas);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
     },
 
     created(){
-      store.dispatch('fetchCourtWarrants');
-      this.warrants = this.executedgWarrantCreate(store.getters.getCourtWarrants);
-      this.searchedWarrant = this.warrants;
-      this.getCourt();
-      this.getThana();
-      this.getCrimeType();
+        this.getWarrant();
+        this.pendingWarrantCreate();
+        this.getCourt();
+        // this.getThana();
+        this.getCrimeType();
       //this.warrants = 
     }
 }
