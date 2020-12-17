@@ -84,8 +84,7 @@
                         {{ field.name }}
                       </th>
                       <th class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">স্ট্যাটাস</th> 
-                      <th class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">একশন</th> 
-                  </tr>
+                    </tr>
                 </thead>
                 <tbody class="text-sm">
                   <tr class="border-l border-r" v-for="(warrant,index) in searchedWarrant" :key="warrant.id">
@@ -98,15 +97,11 @@
                       <p v-else>{{ warrant[''+field.nameArr] }}</p>
                     </td>
                     <td class="p-2  border border-gray-200">
-                      <div class="rounded-full py-1 px-3 bg-yellow-500 text-white" v-if="warrant.is_executed == 0" >
-                        Pending
+                      <div class="rounded-full py-1 px-3 bg-green-500 text-white text-center" v-if="warrant.is_executed == 1" >
+                        Executed
                       </div>
                     </td>
-                    <td class="p-2  border-b  border-gray-200">
-                      <button class="bg-blue-500 px-3 py-2 rounded text-center text-white hover:bg-blue-700">
-                        Recall
-                      </button>
-                    </td>
+                    
                   </tr>
                 </tbody>
               </table>
@@ -178,10 +173,10 @@ import DataTable from "vue-materialize-datatable";
         console.log(fieldName);
         console.log(this.warrants);
       },
-      pendingWarrantCreate(data) {
+      executedgWarrantCreate(data) {
         let pendingWarrants = [];
         for (let i = 0; i < data.length; i++) {
-          if (data[i].is_executed === 0) {
+          if (data[i].is_executed === 1) {
             pendingWarrants.push(data[i]);
           }
         }
@@ -245,7 +240,7 @@ import DataTable from "vue-materialize-datatable";
 
     created(){
       store.dispatch('fetchCourtWarrants');
-      this.warrants = this.pendingWarrantCreate(store.getters.getCourtWarrants);
+      this.warrants = this.executedgWarrantCreate(store.getters.getCourtWarrants);
       this.searchedWarrant = this.warrants;
       this.getCourt();
       this.getThana();
