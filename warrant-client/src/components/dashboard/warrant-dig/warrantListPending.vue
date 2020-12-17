@@ -78,13 +78,12 @@
               <table class="min-w-full">
                 <thead>
                     <tr class="text-xs">
-                      <th class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">#</th>
+                      <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">#</th>
                       <th v-for="field in fields" :key="field.id" 
-                      class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold" >
+                      class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold" >
                         {{ field.name }}
                       </th>
-                      <!-- <th class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">স্ট্যাটাস</th> 
-                      <th class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">একশন</th>  -->
+                      <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">স্ট্যাটাস</th> 
                   </tr>
                 </thead>
                 <tbody class="text-sm">
@@ -97,16 +96,12 @@
                       <p v-if="field.type == 'date'">{{warrant[''+field.nameArr] | moment("ddd, MM Do YY")}}</p>
                       <p v-else>{{ warrant[''+field.nameArr] }}</p>
                     </td>
-                    <!-- <td class="p-2  border border-gray-200">
+                    <td class="p-2  border-b  border-gray-200">
+
                       <div class="rounded-full py-1 px-3 bg-yellow-500 text-white" v-if="warrant.is_executed == 0" >
                         Pending
                       </div>
                     </td>
-                    <td class="p-2  border-b  border-gray-200">
-                      <button class="bg-blue-500 px-3 py-2 rounded text-center text-white hover:bg-blue-700">
-                        Recall
-                      </button>
-                    </td> -->
                   </tr>
                 </tbody>
               </table>
@@ -120,135 +115,133 @@
 </template>
 
 <script>
-import DataTable from "vue-materialize-datatable";
-  export default {
-
-    name: 'warrant_list',
-    data () {
-      return {
-        warrants: [],
-        searchedWarrant: [],
-        fields: [
-          { id: "1", name: "প্রসেস নং", type:null, nameArr: "process_number" },
-          { id: "2", name: "জিআর নম্বর", type:null, nameArr: "gr_number" },
-          { id: "3", name: "অন্যান্য আদালতের নাম্বার", type:null, nameArr: "other_number" },
-          { id: "4", name: "কোর্ট হতে প্রেরণের তারিখ", type:'date', nameArr: "send_date" },
-          { id: "5", name: "থানা", type:'dropdown', nameArr: "thana_name" },
-          { id: "6", name: "ওয়ারেন্টের ধরন", type:'dropdown', nameArr: "warrant_type" },
-          { id: "16", name: "অপরাধের ধরন", type:'dropdown', nameArr: "crime_category_name" }, 
-          { id: "7", name: "ইস্যুকারি আদালত", type:'dropdown', nameArr: "court_name" },
-          // { id: "8",name: "থানায় রিসিভের তারিখ", type:'date', nameArr: "arrest_warrant_received_to_thana",},
-          // { id: "9",name: "মামলার ধারা ও তারিখ", type:null, nameArr: "case_section_and_date",},
-          // { id: '9', name:'আদালতে হাজিরের তারিখ', type:null, nameArr: 'arrest_criminal_to_court'},
-          { id: "10", name: "আসামির নাম", type:null, nameArr: "criminal_name" },
-          { id: "11", name: "আসামির পিতার নাম", type:null, nameArr: "criminal_father_name" },
-          { id: "12", name: "আসামির ঠিকানা", type:null, nameArr: "criminal_address" },
-          { id: "13", name: "মোবাইল নং", type:null, nameArr: "criminal_mobile_no" },
-          { id: "14", name: "আসামির এনআইডি", type:null, nameArr: "criminal_NID" },
-          { id: "15", name: "আসামির জন্ম নিবন্ধন", type:null, nameArr: "birth_cirtificate" },
-        ],
-        courts: [],
-        thanas: [],
-        warrantTypes: ['সিআর সাজা', 'সিআর গ্রেফতার', 'জিআর সাজা', 'জিআর গ্রেফতার'],
-        crimeTypes:[],
-        selectedField: "",
-        searchText: "",
-        courtID: "",
-        startDate: "",
-        endDate: "",
-        startDateType: 'text',
-        endDateType: 'text',
-      }
-    },
-    methods:{
-      search(fieldName) {
-        this.searchedWarrant = this.warrants;
-        let searchArr = [];
-        for (let i = 0; i < this.warrants.length; i++) {
-          if (
-            this.warrants[i][fieldName] &&
-            this.warrants[i][fieldName].search(this.searchText) >= 0
-          ) {
-            searchArr.push(this.warrants[i]);
-          }
+export default {
+  name: "warrant-list-sp",
+  data() {
+    return {
+      warrants: [],
+      searchedWarrant: [],
+      fields: [
+        { id: "1", name: "প্রসেস নং", type:null, nameArr: "process_number" },
+        { id: "2", name: "জিআর নম্বর", type:null, nameArr: "gr_number" },
+        { id: "3", name: "অন্যান্য আদালতের নাম্বার", type:null, nameArr: "other_number" },
+        { id: "4", name: "কোর্ট হতে প্রেরণের তারিখ", type:'date', nameArr: "send_date" },
+        { id: "5", name: "থানা", type:'dropdown', nameArr: "thana_name" },
+        { id: "6", name: "ওয়ারেন্টের ধরন", type:'dropdown', nameArr: "warrant_type" },
+        { id: "16", name: "অপরাধের ধরন", type:'dropdown', nameArr: "crime_category_name" }, 
+        { id: "7", name: "ইস্যুকারি আদালত", type:'dropdown', nameArr: "court_name" },
+        { id: "8",name: "থানায় রিসিভের তারিখ", type:'date', nameArr: "arrest_warrant_received_to_thana",},
+        // { id: "9",name: "মামলার ধারা ও তারিখ", type:null, nameArr: "case_section_and_date",},
+        // { id: '9', name:'আদালতে হাজিরের তারিখ', type:null, nameArr: 'arrest_criminal_to_court'},
+        { id: "10", name: "আসামির নাম", type:null, nameArr: "criminal_name" },
+        { id: "11", name: "আসামির পিতার নাম", type:null, nameArr: "criminal_father_name" },
+        { id: "12", name: "আসামির ঠিকানা", type:null, nameArr: "criminal_address" },
+        { id: "13", name: "মোবাইল নং", type:null, nameArr: "criminal_mobile_no" },
+        { id: "14", name: "আসামির এনআইডি", type:null, nameArr: "criminal_NID" },
+        { id: "15", name: "আসামির জন্ম নিবন্ধন", type:null, nameArr: "birth_cirtificate" },
+      ],
+      courts: [],
+      thanas: [],
+      warrantTypes: ['সিআর সাজা', 'সিআর গ্রেফতার', 'জিআর সাজা', 'জিআর গ্রেফতার'],
+      crimeTypes:[],
+      selectedField: "",
+      searchText: "",
+      courtID: "",
+      startDate: "",
+      endDate: "",
+      startDateType: 'text',
+      endDateType: 'text',
+    };
+  },
+  methods: {
+    search(fieldName) {
+      this.searchedWarrant = this.warrants;
+      let searchArr = [];
+      for (let i = 0; i < this.warrants.length; i++) {
+        if (
+          this.warrants[i][fieldName] &&
+          this.warrants[i][fieldName].search(this.searchText) >= 0
+        ) {
+          searchArr.push(this.warrants[i]);
         }
-        this.searchedWarrant = searchArr;
-        console.log(searchArr);
-        console.log(this.searchText);
-        console.log(fieldName);
-        console.log(this.warrants);
-      },
-      pendingWarrantCreate(data) {
-        let pendingWarrants = [];
-        for (let i = 0; i < data.length; i++) {
+      }
+      this.searchedWarrant = searchArr;
+      console.log(searchArr);
+      console.log(this.searchText);
+      console.log(fieldName);
+      console.log(this.warrants);
+    },
+    pendingWarrantCreate(data) {
+      let pendingWarrants = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].is_executed === 0) {
           pendingWarrants.push(data[i]);
         }
-        return pendingWarrants;
-      },
-      getData() {
-        console.log(this.startDate);
-        console.log(this.endDate);
-        axios
-          .get(
-            "api/get-thana-data-by-date/" +
-              this.selectedField.nameArr +
-              "/" +
-              this.startDate +
-              "/" +
-              this.endDate
-          )
-          .then((response) => {
-            console.log(response);
-            this.searchedWarrant = response.data.warrants;
-            //alert('');
-          })
-          .catch((response) => {
-            alert(response);
-          });
-      },
-      getCourt() {
-        axios
-          .get("api/courts")
-          .then((response) => {
-            this.courts = response.data.Court;
-            //console.log(this.courts);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
-      getThana() {
-        axios
-          .get("api/thanas")
-          .then((response) => {
-            this.thanas = response.data.Thana;
-            // console.log(this.thanas);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
-      getCrimeType() {
-        axios
-          .get("api/crime-categories")
-          .then((response) => {
-            this.crimeTypes = response.data.data;
-            // console.log(this.thanas);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
+      }
+      return pendingWarrants;
     },
-
-    created(){
-      store.dispatch('fetchCourtWarrants');
-      this.warrants = this.pendingWarrantCreate(store.getters.getCourtWarrants);
-      this.searchedWarrant = this.warrants;
-      this.getCourt();
-      this.getThana();
-      this.getCrimeType();
-      //this.warrants = 
-    }
-}
+    getData() {
+      console.log(this.startDate);
+      console.log(this.endDate);
+      axios
+        .get(
+          "api/get-thana-data-by-date/" +
+            this.selectedField.nameArr +
+            "/" +
+            this.startDate +
+            "/" +
+            this.endDate
+        )
+        .then((response) => {
+          console.log(response);
+          this.searchedWarrant = response.data.warrants;
+          //alert('');
+        })
+        .catch((response) => {
+          alert(response);
+        });
+    },
+    getCourt() {
+      axios
+        .get("api/courts")
+        .then((response) => {
+          this.courts = response.data.Court;
+          //console.log(this.courts);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getThana() {
+      axios
+        .get("api/thanas")
+        .then((response) => {
+          this.thanas = response.data.Thana;
+          // console.log(this.thanas);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getCrimeType() {
+      axios
+        .get("api/crime-categories")
+        .then((response) => {
+          this.crimeTypes = response.data.data;
+          // console.log(this.thanas);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    store.dispatch("fetchThanaWarrants");
+    this.warrants = this.pendingWarrantCreate(store.getters.getThanaWarrants);
+    this.searchedWarrant = this.warrants;
+    this.getCourt();
+    this.getThana();
+    this.getCrimeType();
+  },
+};
 </script>
