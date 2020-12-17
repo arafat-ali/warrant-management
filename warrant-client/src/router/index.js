@@ -42,6 +42,9 @@ import siPerformanceOC from '@/components/dashboard/siPerformanceOC';
 import warrantListPendingCI from '@/components/dashboard/warrantListPendingCI';
 import warrantListExecutedCI from '@/components/dashboard/warrantListExecutedCI';
 
+import warrantListPendingDIG from '@/components/dashboard/warrantListPendingDIG';
+import warrantListExecutedDIG from '@/components/dashboard/warrantListExecutedDIG';
+
 
 Vue.use(Router);
 
@@ -231,6 +234,18 @@ const router = new Router({
 			path: '/ci-warrant-list-executed',
 			name: 'warrantListExecutedCI',
 			component: warrantListExecutedCI,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dig-warrant-list-pending',
+			name: 'warrantListPendingDIG',
+			component: warrantListPendingDIG,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dig-warrant-list-executed',
+			name: 'warrantListExecutedDIG',
+			component: warrantListExecutedDIG,
 			meta: {requiresAuth: true}
 		},
 	]
