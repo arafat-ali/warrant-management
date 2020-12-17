@@ -250,7 +250,7 @@ const router = new Router({
 			component: warrantListExecutedDIG,
 			meta: {requiresAuth: true}
 		},
-
+		{
 			path: '/dashboard-warrant-oc/:id',
 			name: 'dashboradWarrantOC',
 			component: dashboradWarrantOC,

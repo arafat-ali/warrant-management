@@ -8,6 +8,7 @@ use Image;
 use DB;
 use Auth;
 use App\Models\Warrant;
+use App\Models\AssignedWarrant;
 
 class WarrantController extends Controller
 {
@@ -217,6 +218,20 @@ class WarrantController extends Controller
             'warrants' => $warrants
             // 'Warrants' => $warrants
         ]);
+    }
+
+
+    public function unAssignedWarrant($assigned_id, $warrant_id){
+        AssignedWarrant::where('id',$assigned_id)->delete();
+        $warrant = Warrant::where('id',$warrant_id)->first();
+        $warrant->is_assigned = null;
+        if($warrant->save()){
+            return response()->json([
+                'success' => true,
+                'Message' => 'Successfully updated'
+            ]);
+        }
+
     }
 
 }

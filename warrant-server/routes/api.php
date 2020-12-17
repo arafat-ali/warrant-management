@@ -97,5 +97,8 @@ Route::middleware(['auth:api'])->group(function () {
      //SI performence
 
     Route::get('get-si-performence-data/{si}/{start}/{end}','App\Http\Controllers\Api\SIController@getSiPerformenceData');
+
+    //Unassigned warrants
+    Route::get('unassigned-warrant/{assigned_id}/{warrant_id}','App\Http\Controllers\Api\WarrantController@unAssignedWarrant');
 });
 

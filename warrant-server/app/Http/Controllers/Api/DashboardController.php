@@ -256,9 +256,9 @@ class DashboardController extends Controller
 
     public function getAllWarrantsOC(){
     	$user_id = Auth::user()->id;
-    	$warrants = DB::table('warrants')
-    				->where('warrants.created_by',$user_id)
-    				->get();
+		$thana_id = Auth::user()->thana;
+        $thana_name = Thana::where('id', $thana_id)->first()->name . ' থানা';
+    	$warrants = Warrant::where('thana_name', $thana_name)->get();
     	return response()->json([
 				'message' => 'Data Retrieved' ,
 				'data' => $warrants
