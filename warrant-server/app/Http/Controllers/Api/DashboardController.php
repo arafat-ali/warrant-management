@@ -217,4 +217,55 @@ class DashboardController extends Controller
 				'data' => sizeof($data) == 5 ? $data : null,
 	        ]);
     }
+
+    public function getAllNonExecutedWarrants(){
+    	$user_id = Auth::user()->id;
+    	$warrants = DB::table('warrants')
+    				->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
+    				->where('warrants.is_assigned','!=',null)
+    				->where('warrants.created_by',$user_id)
+    				->where('warrants.is_executed',0)
+    				->select('assigned_warrants.*', 'warrants.process_number','gr_number','warrant_type','criminal_name','criminal_father_name','criminal_address','case_section_and_date')
+    				->get();
+    	return response()->json([
+				'message' => 'Data Retrieved' ,
+				'data' => $warrants
+	        ]);
+
+    }
+
+
+    public function getAllExecutedWarrants(){
+    	$userId = Auth::user()->id;
+		$warrants = DB::table('assigned_warrants')
+			->join('warrants', 'assigned_warrants.warrant_id', '=', 'warrants.id')
+			->join('activities','activities.warrant_id','=','assigned_warrants.warrant_id')
+			->where('assigned_warrants.assigned_by', $userId)
+			->where('assigned_warrants.is_completed', 1)
+            // ->join('orders', 'users.id', '=', 'orders.user_id')
+			->select('assigned_warrants.created_at','case_section_and_date', 'warrants.process_number','gr_number','warrant_type','criminal_name','criminal_father_name','criminal_address','activities.execution_type','assigned_warrants.executed_at')
+			->orderBy('assigned_warrants.created_at', 'DESC')
+            ->get();
+
+    	return response()->json([
+				'message' => 'Data Retrieved' ,
+				'data' => $warrants
+	        ]);
+
+    }
+
+    public function getAllWarrantsOC(){
+    	$user_id = Auth::user()->id;
+    	$warrants = DB::table('warrants')
+    				->where('warrants.created_by',$user_id)
+    				->get();
+    	return response()->json([
+				'message' => 'Data Retrieved' ,
+				'data' => $warrants
+	        ]);
+
+    }
+
+
+
 }

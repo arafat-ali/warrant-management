@@ -5,20 +5,31 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Auth;
 class UserController extends Controller
 {
     public function store(Request $request){
+        $thana_id = Auth::user()->thana;
+        // $id = Auth::User()->id; 
+        // return response()->json([
+        //         'success' => true,
+        //         'Message' => $thana_id,
+        //         'Id' => $id
+        //     ]);
+        if($request->thana != null){
+            $thana_id = $request->thana;
+        }
         $user = new user();
         $user->name = $request->name;
         $user->name_bangla = $request->name_bangla;
     	$user->email = $request->email;
-    	$user->password = md5($request->password);
+    	$user->password = bcrypt($request->password);
     	$user->bp = $request->bp;
     	$user->mobile = $request->mobile;
     	$user->gender = $request->gender;
     	$user->district = $request->district;
-    	$user->thana = $request->thana;
-    	$user->outpost = $request->outpost;
+    	$user->thana = $thana_id;
+    	//$user->outpost = $request->outpost;
         $user->role_id = $request->role_id;
         if($user->save()){
     		return response()->json([
