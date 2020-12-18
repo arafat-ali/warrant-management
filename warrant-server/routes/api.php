@@ -64,6 +64,8 @@ Route::middleware(['auth:api'])->group(function () {
     //Warrant Mismatch
     Route::get('/thana-not-recieve','App\Http\Controllers\Api\WarrantMismatchController@thanaNotRecieveMismatch');
     Route::get('/process-no-not-found','App\Http\Controllers\Api\WarrantMismatchController@processNumberNotFoundMismatch');
+    Route::get('/recalled-mismatch','App\Http\Controllers\Api\WarrantMismatchController@findRecalledMismatch');
+    Route::get('/process-no-not-match','App\Http\Controllers\Api\WarrantMismatchController@findProcessNoMismatch');
 
     //SI List
     Route::get('/SI-list','App\Http\Controllers\Api\SIController@GetSIListByThana');

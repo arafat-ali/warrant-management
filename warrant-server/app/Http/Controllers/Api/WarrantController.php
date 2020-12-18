@@ -13,7 +13,7 @@ use App\Models\AssignedWarrant;
 class WarrantController extends Controller
 {
     public function addWarrantInfo(Request $req){
-
+        $user_id = Auth::user()->id;
     	$warrant = new Warrant();
     	if($req->hasfile('arrest_warrant_picture_one')){
     		$originalImageOne= $req->file('arrest_warrant_picture_one');
@@ -60,6 +60,7 @@ class WarrantController extends Controller
         $warrant->criminal_NID = $req->criminal_NID;
         $warrant->criminal_passport = $req->criminal_passport;
         $warrant->birth_cirtificate = $req->birth_cirtificate;
+        $warrant->created_by = $user_id;
     	if($warrant->save()){
     		return response()->json([
 	            'success' => true,
@@ -125,7 +126,7 @@ class WarrantController extends Controller
     }
 
     public function addWarrantInfoByThana(Request $req){
-
+        $user_id = Auth::user()->id;
         $warrant = new Warrant();
 
         if($req->hasfile('arrest_warrant_picture_one')){
@@ -172,6 +173,7 @@ class WarrantController extends Controller
         $warrant->criminal_NID = $req->criminal_NID;
         $warrant->criminal_passport = $req->criminal_passport;
         $warrant->birth_cirtificate = $req->birth_cirtificate;
+        $warrant->created_by = $user_id;
         if($warrant->save()){
             return response()->json([
                 'success' => true,
