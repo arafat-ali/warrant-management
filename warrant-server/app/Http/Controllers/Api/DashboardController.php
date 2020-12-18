@@ -14,29 +14,15 @@ class DashboardController extends Controller
 {
     // method for CI
     public function getCiDashboardData($userId){
-
-		$todayStart = date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) . " 00:00:00";
-        $todayEnd = date('Y-m-d h:i:s');   
-
-        $totalWarrant = Warrant::count();
+		$totalWarrant = Warrant::count();
         $totalCompletedWarrant = Warrant::where('is_executed',1)->count();
 		$totalPendingWarrant =  $totalWarrant - $totalCompletedWarrant;
-
-		$totalNewWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = CURDATE()');
+		$totalNewWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) ');
 		$totalNewWarrant = $totalNewWarrant[0]->warrant;
-
-		// $totalTodayCompletedWarrant = Warrant::whereBetween('executed_at',[$todayStart, $todayEnd])->count();
-		$totalTodayCompletedWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(executed_at) = CURDATE()');
+		$totalTodayCompletedWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(executed_at) = DATE(NOW() - INTERVAL 1 DAY)  AND DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) ');
 		$totalTodayCompletedWarrant = $totalTodayCompletedWarrant[0]->warrant;
-
-		// $totalTodayCompletedWarrant = $totalTodayCompletedWarrant[0]->warrant;
-		
-		// $totalTodayCompletedWarrant = DB::table('warrants')
-        //     ->join('assigned_warrants', 'assigned_warrants.warrant_id', '=', 'warrants.id')
-		// 	->select('warrants.*','assigned_warrants.is_completed', 'assigned_warrants.executed_at')->get();
-		// $totalTodayCompletedWarrant = $totalTodayCompletedWarrant->where('is_completed', 1)->whereBetween('executed_at',[$todayStart, $todayEnd])->count();
-		$totalTodayPendingWarrant = $totalNewWarrant - $totalTodayCompletedWarrant ;//Warrant::whereBetween('executed_at',[$todayStart, $todayEnd])->count();//$totalNewWarrant - $totalTodayCompletedWarrant;
-        
+		$totalTodayPendingWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY)  AND is_executed = 0'); 
+		$totalTodayPendingWarrant = $totalTodayPendingWarrant[0]->warrant;
         $data = array(
 			'totalWarrant' =>$totalWarrant, 
 			'totalPendingWarrant' => $totalPendingWarrant, 
@@ -45,24 +31,13 @@ class DashboardController extends Controller
 			'totalNewWarrant' => $totalNewWarrant,
 			'totalTodayCompletedWarrant' => $totalTodayCompletedWarrant
 		);
-		
 		return response()->json([
-				'message' => sizeof($data) == 6 ? 'Data Retrieved' : 'Not Found' ,
-				'data' => sizeof($data) == 6 ? $data : null,
-				'today' => $todayStart
-				
-
-	        ]);
+			'message' => sizeof($data) == 6 ? 'Data Retrieved' : 'Not Found' ,
+			'data' => sizeof($data) == 6 ? $data : null,
+		]);
 	}
 	public function getCiDashboardDataToday(){
-
-		$todayStart = date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) . " 00:00:00";
-        $todayEnd = date('Y-m-d h:i:s');   
-		$yesterdayStart = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 00:00:00";
-		$yesterdayEnd = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 23:59:59";
-
-        $warrants = Warrant::whereBetween('created_at', [$todayStart, $todayEnd])->get();
-        
+		$warrants = DB::select("SELECT * FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) " ); 
 		return response()->json([
 			'message' => sizeof($warrants) == 0 ? 'Not Found' : 'Data Retrieved'  ,
 			'data' => sizeof($warrants) == 0 ? null : $warrants,
@@ -70,29 +45,15 @@ class DashboardController extends Controller
     }
      
     public function getSpDashboardData($userId){
-
-		$todayStart = date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) . " 00:00:00";
-        $todayEnd = date('Y-m-d h:i:s');   
-
         $totalWarrant = Warrant::count();
         $totalCompletedWarrant = Warrant::where('is_executed',1)->count();
 		$totalPendingWarrant =  $totalWarrant - $totalCompletedWarrant;
-
-		$totalNewWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = CURDATE()');
+		$totalNewWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) ');
 		$totalNewWarrant = $totalNewWarrant[0]->warrant;
-
-		// $totalTodayCompletedWarrant = Warrant::whereBetween('executed_at',[$todayStart, $todayEnd])->count();
-		$totalTodayCompletedWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(executed_at) = CURDATE()');
+		$totalTodayCompletedWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(executed_at) = DATE(NOW() - INTERVAL 1 DAY)  AND DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) ');
 		$totalTodayCompletedWarrant = $totalTodayCompletedWarrant[0]->warrant;
-
-		// $totalTodayCompletedWarrant = $totalTodayCompletedWarrant[0]->warrant;
-		
-		// $totalTodayCompletedWarrant = DB::table('warrants')
-        //     ->join('assigned_warrants', 'assigned_warrants.warrant_id', '=', 'warrants.id')
-		// 	->select('warrants.*','assigned_warrants.is_completed', 'assigned_warrants.executed_at')->get();
-		// $totalTodayCompletedWarrant = $totalTodayCompletedWarrant->where('is_completed', 1)->whereBetween('executed_at',[$todayStart, $todayEnd])->count();
-		$totalTodayPendingWarrant = $totalNewWarrant - $totalTodayCompletedWarrant ;//Warrant::whereBetween('executed_at',[$todayStart, $todayEnd])->count();//$totalNewWarrant - $totalTodayCompletedWarrant;
-        
+		$totalTodayPendingWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY)  AND is_executed = 0'); 
+		$totalTodayPendingWarrant = $totalTodayPendingWarrant[0]->warrant;
         $data = array(
 			'totalWarrant' =>$totalWarrant, 
 			'totalPendingWarrant' => $totalPendingWarrant, 
@@ -101,57 +62,32 @@ class DashboardController extends Controller
 			'totalNewWarrant' => $totalNewWarrant,
 			'totalTodayCompletedWarrant' => $totalTodayCompletedWarrant
 		);
-		
 		return response()->json([
-				'message' => sizeof($data) == 6 ? 'Data Retrieved' : 'Not Found' ,
-				'data' => sizeof($data) == 6 ? $data : null,
-				'today' => $todayStart
-				
-
-	        ]);
+			'message' => sizeof($data) == 6 ? 'Data Retrieved' : 'Not Found' ,
+			'data' => sizeof($data) == 6 ? $data : null,
+		]);
     }
 
 	public function getSpDashboardDataToday(){
-
-		$todayStart = date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) . " 00:00:00";
-        $todayEnd = date('Y-m-d h:i:s');   
-		$yesterdayStart = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 00:00:00";
-		$yesterdayEnd = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 23:59:59";
-
-        $warrants = Warrant::whereBetween('created_at', [$todayStart, $todayEnd])->get();
-        
+		$warrants = DB::select("SELECT * FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) " ); 
 		return response()->json([
-				'message' => sizeof($warrants) == 0 ? 'Not Found' : 'Data Retrieved'  ,
-				'data' => sizeof($warrants) == 0 ? null : $warrants,
-	        ]);
+			'message' => sizeof($warrants) == 0 ? 'Not Found' : 'Data Retrieved'  ,
+			'data' => sizeof($warrants) == 0 ? null : $warrants,
+		]);
     }
 
 
     // method for DIG
     public function getDigDashboardData($userId){
-
-		$todayStart = date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) . " 00:00:00";
-        $todayEnd = date('Y-m-d h:i:s');   
-
-        $totalWarrant = Warrant::count();
+		$totalWarrant = Warrant::count();
         $totalCompletedWarrant = Warrant::where('is_executed',1)->count();
 		$totalPendingWarrant =  $totalWarrant - $totalCompletedWarrant;
-
-		$totalNewWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = CURDATE()');
+		$totalNewWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) ');
 		$totalNewWarrant = $totalNewWarrant[0]->warrant;
-
-		// $totalTodayCompletedWarrant = Warrant::whereBetween('executed_at',[$todayStart, $todayEnd])->count();
-		$totalTodayCompletedWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(executed_at) = CURDATE()');
+		$totalTodayCompletedWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(executed_at) = DATE(NOW() - INTERVAL 1 DAY)  AND DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) ');
 		$totalTodayCompletedWarrant = $totalTodayCompletedWarrant[0]->warrant;
-
-		// $totalTodayCompletedWarrant = $totalTodayCompletedWarrant[0]->warrant;
-		
-		// $totalTodayCompletedWarrant = DB::table('warrants')
-        //     ->join('assigned_warrants', 'assigned_warrants.warrant_id', '=', 'warrants.id')
-		// 	->select('warrants.*','assigned_warrants.is_completed', 'assigned_warrants.executed_at')->get();
-		// $totalTodayCompletedWarrant = $totalTodayCompletedWarrant->where('is_completed', 1)->whereBetween('executed_at',[$todayStart, $todayEnd])->count();
-		$totalTodayPendingWarrant = $totalNewWarrant - $totalTodayCompletedWarrant ;//Warrant::whereBetween('executed_at',[$todayStart, $todayEnd])->count();//$totalNewWarrant - $totalTodayCompletedWarrant;
-        
+		$totalTodayPendingWarrant = DB::select('SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY)  AND is_executed = 0'); 
+		$totalTodayPendingWarrant = $totalTodayPendingWarrant[0]->warrant;
         $data = array(
 			'totalWarrant' =>$totalWarrant, 
 			'totalPendingWarrant' => $totalPendingWarrant, 
@@ -160,25 +96,17 @@ class DashboardController extends Controller
 			'totalNewWarrant' => $totalNewWarrant,
 			'totalTodayCompletedWarrant' => $totalTodayCompletedWarrant
 		);
-		
 		return response()->json([
-				'message' => sizeof($data) == 6 ? 'Data Retrieved' : 'Not Found' ,
-				'data' => sizeof($data) == 6 ? $data : null,
-	        ]);
+			'message' => sizeof($data) == 6 ? 'Data Retrieved' : 'Not Found' ,
+			'data' => sizeof($data) == 6 ? $data : null,
+		]);
 	}
 	public function getDigDashboardDataToday(){
-
-		$todayStart = date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) . " 00:00:00";
-        $todayEnd = date('Y-m-d h:i:s');   
-		$yesterdayStart = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 00:00:00";
-		$yesterdayEnd = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 23:59:59";
-
-        $warrants = Warrant::whereBetween('created_at', [$todayStart, $todayEnd])->get();
-        
+		$warrants = DB::select("SELECT * FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) " ); 
 		return response()->json([
-				'message' => sizeof($warrants) == 0 ? 'Not Found' : 'Data Retrieved'  ,
-				'data' => sizeof($warrants) == 0 ? null : $warrants,
-	        ]);
+			'message' => sizeof($warrants) == 0 ? 'Not Found' : 'Data Retrieved'  ,
+			'data' => sizeof($warrants) == 0 ? null : $warrants,
+		]);
     }
 
 
@@ -262,47 +190,36 @@ class DashboardController extends Controller
 
     // method for SI
     public function getSiDashboardData($userId){
-
-		$todayStart = date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) . " 00:00:00";
-        $todayEnd = date('Y-m-d h:i:s');   
-		$yesterdayStart = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 00:00:00";
-		$yesterdayEnd = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 23:59:59";
-
 		$totalWarrant = AssignedWarrant::where('assigned_to',$userId)->count('id');
 		$totalPendingWarrant = AssignedWarrant::where('assigned_to',$userId)->where('is_completed',0)->count('id');
 		$totalCompletedWarrant = $totalWarrant - $totalPendingWarrant;
-		$totalNewWarrant = AssignedWarrant::where('assigned_to',$userId)->whereBetween('created_at',[$yesterdayStart,$yesterdayEnd])->count();
-        // $totalTodayCompletedWarrant = AssignedWarrant::where('assigned_to',$userId)
-        // ->where('is_completed', 1)
-		// ->whereBetween('executed_at',[$todayStart,$todayEnd])->count();
-		$totalTodayCompletedWarrant = DB::select("SELECT COUNT(*) as warrant FROM assigned_warrants WHERE DATE(executed_at) = CURDATE() AND assigned_to = " .$userId );
-        $totalTodayCompletedWarrant = $totalTodayCompletedWarrant[0]->warrant;
+		$totalNewWarrant = DB::select('SELECT COUNT(*) as warrant FROM assigned_warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND assigned_to = '. $userId);
+		$totalNewWarrant = $totalNewWarrant[0]->warrant;
+
+		$totalTodayPendingWarrant = DB::select('SELECT COUNT(*) as warrant FROM assigned_warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND is_completed = 0 AND assigned_to = '. $userId);
+		$totalTodayPendingWarrant = $totalTodayPendingWarrant[0]->warrant;
+
+		$totalTodayCompletedWarrant = DB::select("SELECT COUNT(*) as warrant FROM assigned_warrants WHERE DATE(executed_at) = DATE(NOW() - INTERVAL 1 DAY) AND DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND is_completed = 1 AND assigned_to = " .$userId );
+		$totalTodayCompletedWarrant = $totalTodayCompletedWarrant[0]->warrant;
+		
         $data = array(
 			'totalWarrant' =>$totalWarrant, 
 			'totalPendingWarrant' => $totalPendingWarrant, 
 			'totalCompletedWarrant' => $totalCompletedWarrant, 
 			'totalNewWarrant' => $totalNewWarrant,
+			'totalTodayPendingWarrant' => $totalTodayPendingWarrant,
 			'totalTodayCompletedWarrant' => $totalTodayCompletedWarrant
 		);
 		
 		return response()->json([
-				'message' => sizeof($data) == 5 ? 'Data Retrieved' : 'Not Found' ,
-				'data' => sizeof($data) == 5 ? $data : null,
+				'message' => sizeof($data) == 6 ? 'Data Retrieved' : 'Not Found' ,
+				'data' => sizeof($data) == 6 ? $data : null,
 	        ]);
 	}
 	
 	public function getSiDashboardDataToday(){
-		$todayStart = date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d"), date("Y"))) . " 00:00:00";
-        $todayEnd = date('Y-m-d h:i:s');   
-		$yesterdayStart = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 00:00:00";
-		$yesterdayEnd = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 23:59:59";
-
 		$user_id = Auth::user()->id;
-		
-        // $warrants = Warrant::where('is_assigned', $user_id)->whereBetween('created_at', [$todayStart, $todayEnd])->get();
 		$warrants =DB::select("SELECT *  FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND is_assigned = " .$user_id );
-		
-        
 		return response()->json([
 				'message' => sizeof($warrants) == 0 ? 'Not Found' : 'Data Retrieved'  ,
 				'data' => sizeof($warrants) == 0 ? null : $warrants,

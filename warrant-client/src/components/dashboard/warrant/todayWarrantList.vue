@@ -222,32 +222,23 @@ import DataTable from "vue-materialize-datatable";
         console.log(this.warrants);
         },
         getWarrant() {
-        axios
-          .get(
-            "api/get-ci-dashboard-data-today/")
-          .then((response) => {
-            console.log(response);
-            this.todayWarrants = response.data.data;
-            //alert('');
-          })
-          .catch((response) => {
-            alert(response);
-          });
-        },
-        pendingWarrantCreate(){
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].is_executed === 0) {
-            this.pendingWarrants.push(data[i]);
-          }
-        }
-        },
-        executedgWarrantCreate(data) {
-            for (let i = 0; i < data.length; i++) {
-            if (data[i].is_executed === 1) {
-                this.todayExecutedWarrants.push(data[i]);
-            }
-            }
-            return pendingWarrants;
+          axios
+            .get(
+              "api/get-ci-dashboard-data-today/")
+            .then((response) => {
+              console.log(response);
+              this.todayWarrants = response.data.data;
+              for (let i = 0; i < this.todayWarrants.length; i++) {
+                if (this.todayWarrants[i].is_executed === 0) {
+                  this.todayPendingWarrants.push(this.todayWarrants[i]);
+                } else {
+                  this.todayExecutedWarrants.push(this.todayWarrants[i]);
+                }
+              }
+            })
+            .catch((response) => {
+              alert(response);
+            });
         },
         getCourt() {
             axios
@@ -286,8 +277,6 @@ import DataTable from "vue-materialize-datatable";
 
     created(){
         this.getWarrant();
-        this.pendingWarrantCreate();
-        this.executedgWarrantCreate();
         this.getCourt();
         this.getThana();
         this.getCrimeType();
