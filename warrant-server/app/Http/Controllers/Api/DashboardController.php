@@ -241,7 +241,7 @@ class DashboardController extends Controller
 		$yesterdayEnd = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 23:59:59";
 
 		$thana_id = Auth::user()->thana;
-		$thana_name = Thana::where('id', $thana_id)->first()->name . ' থানা';
+		$thana_name = Thana::where('id', $thana_id)->first()->name;
 		
         $warrants = Warrant::where('thana_name', $thana_name)->whereBetween('created_at', [$todayStart, $todayEnd])->get();
         
@@ -340,7 +340,7 @@ class DashboardController extends Controller
 		$user_id = Auth::user()->id;
 
 		$thana_id = Auth::user()->thana;
-        $thana_name = Thana::where('id', $thana_id)->first()->name . ' থানা';
+        $thana_name = Thana::where('id', $thana_id)->first()->name;
     	$warrants = Warrant::where('thana_name', $thana_name)->get();
     	return response()->json([
 				'message' => 'Data Retrieved' ,

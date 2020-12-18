@@ -17,23 +17,23 @@ class ThanaTableSeeder extends Seeder
         DB::table('thanas')->insert(
             [
                 [
-                    'name' => 'সাতকানিয়া',
+                    'name' => 'সাতকানিয়া থানা',
                     'district_id' => 1
                 ],
                 [
-                    'name' => 'পটিয়া',
+                    'name' => 'পটিয়া থানা',
                     'district_id' => 1
                 ],
                 [
-                    'name' => 'হাটহাজারি',
+                    'name' => 'হাটহাজারি থানা',
                     'district_id' => 1
                 ],
                 [
-                    'name' => 'আনোয়ারা',
+                    'name' => 'আনোয়ারা থানা',
                     'district_id' => 1
                 ],
                 [
-                    'name' => 'রাউজান',
+                    'name' => 'রাউজান থানা',
                     'district_id' => 1
                 ],
             ]

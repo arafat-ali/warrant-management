@@ -22,7 +22,7 @@ class RecalledController extends Controller
     public function recalledWarrantOC(){
     	$user_id = Auth::user()->id;
 		$thana_id = Auth::user()->thana;
-        $thana_name = Thana::where('id', $thana_id)->first()->name . ' থানা';
+        $thana_name = Thana::where('id', $thana_id)->first()->name;
 
         $warrants = DB::table('warrants')
         			->where('thana_name',$thana_name)
@@ -47,7 +47,7 @@ class RecalledController extends Controller
     public function recalledWarrantSI(){
     	$user_id = Auth::user()->id;
 		$thana_id = Auth::user()->thana;
-        $thana_name = Thana::where('id', $thana_id)->first()->name . ' থানা';
+        $thana_name = Thana::where('id', $thana_id)->first()->name;
 
         $warrants = DB::table('warrants')
         			->where('thana_name',$thana_name)

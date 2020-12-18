@@ -39,7 +39,7 @@ class WarrantMismatchController extends Controller
     }
 
     public function findProcessNoMismatch(){
-        $mismatch = DB::select('SELECT * FROM warrants WHERE (criminal_name, criminal_father_name) IN (SELECT criminal_name, criminal_father_name FROM warrants WHERE created_by=4) AND created_by=1');
+        $mismatch = DB::select('SELECT * FROM warrants WHERE (thana_name, criminal_name, criminal_father_name) IN (SELECT thana_name, criminal_name, criminal_father_name FROM warrants WHERE created_by=4) AND created_by=1');
         return response()->json([
             'success' => true,
             'Mismatch' => $mismatch
