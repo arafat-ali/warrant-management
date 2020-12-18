@@ -46,8 +46,16 @@ import warrantListExecutedDIG from '@/components/dashboard/warrantListExecutedDI
 
 
 import dashboradWarrantOC from '@/components/dashboard/dashboard_warrant_OC';
+import warrantListSP from '@/components/dashboard/warrantListSP';
+import todayWarrantListCI from '@/components/dashboard/todayWarrantListCI';
+import todayWarrantListSP from '@/components/dashboard/todayWarrantListSP';
+import todayWarrantListDIG from '@/components/dashboard/todayWarrantListDIG';
+import todayWarrantListOC from '@/components/dashboard/todayWarrantListOC';
+import todayWarrantListSI from '@/components/dashboard/todayWarrantListSI';
+
 import warrantRecalledOC from '@/components/dashboard/warrant_recalled_oc';
 import warrantRecalledSI from '@/components/dashboard/warrant_recalled_si';
+
 
 
 Vue.use(Router);
@@ -259,6 +267,42 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
+			path: '/sp-warrant-list',
+			name: 'warrantListSP',
+			component: warrantListSP,
+			meta: {requiresAuth: true}
+		},		
+		{
+			path: '/ci-today-warrant-list/:id',
+			name: 'todayWarrantListCI',
+			component: todayWarrantListCI,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/sp-today-warrant-list/:id',
+			name: 'todayWarrantListSP',
+			component: todayWarrantListSP,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/dig-today-warrant-list/:id',
+			name: 'todayWarrantListDIG',
+			component: todayWarrantListDIG,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/oc-today-warrant-list/:id',
+			name: 'todayWarrantListOC',
+			component: todayWarrantListOC,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/si-today-warrant-list/:id',
+			name: 'todayWarrantListSI',
+			component: todayWarrantListSI,
+			meta: {requiresAuth: true}
+		},
+    {
 			path: '/warrant-recalled-oc',
 			name: 'warrantRecalledOC',
 			component: warrantRecalledOC,
@@ -270,6 +314,7 @@ const router = new Router({
 			component: warrantRecalledSI,
 			meta: {requiresAuth: true}
 		},
+
 
 	]
 });
