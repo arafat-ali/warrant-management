@@ -46,7 +46,7 @@
       <!-- Filter End -->
     </div>
 
-    <h2 class="text-sm text-gray-500">থানা: {{selectedOption}}</h2>
+    <!-- <h2 class="text-sm text-gray-500">থানা: {{selectedOption}}</h2> -->
     <!-- First Cards Start -->
     <div class="flex justify-between -mx-3 mb-8">
       <div class="w-1/2 xl:w-1/4 px-1">

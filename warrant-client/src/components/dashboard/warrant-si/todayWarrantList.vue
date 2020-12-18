@@ -216,43 +216,27 @@ import DataTable from "vue-materialize-datatable";
           }
         }
         this.searchedWarrant = searchArr;
-        console.log(searchArr);
-        console.log(this.searchText);
-        console.log(fieldName);
-        console.log(this.warrants);
         },
         getWarrant() {
-        axios
-          .get(
-            "api/get-si-dashboard-data-today/")
-          .then((response) => {
-            console.log(response);
-            this.todayWarrants = response.data.data;
-            //alert('');
-          })
-          .catch((response) => {
-            alert(response);
-          });
-        },
-        pendingWarrantCreate(){
-            if(this.warrants){
-                for (let i = 0; i < this.warrants.length; i++) {
-                    if (this.warrants[i].is_executed === 0) {
-                        this.pendingWarrants.push(data[i]);
-                    }
+          axios
+            .get(
+              "api/get-si-dashboard-data-today/")
+            .then((response) => {
+              console.log(response);
+              this.todayWarrants = response.data.data;
+              for (let i = 0; i < this.todayWarrants.length; i++) {
+                if (this.todayWarrants[i].is_executed === 0) {
+                  this.todayPendingWarrants.push(this.todayWarrants[i]);
+                } else {
+                  this.todayExecutedWarrants.push(this.todayWarrants[i]);
                 }
-            }
-            
+              }
+            })
+            .catch((response) => {
+              alert(response);
+            });
         },
-        executedWarrantCreate(){
-            if(this.warrants){
-                for (let i = 0; i < this.warrants.length; i++) {
-                    if (this.warrants[i].is_executed === 1) {
-                        this.todayExecutedWarrants.push(data[i]);
-                    }
-                }
-            }
-        },
+        
         getCourt() {
             axios
             .get("api/courts")
@@ -290,7 +274,6 @@ import DataTable from "vue-materialize-datatable";
 
     created(){
         this.getWarrant();
-        this.pendingWarrantCreate();
         this.getCourt();
         // this.getThana();
         this.getCrimeType();
