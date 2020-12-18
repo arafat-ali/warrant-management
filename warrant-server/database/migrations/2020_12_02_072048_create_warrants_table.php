@@ -45,6 +45,7 @@ class CreateWarrantsTable extends Migration
             $table->string('criminal_other_document')->nullable();
             $table->tinyInteger('is_executed')->default(0);
             $table->timestamp('executed_at')->nullable();
+            $table->tinyInteger('is_recalled')->default(0);
             $table->unsignedBigInteger('is_assigned')->nullable();
             $table->foreign('is_assigned')
                   ->references('id')->on('users')

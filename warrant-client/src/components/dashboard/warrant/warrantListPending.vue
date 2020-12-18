@@ -103,7 +103,7 @@
                       </div>
                     </td>
                     <td class="p-2  border-b  border-gray-200">
-                      <button class="bg-blue-500 px-3 py-2 rounded text-center text-white hover:bg-blue-700">
+                      <button @click="recallWarrant(warrant.id)" class="bg-blue-500 px-3 py-2 rounded text-center text-white hover:bg-blue-700">
                         Recall
                       </button>
                     </td>
@@ -173,10 +173,6 @@ import DataTable from "vue-materialize-datatable";
           }
         }
         this.searchedWarrant = searchArr;
-        console.log(searchArr);
-        console.log(this.searchText);
-        console.log(fieldName);
-        console.log(this.warrants);
       },
       pendingWarrantCreate(data) {
         let pendingWarrants = [];
@@ -241,6 +237,35 @@ import DataTable from "vue-materialize-datatable";
             console.log(error);
           });
       },
+      getRecalledRefresh(){
+        axios
+          .get(API.warrantsCourt)
+          .then(response => {
+            let responseData = response.data.Warrants;
+            this.searchedWarrant = responseData;
+            resolve(response);
+          })
+          .catch(response => {
+            reject(response);
+          });
+      },
+
+      recallWarrant(id){
+        axios
+          .get("api/recall-from-CI/"+id)
+          .then((response) => {
+            this.getRecalledRefresh();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+      }
+    },
+    computed:{
+      // searchedWarrant(){
+      //   return store.getters.getCourtWarrants;
+      // }
     },
 
     created(){

@@ -53,6 +53,11 @@ import todayWarrantListDIG from '@/components/dashboard/todayWarrantListDIG';
 import todayWarrantListOC from '@/components/dashboard/todayWarrantListOC';
 import todayWarrantListSI from '@/components/dashboard/todayWarrantListSI';
 
+import warrantRecalledOC from '@/components/dashboard/warrant_recalled_oc';
+import warrantRecalledSI from '@/components/dashboard/warrant_recalled_si';
+
+
+
 Vue.use(Router);
 
 const router = new Router({
@@ -295,6 +300,18 @@ const router = new Router({
 			path: '/si-today-warrant-list/:id',
 			name: 'todayWarrantListSI',
 			component: todayWarrantListSI,
+			meta: {requiresAuth: true}
+		},
+    {
+			path: '/warrant-recalled-oc',
+			name: 'warrantRecalledOC',
+			component: warrantRecalledOC,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-recalled-si',
+			name: 'warrantRecalledSI',
+			component: warrantRecalledSI,
 			meta: {requiresAuth: true}
 		},
 

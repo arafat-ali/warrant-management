@@ -336,7 +336,9 @@ class DashboardController extends Controller
     }
 
     public function getAllWarrantsOC(){
+
 		$user_id = Auth::user()->id;
+
 		$thana_id = Auth::user()->thana;
         $thana_name = Thana::where('id', $thana_id)->first()->name . ' থানা';
     	$warrants = Warrant::where('thana_name', $thana_name)->get();
