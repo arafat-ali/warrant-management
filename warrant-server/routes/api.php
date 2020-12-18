@@ -100,5 +100,13 @@ Route::middleware(['auth:api'])->group(function () {
 
     //Unassigned warrants
     Route::get('unassigned-warrant/{assigned_id}/{warrant_id}','App\Http\Controllers\Api\WarrantController@unAssignedWarrant');
+
+    //Recalled 
+    Route::get('recall-from-CI/{id}','App\Http\Controllers\Api\RecalledController@recallWarrant');
+    Route::get('recalled-warrant-oc','App\Http\Controllers\Api\RecalledController@recalledWarrantOC');
+    Route::get('receive-recall/{id}','App\Http\Controllers\Api\RecalledController@receiveRecalledWarrantOC');
+
+    Route::get('recalled-warrant-si','App\Http\Controllers\Api\RecalledController@recalledWarrantSI');
+    Route::get('receive-recall-si/{id}','App\Http\Controllers\Api\RecalledController@receiveRecalledWarrantSI');
 });
 

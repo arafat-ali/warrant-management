@@ -79,6 +79,8 @@ class WarrantController extends Controller
 
     public function getCourtWarrantInfo(){
         $warrants = Warrant::orderBy('created_at', 'desc')
+                        ->where('process_number','!=',null)
+                        ->where('is_recalled', 0)
                         ->get();
         return response()->json([
             'success' => true,

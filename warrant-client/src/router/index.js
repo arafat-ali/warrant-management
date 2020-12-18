@@ -46,6 +46,8 @@ import warrantListExecutedDIG from '@/components/dashboard/warrantListExecutedDI
 
 
 import dashboradWarrantOC from '@/components/dashboard/dashboard_warrant_OC';
+import warrantRecalledOC from '@/components/dashboard/warrant_recalled_oc';
+import warrantRecalledSI from '@/components/dashboard/warrant_recalled_si';
 
 
 Vue.use(Router);
@@ -256,7 +258,18 @@ const router = new Router({
 			component: dashboradWarrantOC,
 			meta: {requiresAuth: true}
 		},
-
+		{
+			path: '/warrant-recalled-oc',
+			name: 'warrantRecalledOC',
+			component: warrantRecalledOC,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-recalled-si',
+			name: 'warrantRecalledSI',
+			component: warrantRecalledSI,
+			meta: {requiresAuth: true}
+		},
 
 	]
 });
