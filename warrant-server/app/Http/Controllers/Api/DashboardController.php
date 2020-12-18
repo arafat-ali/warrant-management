@@ -207,7 +207,8 @@ class DashboardController extends Controller
         $totalNotAssignedWarrant = $totalWarrant - $totalAssignedWarrant;
         $totalCompletedWarrant = $totalAssignedWarrant - $totalPendingWarrant;
         
-		$totalNewWarrant = Warrant::where('thana_name',$thana_name)->whereBetween('created_at',[$yesterdayStart,$yesterdayEnd])->count();
+		$totalNewWarrant = DB::select("SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND  thana_name = '" .$thana_name."'");
+		$totalNewWarrant = $totalNewWarrant[0]->warrant;
 		// $totalTodayCompletedWarrant =  DB::table('warrants')
         //     ->join('assigned_warrants', 'assigned_warrants.warrant_id', '=', 'warrants.id')
         //     ->select('warrants.thana_name', 'assigned_warrants.is_completed', 'assigned_warrants.executed_at')->get()
@@ -215,8 +216,13 @@ class DashboardController extends Controller
         //     ->where('is_completed', 1)
         //     ->whereBetween('executed_at',[$todayStart,$todayEnd])
 		//     ->count();
-		$totalTodayCompletedWarrant = DB::select("SELECT COUNT(*) as warrant FROM warrants WHERE DATE(executed_at) = CURDATE() AND  thana_name = '" .$thana_name."'");
+		// $totalTodayCompletedWarrant = DB::select("SELECT COUNT(*) as warrant FROM warrants WHERE DATE(executed_at) = CURDATE() AND  thana_name = '" .$thana_name."'");
+		// $totalTodayCompletedWarrant = DB::select("SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = CURDATE() AND  thana_name = '" .$thana_name."'");
+		$totalTodayCompletedWarrant = DB::select("SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND is_executed = 1 AND  thana_name = '" .$thana_name."'");
 		$totalTodayCompletedWarrant = $totalTodayCompletedWarrant[0]->warrant;
+
+		$totalTodayPendingWarrant = DB::select("SELECT COUNT(*) as warrant FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND is_executed = 0 AND  thana_name = '" .$thana_name."'");
+		$totalTodayPendingWarrant = $totalTodayPendingWarrant[0]->warrant;
 		
         $data = array(
 			'totalWarrant' =>$totalWarrant, 
@@ -225,6 +231,7 @@ class DashboardController extends Controller
             'totalPendingWarrant' => $totalPendingWarrant,
 			'totalCompletedWarrant' => $totalCompletedWarrant, 
 			'totalNewWarrant' => $totalNewWarrant,
+			'totalTodayPendingWarrant' => $totalTodayPendingWarrant,
             'totalTodayCompletedWarrant' => $totalTodayCompletedWarrant,
 		);
 		
@@ -243,7 +250,8 @@ class DashboardController extends Controller
 		$thana_id = Auth::user()->thana;
 		$thana_name = Thana::where('id', $thana_id)->first()->name;
 		
-        $warrants = Warrant::where('thana_name', $thana_name)->whereBetween('created_at', [$todayStart, $todayEnd])->get();
+		// $warrants = Warrant::where('thana_name', $thana_name)->whereBetween('created_at', [$todayStart, $todayEnd])->get();
+		$warrants = DB::select("SELECT *  FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND thana_name = '" .$thana_name. "'" );
         
 		return response()->json([
 				'message' => sizeof($warrants) == 0 ? 'Not Found' : 'Data Retrieved'  ,
@@ -291,7 +299,9 @@ class DashboardController extends Controller
 
 		$user_id = Auth::user()->id;
 		
-        $warrants = Warrant::where('is_assigned', $user_id)->whereBetween('created_at', [$todayStart, $todayEnd])->get();
+        // $warrants = Warrant::where('is_assigned', $user_id)->whereBetween('created_at', [$todayStart, $todayEnd])->get();
+		$warrants =DB::select("SELECT *  FROM warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND is_assigned = " .$user_id );
+		
         
 		return response()->json([
 				'message' => sizeof($warrants) == 0 ? 'Not Found' : 'Data Retrieved'  ,
