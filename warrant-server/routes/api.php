@@ -91,6 +91,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/get-sp-dashboard-data-today','App\Http\Controllers\Api\DashboardController@getSpDashboardDataToday');
     Route::get('/get-dig-dashboard-data-today','App\Http\Controllers\Api\DashboardController@getDigDashboardDataToday');
     Route::get('/get-si-dashboard-data-today','App\Http\Controllers\Api\DashboardController@getSiDashboardDataToday');
+    Route::get('/get-oc-dashboard-data-today','App\Http\Controllers\Api\DashboardController@getOcDashboardDataToday');
 
 
 

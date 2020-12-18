@@ -126,48 +126,52 @@
               <div class="flex flex-row justify-start mb-2 ">
                 <p class="font-bold">Total: {{ assignedWarrants.length }}</p>
               </div>
-              <table class="border table-auto overscroll-hidden">
-                <thead class="border text-xs ">
-                  <tr class="border">
-                    <th class="border">#</th>
-                    <th v-for="field in fields" :key="field.id" class="border">{{ field.name }}</th>
-                    
-                    <th class="border">অ্যাটেম্প</th>
-                    <th class="border">একশন</th>
-                  </tr>
-                </thead>
-                <tbody class="text-xs">
-                  <tr class="border text-center" v-for="(warrant, index) in assignedWarrants" :key="warrant.id">
-                    <td class="border">{{ index }}</td>
-                    <td class="border">{{ warrant.process_number }}</td>
-                    <td class="border">{{ warrant.gr_number }}</td>
-                    <td class="border">{{ warrant.warrant_type }}</td>
-                    <td class="border">{{ warrant.criminal_name }}</td>
-                    <td class="border">{{ warrant.criminal_father_name }}</td>
-                    <td class="border">{{ warrant.criminal_address }}</td>
-                    <td class="border">{{ warrant.created_at }}</td>
-                    <td class="border"><router-link :to="{name: 'SIActivity', params:{id:warrant.warrant_id} }">{{warrant.totalActivity}} </router-link></td>
-                    <!-- <td class="border">{{ warrant.criminal_mobile_no }}</td> -->
-                    <!-- <td class="border">{{ warrant.criminal_mobile_no }}</td> -->
-                    <td class="border flex gap-2">
-                      <!-- <button class="rounded-lg py-3 px-3 bg-blue-500 text-white">Details</button> -->
-                      <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="options-menu" aria-haspopup="true" aria-expanded="true" @click="buttonOption = !buttonOption, optionId = warrant.id">
-                        Options
-                        <!-- Heroicon name: chevron-down -->
-                        <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                      </button>
-                      <div class="origin-top-right absolute right mt-9  w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" v-show="buttonOption && optionId == warrant.id">
-                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                          <a href="#" @click="(buttonOption = false,executionModal = true)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Execution</a>
-                          <a href="#" @click="(nonExecutedModal = true, buttonOption = false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Non Execution</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="h-96 overflow-auto">
+                <div class="align-middle inline-block min-w-full overflow-hidden sm:rounded-lg border-b">
+                  <table class="min-w-full">
+                    <thead>
+                      <tr class="">
+                        <th class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-tight font-semibold">#</th>
+                        <th v-for="field in fields" :key="field.id" class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-tight font-semibold">{{ field.name }}</th>
+                        
+                        <th class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-tight font-semibold">অ্যাটেম্প</th>
+                        <th class="px-2 py-1 border bg-gray-50 text-left text-xs leading-4 tracking-tight font-semibold">একশন</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-xs">
+                      <tr class="border-l border-r" v-for="(warrant, index) in assignedWarrants" :key="warrant.id">
+                        <td class="p-2 text-center border-b border-r border-gray-200">{{ index }}</td>
+                        <td class="p-2 text-center border-b border-r border-gray-200">{{ warrant.process_number }}</td>
+                        <td class="p-2 text-center border-b border-r border-gray-200">{{ warrant.gr_number }}</td>
+                        <td class="p-2 text-center border-b border-r border-gray-200">{{ warrant.warrant_type }}</td>
+                        <td class="p-2 text-center border-b border-r border-gray-200">{{ warrant.criminal_name }}</td>
+                        <td class="p-2 text-center border-b border-r border-gray-200">{{ warrant.criminal_father_name }}</td>
+                        <td class="p-2 text-center border-b border-r border-gray-200">{{ warrant.criminal_address }}</td>
+                        <td class="p-2 text-center border-b border-r border-gray-200">{{ warrant.created_at }}</td>
+                        <td class="p-2 text-center border-b border-r border-gray-200"><router-link :to="{name: 'SIActivity', params:{id:warrant.warrant_id} }">{{warrant.totalActivity}} </router-link></td>
+                        <!-- <td class="border">{{ warrant.criminal_mobile_no }}</td> -->
+                        <!-- <td class="border">{{ warrant.criminal_mobile_no }}</td> -->
+                        <td class="p-2 text-center border-b border-r border-gray-200">
+                          <!-- <button class="rounded-lg py-3 px-3 bg-blue-500 text-white">Details</button> -->
+                          <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-500 text-sm font-medium text-gray-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="options-menu" aria-haspopup="true" aria-expanded="true" @click="buttonOption = !buttonOption, optionId = warrant.id">
+                            Options
+                            <!-- Heroicon name: chevron-down -->
+                            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                          </button>
+                          <div class="origin-top-right absolute right mt-9  w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" v-show="buttonOption && optionId == warrant.id">
+                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                              <a href="#" @click="(buttonOption = false,executionModal = true)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Execution</a>
+                              <a href="#" @click="(nonExecutedModal = true, buttonOption = false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Non Execution</a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
           <div class="fixed z-10 inset-0 overflow-y-auto mt-4" v-show="executionModal">
@@ -332,10 +336,6 @@ export default {
         }
       }
       this.searchedWarrant = searchArr;
-      console.log(searchArr);
-      console.log(this.searchText);
-      console.log(fieldName);
-      console.log(this.warrants);
     },
     getSiWarrants(){
       axios

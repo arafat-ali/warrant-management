@@ -222,37 +222,45 @@ import DataTable from "vue-materialize-datatable";
         console.log(this.warrants);
         },
         getWarrant() {
-        axios
-          .get(
-            "api/get-sp-dashboard-data-today/")
-          .then((response) => {
-            console.log(response);
-            this.todayWarrants = response.data.data;
-            //alert('');
-          })
-          .catch((response) => {
-            alert(response);
-          });
+          axios
+            .get(
+              "api/get-oc-dashboard-data-today/")
+            .then((response) => {
+              console.log(response);
+              this.todayWarrants = response.data.data;
+              for (let i = 0; i < this.todayWarrants.length; i++) {
+                  if (this.todayWarrants[i].is_executed == 0) {
+                      this.todayPendingWarrants.push(this.todayWarrants[i]);
+                  }
+              }
+              for (let i = 0; i < this.todayWarrants.length; i++) {
+                  if (this.todayWarrants[i].is_executed == 1) {
+                      this.todayExecutedWarrants.push(this.todayWarrants[i]);
+                  }
+              }
+            })
+            .catch((response) => {
+              alert(response);
+            });
         },
-        pendingWarrantCreate(){
-            if(this.warrants){
-                for (let i = 0; i < this.warrants.length; i++) {
-                    if (this.warrants[i].is_executed === 0) {
-                        this.pendingWarrants.push(data[i]);
-                    }
-                }
-            }
-            
-        },
-        executedWarrantCreate(){
-            if(this.warrants){
-                for (let i = 0; i < this.warrants.length; i++) {
-                    if (this.warrants[i].is_executed === 1) {
-                        this.todayExecutedWarrants.push(data[i]);
-                    }
-                }
-            }
-        },
+        // pendingWarrantCreate(){
+        //   if(this.todayWarrants){
+        //       for (let i = 0; i < this.todayWarrants.length; i++) {
+        //           if (this.todayWarrants[i].is_executed == 0) {
+        //               this.todayPendingWarrants.push(this.todayWarrants[i]);
+        //           }
+        //       }
+        //   }   
+        // },
+        // executedWarrantCreate(){
+        //   if(this.todayWarrants){
+        //       for (let i = 0; i < this.todayWarrants.length; i++) {
+        //           if (this.todayWarrants[i].is_executed == 1) {
+        //               this.todayExecutedWarrants.push(this.todayWarrants[i]);
+        //           }
+        //       }
+        //   }
+        // },
         getCourt() {
             axios
             .get("api/courts")
@@ -291,6 +299,7 @@ import DataTable from "vue-materialize-datatable";
     created(){
         this.getWarrant();
         this.pendingWarrantCreate();
+        this.executedWarrantCreate();
         this.getCourt();
         // this.getThana();
         this.getCrimeType();

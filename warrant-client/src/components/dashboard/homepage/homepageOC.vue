@@ -117,7 +117,7 @@
             </svg>
             <div class="text-gray-700">
               <div class="flex flex-row gap-10">
-                <p class="font-semibold text-3xl"> {{ totalPendingWarrant }} </p>
+                <p class="font-semibold text-3xl"> {{ totalTodayPendingWarrant }} </p>
                 <p class="text-sm">{{ dateCreate(new Date(Date.now() - 864e5)) }}</p>
               </div>
               <p>মোট মুলতবি ওয়ারেন্ট</p>
@@ -159,6 +159,7 @@ export default {
       totalAssignedWarrant: 0,
       totalNotAssignedWarrant: 0,
       totalPendingWarrant: 0,
+      totalTodayPendingWarrant: 0,
       totalCompletedWarrant: 0,
       totalNewWarrant: 0,
       totalTodayCompletedWarrant: 0,
@@ -192,6 +193,7 @@ export default {
         this.totalPendingWarrant = data.totalPendingWarrant ? data.totalPendingWarrant : 0;
         this.totalCompletedWarrant = data.totalCompletedWarrant ? data.totalCompletedWarrant : 0;
         this.totalNewWarrant = data.totalNewWarrant ? data.totalNewWarrant : 0;
+        this.totalTodayPendingWarrant = data.totalTodayPendingWarrant ? data.totalTodayPendingWarrant : 0;
         this.totalTodayCompletedWarrant = data.totalTodayCompletedWarrant ? data.totalTodayCompletedWarrant : 0;
       })
       .catch(error => {
