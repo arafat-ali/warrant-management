@@ -104,7 +104,7 @@
                         <label for="">অপরাধের ধরন</label>
                         <select v-model="crime_category_id" class="select" >
                           <option value="" >--নির্বাচন করুন--</option>
-                          <option v-for="crimeCategory in crimeCategories" :key="crimeCategory.id" :value="crimeCategory.id">{{crimeCategory.name}}</option>
+                          <option v-for="crimeCategory in crimeCategories" :key="crimeCategory.id" :value="crimeCategory.name">{{crimeCategory.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -326,7 +326,7 @@ import Multiselect from 'vue-multiselect'
         data.append('send_date', this.send_date);
         data.append('warrant_type', this.warrant_type);
         data.append('thana_id', this.thana_id);
-        data.append('crime_category_id', this.crime_category_id);
+        data.append('crime_category_name', this.crime_category_id);
         data.append('court_id', this.court_id);
         data.append('arrest_criminal_to_court', this.arrest_criminal_to_court);
         data.append('arrest_warrant_to_thana', this.arrest_warrant_to_thana);
@@ -393,7 +393,7 @@ import Multiselect from 'vue-multiselect'
       axios
         .get('api/crime-categories')
         .then(response => {
-          this.crimeCategories = response.data.CrimeCategories;
+          this.crimeCategories = response.data.data;
           //console.log(this.crimeCategories);
         })
         .catch(error => {

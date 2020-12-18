@@ -27,11 +27,12 @@ class CreateWarrantsTable extends Migration
             $table->string('criminal_name')->nullable();
             $table->string('criminal_father_name')->nullable();
             $table->string('criminal_address')->nullable();
-            $table->unsignedBigInteger('crime_category_id')->nullable();
-            $table->foreign('crime_category_id')
-                  ->references('id')->on('crime_categories')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
+            $table->string('crime_category_name')->nullable();
+            // $table->unsignedBigInteger('crime_category_id')->nullable();
+            // $table->foreign('crime_category_id')
+            //       ->references('id')->on('crime_categories')
+            //       ->onUpdate('cascade')
+            //       ->onDelete('cascade');
             $table->string('criminal_NID')->nullable();
             $table->string('criminal_passport')->nullable();
             $table->string('birth_cirtificate')->nullable();

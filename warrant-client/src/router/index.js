@@ -61,6 +61,7 @@ import warrantRecalledSI from '@/components/dashboard/warrant_recalled_si';
 Vue.use(Router);
 
 const router = new Router({
+	base: '/warrant-client/',
 	mode: 'history',
 	routes: [
 		{

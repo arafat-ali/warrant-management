@@ -132,7 +132,7 @@ import DataTable from "vue-materialize-datatable";
           { id: "1", name: "প্রসেস নং", type:null, nameArr: "process_number" },
           { id: "2", name: "জিআর নম্বর", type:null, nameArr: "gr_number" },
           { id: "3", name: "অন্যান্য আদালতের নাম্বার", type:null, nameArr: "other_number" },
-          { id: "4", name: "কোর্ট হতে প্রেরণের তারিখ", type:'date', nameArr: "send_date" },
+          { id: "4", name: "থানায় প্রেরনের তারিখ", type:'date', nameArr: "arrest_warrant_to_thana" },
           { id: "5", name: "থানা", type:'dropdown', nameArr: "thana_name" },
           { id: "6", name: "ওয়ারেন্টের ধরন", type:'dropdown', nameArr: "warrant_type" },
           { id: "16", name: "অপরাধের ধরন", type:'dropdown', nameArr: "crime_category_name" }, 

@@ -47,7 +47,7 @@ class WarrantController extends Controller
     	$warrant->send_date = $req->send_date;
     	$warrant->warrant_type = $req->warrant_type;
     	$warrant->thana_name = $req->thana_id;
-    	$warrant->crime_category_id = $req->crime_category_id;
+    	$warrant->crime_category_name = $req->crime_category_name;
     	//$warrant->crime_subcategory_id = $req->crime_subcategory_id;
     	$warrant->court_name = $req->court_id;
     	$warrant->arrest_criminal_to_court = $req->arrest_criminal_to_court;
@@ -159,7 +159,7 @@ class WarrantController extends Controller
         $warrant->send_date = $req->send_date;
         $warrant->warrant_type = $req->warrant_type;
         $warrant->thana_name = $req->thana_id;
-        $warrant->crime_category_id = $req->crime_category_id;
+        $warrant->crime_category_name = $req->crime_category_name;
         //$warrant->crime_subcategory_id = $req->crime_subcategory_id;
         $warrant->court_id = $req->court_id;
         $warrant->case_hint = $req->case_hint;
