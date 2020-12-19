@@ -117,9 +117,12 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::get('recalled-warrant-si','App\Http\Controllers\Api\RecalledController@recalledWarrantSI');
     Route::get('receive-recall-si/{id}','App\Http\Controllers\Api\RecalledController@receiveRecalledWarrantSI');
-
     //Thana
     Route::get('get-thana-data-not-recieved','App\Http\Controllers\Api\WarrantController@getNotRecievedThanaWarrant');
     Route::post('receieve-warrant','App\Http\Controllers\Api\WarrantController@ReceiveWarrant');
+
+    //Report
+    Route::get('show-report','App\Http\Controllers\Api\ReportController@showReport');
+
 });
 
