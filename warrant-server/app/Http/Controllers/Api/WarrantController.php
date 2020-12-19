@@ -8,6 +8,7 @@ use Image;
 use DB;
 use Auth;
 use App\Models\Warrant;
+use App\Models\Thana;
 use App\Models\AssignedWarrant;
 
 class WarrantController extends Controller
@@ -237,5 +238,35 @@ class WarrantController extends Controller
         }
 
     }
+
+    //Thana 
+    public function getNotRecievedThanaWarrant(){
+        $thana_id = Auth::user()->thana;
+        $thana = Thana::where('id', $thana_id)->first()->name;
+        
+        $warrants = Warrant::where('thana_name', $thana)->where('arrest_warrant_received_to_thana', null)->get();
+        return response()->json([
+            'Message' => sizeof($warrants) == 0 ? 'Not found': 'Data Retrived',
+            'data' => sizeof($warrants) == 0 ? null: $warrants
+        ]);
+    }
+
+
+    public function ReceiveWarrant(Request $request){
+            $warrant = Warrant::where('id', $request->id)->first();
+            $warrant->arrest_warrant_received_to_thana = Date('Y-m-d h:i:s');
+            if($warrant->save()){
+                return response()->json([
+                    'Message' =>  'Save Successfull',
+                    'data' =>  $warrant
+                ]);
+            }
+            //  return response()->json([
+            //         // 'Message' => sizeof($warrant) == 0 ? 'Error': 'Save Successfull',
+            //         // 'data' => sizeof($warrant) == 0 ? null: $warrant
+            //         'a' => $request->id
+            //     ]);
+            
+        }
 
 }

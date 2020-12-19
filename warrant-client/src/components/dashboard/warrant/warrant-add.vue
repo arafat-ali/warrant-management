@@ -121,9 +121,13 @@
                 <!-- item end -->
 
                 <div class="form-item justify-between gap-2">
-                  <div>
+                  <!-- <div>
                     <label for="">পরোয়ানা থানায় প্রেরনের তারিখ</label>
                     <input v-model="arrest_warrant_to_thana" class="input" type="date" placeholder="Something...">
+                  </div>  -->
+                  <div>
+                    <label for="">পরোয়ানা থানায় রিসিভের তারিখ</label>
+                    <input v-model="arrest_warrant_received_to_thana" class="input" type="date" placeholder="Something...">
                   </div>
                   <div>
                     <label for="">আদালতে হাজিরের তারিখ</label>
@@ -277,7 +281,7 @@ import Multiselect from 'vue-multiselect'
         nid_is_checked: false,
         birth_is_checked: false,
         passport_is_checked: false,
-
+        arrest_warrant_received_to_thana: '',
 
 
       }
@@ -325,6 +329,7 @@ import Multiselect from 'vue-multiselect'
         data.append('court_id', this.court_id);
         data.append('arrest_criminal_to_court', this.arrest_criminal_to_court);
         data.append('arrest_warrant_to_thana', this.arrest_warrant_to_thana);
+        data.append('arrest_warrant_received_to_thana', this.arrest_warrant_received_to_thana);
         data.append('arrest_warrant_picture_one', this.picture_one);
         data.append('arrest_warrant_picture_two', this.picture_two);
         data.append('criminal_name', this.criminal_name);

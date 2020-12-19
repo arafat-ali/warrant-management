@@ -56,12 +56,14 @@ import todayWarrantListSI from '@/components/dashboard/todayWarrantListSI';
 import warrantRecalledOC from '@/components/dashboard/warrant_recalled_oc';
 import warrantRecalledSI from '@/components/dashboard/warrant_recalled_si';
 
+import warrantNotRecievedOC from '@/components/dashboard/warrantNotRecievedOC';
+
 
 
 Vue.use(Router);
 
 const router = new Router({
-	base: '/warrant-client/',
+	base: '/',
 	mode: 'history',
 	routes: [
 		{
@@ -313,6 +315,12 @@ const router = new Router({
 			path: '/warrant-recalled-si',
 			name: 'warrantRecalledSI',
 			component: warrantRecalledSI,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/warrant-notrecieved',
+			name: 'warrantNotRecievedOC',
+			component: warrantNotRecievedOC,
 			meta: {requiresAuth: true}
 		},
 

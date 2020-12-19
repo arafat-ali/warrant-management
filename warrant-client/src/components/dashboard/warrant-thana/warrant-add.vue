@@ -125,10 +125,10 @@
                 <!-- item end -->
 
                 <div class="form-item justify-between gap-2">
-                  <div>
+                  <!-- <div>
                     <label for="">পরোয়ানা থানায় প্রেরনের তারিখ</label>
                     <input v-model="arrest_warrant_to_thana" class="input" type="date" placeholder="Something...">
-                  </div>
+                  </div> -->
                   <div>
                     <label for="">আদালতে হাজিরের তারিখ</label>
                     <input v-model="arrest_criminal_to_court" class="input" type="date" placeholder="Something...">
