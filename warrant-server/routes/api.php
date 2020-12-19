@@ -121,5 +121,9 @@ Route::middleware(['auth:api'])->group(function () {
     //Thana
     Route::get('get-thana-data-not-recieved','App\Http\Controllers\Api\WarrantController@getNotRecievedThanaWarrant');
     Route::post('receieve-warrant','App\Http\Controllers\Api\WarrantController@ReceiveWarrant');
-});
+
+    //Report
+    Route::get('show-report','App\Http\Controllers\Api\ReportController@showReport');
+
+})
 

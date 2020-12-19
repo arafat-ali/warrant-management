@@ -258,6 +258,14 @@
                 <span class="text-gray-700">এসআই পারফর্মেন্স</span>  
               </div>
             </router-link>
+            <router-link v-show="user.role_id==2 || user.role_id==1 || user.role_id==3 || user.role_id==4" :to="{ name: 'report' }">
+              <div class="w-full flex items-center text-blue-400 h-10 pl-4 hover:bg-gray-200 rounded-lg cursor-pointer">
+                <svg class="h-6 w-6  mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                </svg>
+                <span class="text-gray-700">রিপোর্ট</span>  
+              </div>
+            </router-link>
             <router-link v-show="user.role_id==2 || user.role_id==3 || user.role_id==4" :to="{ name: 'registration' }">
             <div class="w-full flex items-center text-blue-400 h-10 pl-4 hover:bg-gray-200 rounded-lg cursor-pointer">
               <svg class="h-6 w-6 fill-current mr-2" viewBox="0 0 20 20">
