@@ -117,5 +117,8 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::get('recalled-warrant-si','App\Http\Controllers\Api\RecalledController@recalledWarrantSI');
     Route::get('receive-recall-si/{id}','App\Http\Controllers\Api\RecalledController@receiveRecalledWarrantSI');
+
+    //Report
+    Route::get('show-report','App\Http\Controllers\Api\ReportController@showReport');
 });
 

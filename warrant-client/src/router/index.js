@@ -57,6 +57,9 @@ import warrantRecalledOC from '@/components/dashboard/warrant_recalled_oc';
 import warrantRecalledSI from '@/components/dashboard/warrant_recalled_si';
 
 
+import report from '@/components/dashboard/report';
+
+
 
 Vue.use(Router);
 
@@ -302,7 +305,7 @@ const router = new Router({
 			component: todayWarrantListSI,
 			meta: {requiresAuth: true}
 		},
-    {
+    	{
 			path: '/warrant-recalled-oc',
 			name: 'warrantRecalledOC',
 			component: warrantRecalledOC,
@@ -312,6 +315,12 @@ const router = new Router({
 			path: '/warrant-recalled-si',
 			name: 'warrantRecalledSI',
 			component: warrantRecalledSI,
+			meta: {requiresAuth: true}
+		},
+		{
+			path: '/report',
+			name: 'report',
+			component: report,
 			meta: {requiresAuth: true}
 		},
 
