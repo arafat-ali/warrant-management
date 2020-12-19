@@ -119,7 +119,7 @@ class DashboardController extends Controller
 		$yesterdayEnd = date('Y-m-d', mktime(0, 0, 0, date("m") , date("d")-1, date("Y"))) . " 23:59:59";
         
         $thana_id = Auth::user()->thana;
-        $thana_name = Thana::where('id', $thana_id)->first()->name . ' থানা';
+        $thana_name = Thana::where('id', $thana_id)->first()->name;
 
 		$totalWarrant = Warrant::where('thana_name',$thana_name)->count('id');
         $totalAssignedWarrant = DB::table('warrants')

@@ -8,6 +8,7 @@ use Image;
 use DB;
 use Auth;
 use App\Models\Warrant;
+use App\Models\Thana;
 use App\Models\AssignedWarrant;
 
 class WarrantController extends Controller
@@ -47,7 +48,7 @@ class WarrantController extends Controller
     	$warrant->send_date = $req->send_date;
     	$warrant->warrant_type = $req->warrant_type;
     	$warrant->thana_name = $req->thana_id;
-    	$warrant->crime_category_id = $req->crime_category_id;
+    	$warrant->crime_category_name = $req->crime_category_name;
     	//$warrant->crime_subcategory_id = $req->crime_subcategory_id;
     	$warrant->court_name = $req->court_id;
     	$warrant->arrest_criminal_to_court = $req->arrest_criminal_to_court;
@@ -159,7 +160,7 @@ class WarrantController extends Controller
         $warrant->send_date = $req->send_date;
         $warrant->warrant_type = $req->warrant_type;
         $warrant->thana_name = $req->thana_id;
-        $warrant->crime_category_id = $req->crime_category_id;
+        $warrant->crime_category_name = $req->crime_category_name;
         //$warrant->crime_subcategory_id = $req->crime_subcategory_id;
         $warrant->court_id = $req->court_id;
         $warrant->case_hint = $req->case_hint;
@@ -237,5 +238,35 @@ class WarrantController extends Controller
         }
 
     }
+
+    //Thana 
+    public function getNotRecievedThanaWarrant(){
+        $thana_id = Auth::user()->thana;
+        $thana = Thana::where('id', $thana_id)->first()->name;
+        
+        $warrants = Warrant::where('thana_name', $thana)->where('arrest_warrant_received_to_thana', null)->get();
+        return response()->json([
+            'Message' => sizeof($warrants) == 0 ? 'Not found': 'Data Retrived',
+            'data' => sizeof($warrants) == 0 ? null: $warrants
+        ]);
+    }
+
+
+    public function ReceiveWarrant(Request $request){
+            $warrant = Warrant::where('id', $request->id)->first();
+            $warrant->arrest_warrant_received_to_thana = Date('Y-m-d h:i:s');
+            if($warrant->save()){
+                return response()->json([
+                    'Message' =>  'Save Successfull',
+                    'data' =>  $warrant
+                ]);
+            }
+            //  return response()->json([
+            //         // 'Message' => sizeof($warrant) == 0 ? 'Error': 'Save Successfull',
+            //         // 'data' => sizeof($warrant) == 0 ? null: $warrant
+            //         'a' => $request->id
+            //     ]);
+            
+        }
 
 }

@@ -8,68 +8,80 @@
         <div class="w-full bg-white border rounded-lg px-8 py-6 mb-8 xl:mb-0 ">
           <div class="flex flex-col gap-1 lg:flex-row justify-between items-center lg:gap-0">
             <div class="text-sm text-gray-400 font-medium"> Showing: {{ searchedWarrant.length }} executed warrants</div>
-            <div class="flex flex-col lg:flex-row-reverse mb-2 gap-1.5 items-center">
-              <div v-if="selectedField">
-                <button @click="selectedField=''" class="h-6 w-6 focus:border-none">
-                  <span>
-                    <svg class="" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                  </span>
-                </button>
+            <div class="text-sm text-gray-400 font-medium"> District: Chittagong</div>
+            <div class="flex flex-col gap-2">
+              <div> 
+                <select v-model="districtId" class="py-2 text-sm rounded-md pl-6 pr-6 border focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500">
+                  <option value="">--জেলা নির্বাচন করুন--</option>
+                  <option value="Chittagong">চট্রগ্রাম জেলা</option>
+                  <option value="Bandarban">বান্দরবান জেলা</option>
+                  <option value="Rangamati">রাঙ্গামাটি জেলা</option>
+                  <option value="Khagrachori">খাগড়াছড়ি জেলা</option>
+                </select>
               </div>
-              <div class="">
-                <div class="relative text-gray-500">
-                  <span class="absolute inset-y-0 left-0 flex items-center pl-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                  </span>
-                  <select v-model="selectedField" 
-                  class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" @change="searchText = '', searchedWarrant = warrants">
-                    <option value="" selected>সার্চ করুন...</option>
-                    <option v-for="field in fields" :key="field.id" :value="field" >{{ field.name }}</option>
-                  </select>
-                  <span class="absolute inset-y-0 right-0 flex items-center pr-1">
-                    <svg class="w-5 h-5"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </span>
-                  
+              <div class="flex flex-col lg:flex-row-reverse mb-2 gap-1.5 items-center">
+                <div v-if="selectedField">
+                  <button @click="selectedField=''" class="h-6 w-6 focus:border-none">
+                    <span>
+                      <svg class="" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </span>
+                  </button>
                 </div>
-              </div>
-              <!-- After Selection Start -->
-              <div class="" v-if="selectedField">
-                <!-- Date Range Start-->
-                <div v-if="selectedField.type == 'date'" class="flex flex-col lg:flex-row gap-2 items-center" >
-                  <p>From</p>
-                  <input type="date" v-model="startDate" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" /> 
-                  <p>to</p>
-                  <input type="date" v-model="endDate" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" />
-                  <div>
-                    <button class="bg-blue-500 py-2 px-3 text-sm rounded-lg text-white" @click="getData()" >
-                      Search
-                    </button>
+                <div class="">
+                  <div class="relative text-gray-500">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-1">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round"
+                          stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+                          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                      </svg>
+                    </span>
+                    <select v-model="selectedField" 
+                    class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" @change="searchText = '', searchedWarrant = warrants">
+                      <option value="" selected>সার্চ করুন...</option>
+                      <option v-for="field in fields" :key="field.id" :value="field" >{{ field.name }}</option>
+                    </select>
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-1">
+                      <svg class="w-5 h-5"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </span>
+                    
                   </div>
                 </div>
-                <!-- Date Range End -->
-                <div class="" v-else-if="selectedField.type == 'dropdown'">
-                  <select v-model="searchText" class="py-2 text-sm rounded-md pl-6 pr-6 border focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" @change="search(selectedField.nameArr)" >
-                    <option value="" selected>--{{ selectedField.name }} নির্বাচন করুন--</option>
-                    <option v-for="court in courts" :key="court.id" :value="court.name" v-if="selectedField.id == 7">{{ court.name }}</option>
-                    <option v-for="thana in thanas" :key="thana.id" :value="thana.name" v-if="selectedField.id == 5">{{ thana.name }}</option>
-                    <option v-for="warrantType in warrantTypes" :key="warrantType" :value="warrantType" v-if="selectedField.id == 6">{{ warrantType }}</option>
-                    <option v-for="crimeType in crimeTypes" :key="crimeType" :value="crimeType.id" v-if="selectedField.id == 16">{{ crimeType.name }}</option>
-                  </select>
+                <!-- After Selection Start -->
+                <div class="" v-if="selectedField">
+                  <!-- Date Range Start-->
+                  <div v-if="selectedField.type == 'date'" class="flex flex-col lg:flex-row gap-2 items-center" >
+                    <p>From</p>
+                    <input type="date" v-model="startDate" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" /> 
+                    <p>to</p>
+                    <input type="date" v-model="endDate" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" />
+                    <div>
+                      <button class="bg-blue-500 py-2 px-3 text-sm rounded-lg text-white" @click="getData()" >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                  <!-- Date Range End -->
+                  <div class="" v-else-if="selectedField.type == 'dropdown'">
+                    <select v-model="searchText" class="py-2 text-sm rounded-md pl-6 pr-6 border focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500" @change="search(selectedField.nameArr)" >
+                      <option value="" selected>--{{ selectedField.name }} নির্বাচন করুন--</option>
+                      <option v-for="court in courts" :key="court.id" :value="court.name" v-if="selectedField.id == 7">{{ court.name }}</option>
+                      <option v-for="thana in thanas" :key="thana.id" :value="thana.name" v-if="selectedField.id == 5">{{ thana.name }}</option>
+                      <option v-for="warrantType in warrantTypes" :key="warrantType" :value="warrantType" v-if="selectedField.id == 6">{{ warrantType }}</option>
+                      <option v-for="crimeType in crimeTypes" :key="crimeType" :value="crimeType.id" v-if="selectedField.id == 16">{{ crimeType.name }}</option>
+                    </select>
+                  </div>
+                  <div v-else>
+                    <input type="text" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-blue-400 focus:text-gray-500" 
+                    v-model="searchText" :placeholder="selectedField.name + ' লিখুন...'" @keyup="search(selectedField.nameArr)" />
+                  </div>
                 </div>
-                <div v-else>
-                  <input type="text" class="py-2 text-sm rounded-md pl-6 pr-6 border appearance-none focus:outline-none focus:ring-1 focus:ring-blue-400 focus:text-gray-500" 
-                  v-model="searchText" :placeholder="selectedField.name + ' লিখুন...'" @keyup="search(selectedField.nameArr)" />
-                </div>
+                <!-- After Selection End -->
+                
               </div>
-              <!-- After Selection End -->
-              
             </div>
           </div>
           <!-- Table Start -->
@@ -142,6 +154,9 @@ export default {
       ],
       courts: [],
       thanas: [],
+      districts: [],
+      districtId: "Chittagong",
+      districtName: "Chittagong",
       warrantTypes: ['সিআর সাজা', 'সিআর গ্রেফতার', 'জিআর সাজা', 'জিআর গ্রেফতার'],
       crimeTypes:[],
       selectedField: "",
@@ -235,6 +250,17 @@ export default {
           console.log(error);
         });
     },
+     getDistrict() {
+      axios
+        .get("api/districts")
+        .then((response) => {
+          this.districts = response.data.data;
+          // console.log(this.thanas);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   created() {
     store.dispatch("fetchThanaWarrants");
@@ -243,6 +269,7 @@ export default {
     this.getCourt();
     this.getThana();
     this.getCrimeType();
+     this.getDistrict();
   },
 };
 </script>

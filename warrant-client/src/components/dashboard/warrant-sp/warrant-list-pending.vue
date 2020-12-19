@@ -8,6 +8,7 @@
         <div class="w-full bg-white border rounded-lg px-8 py-6 mb-8 xl:mb-0 ">
           <div class="flex flex-col gap-1 lg:flex-row justify-between items-center lg:gap-0">
             <div class="text-sm text-gray-400 font-medium"> Showing: {{ searchedWarrant.length }} pending warrants</div>
+            <div class="text-sm text-gray-400 font-medium" v-if="selectedField.id == 5">Thana: {{searchText}}</div>
             <div class="flex flex-col lg:flex-row-reverse mb-2 gap-1.5 items-center">
               <div v-if="selectedField">
                 <button @click="selectedField=''" class="h-6 w-6 focus:border-none">

@@ -7,6 +7,15 @@
           </p>
           <div class="w-full bg-white border rounded-lg p-8 mb-8 xl:mb-0 ">
             <div class="flex flex-col space-y-6 ">
+              <!-- <div> 
+                <select v-model="districtId" class="py-2 text-sm rounded-md pl-6 pr-6 border focus:outline-none focus:ring-1 focus:ring-gray-400 focus:text-gray-500">
+                  <option value="">--জেলা নির্বাচন করুন--</option>
+                  <option value="Chittagong">চট্রগ্রাম জেলা</option>
+                  <option value="Bandarban">বান্দরবান জেলা</option>
+                  <option value="Rangamati">রাঙ্গামাটি জেলা</option>
+                  <option value="Khagrachori">খাগড়াছড়ি জেলা</option>
+                </select>
+              </div> -->
               <div class="h-20 flex flex-col lg:flex-row justify-start">
                 <div class="px-6">
                   <label for="">সার্চ</label>

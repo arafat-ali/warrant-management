@@ -35,9 +35,11 @@ class importExcelFileController extends Controller
     			$warrant->criminal_name = $data[$i][7];
     			$warrant->criminal_father_name = $data[$i][8];
     			$warrant->criminal_address = $data[$i][9];
+    			$warrant->crime_category_name = $data[$i][10];
     			$warrant->criminal_NID = $data[$i][11];
     			$warrant->arrest_warrant_to_thana = $data[$i][12];
-    			$warrant->arrest_criminal_to_court = $data[$i][13];
+				$warrant->arrest_criminal_to_court = $data[$i][13];
+    			$warrant->court_name = $data[$i][14];
     			$warrant->save();
     		}
     		return response()->json([
@@ -67,7 +69,8 @@ class importExcelFileController extends Controller
     			$warrant->other_number = $data[$i][6];
     			$warrant->criminal_name = $data[$i][7];
     			$warrant->criminal_father_name = $data[$i][8];
-    			$warrant->criminal_address = $data[$i][9];
+				$warrant->criminal_address = $data[$i][9];
+    			$warrant->crime_category_name = $data[$i][10];
     			$warrant->criminal_NID = $data[$i][11];
     			$warrant->send_date = $data[$i][12];
     			$warrant->arrest_warrant_received_to_thana = $data[$i][13];
