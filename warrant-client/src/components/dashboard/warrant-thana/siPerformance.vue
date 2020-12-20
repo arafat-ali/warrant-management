@@ -174,7 +174,8 @@
                             <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">অপরাধের ধরন</th>
                             <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">থানায় প্রেরনের তারিখ</th>
                             <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">অ্যাসাইনের তারিখ</th>
-                            <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">তামিলের তারিখ</th> 
+                            <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">তামিলের তারিখ</th>
+                            <th class="px-6 py-3 border bg-gray-50 text-left text-xs leading-4 tracking-wider font-semibold">তামিলের ধরণ</th> 
                         </tr>
                       </thead>
                       <tbody class="text-xs">
@@ -188,6 +189,7 @@
                           <td class="p-2  border-b border-gray-200">{{warrant.send_date | moment("ddd, MM Do YY")}}</td>
                           <td class="p-2  border-b border-gray-200">{{warrant.created_at | moment("ddd, MM Do YY")}}</td>
                           <td class="p-2  border-b border-gray-200">{{warrant.executed_at | moment("ddd, MM Do YY")}}</td>
+                          <td class="p-2  border-b border-gray-200">{{warrant.execution_type}}</td>
                         </tr>
                       </tbody>
                     </table>

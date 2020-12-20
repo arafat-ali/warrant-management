@@ -60,6 +60,7 @@ import warrantNotRecievedOC from '@/components/dashboard/warrantNotRecievedOC';
 
 
 import report from '@/components/dashboard/report';
+import recallPending from '@/components/dashboard/recall_pending_ci';
 
 
 
@@ -69,6 +70,11 @@ const router = new Router({
 	base: '/',
 	mode: 'history',
 	routes: [
+		{
+			path: '/',
+			name: 'login',
+			component: login,
+		},
 		{
 			path: '/login',
 			name: 'login',
@@ -320,16 +326,22 @@ const router = new Router({
 			component: warrantRecalledSI,
 			meta: {requiresAuth: true}
 		},
-    {
-			path: '/warrant-notrecieved',
-			name: 'warrantNotRecievedOC',
-			component: warrantNotRecievedOC,
-    },
-    {
-			path: '/report',
-			name: 'report',
-			component: report,
-			meta: {requiresAuth: true}
+	    {
+				path: '/warrant-notrecieved',
+				name: 'warrantNotRecievedOC',
+				component: warrantNotRecievedOC,
+	    },
+	    {
+				path: '/report',
+				name: 'report',
+				component: report,
+				meta: {requiresAuth: true}
+		},
+		{
+				path: '/recall-pending-ci',
+				name: 'recallPending',
+				component: recallPending,
+				meta: {requiresAuth: true}
 		},
 
 

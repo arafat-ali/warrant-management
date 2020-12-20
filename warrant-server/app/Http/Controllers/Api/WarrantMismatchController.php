@@ -9,7 +9,10 @@ use DB;
 class WarrantMismatchController extends Controller
 {
     public function thanaNotRecieveMismatch(){
-    	$mismatch = DB:: select('SELECT * FROM warrants WHERE created_by=2 AND process_number NOT IN (SELECT process_number FROM warrants WHERE created_by=1)');
+    	// $mismatch = DB:: select('SELECT * FROM warrants WHERE created_by=2 AND process_number NOT IN (SELECT process_number FROM warrants WHERE created_by=1)');
+        $mismatch = DB::table('warrants')->where('created_by',1)
+                                        ->where('arrest_warrant_received_to_thana',null)
+                                        ->get();
     	return response()->json([
             'success' => true,
             'Mismatch' => $mismatch

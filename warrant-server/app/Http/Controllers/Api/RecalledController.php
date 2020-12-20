@@ -9,6 +9,7 @@ use Auth;
 use App\Models\Thana;
 use App\Models\Activity;
 use App\Models\AssignedWarrant;
+use App\Models\Warrant;
 
 class RecalledController extends Controller
 {
@@ -69,7 +70,7 @@ class RecalledController extends Controller
     	$assigned_warrants->executed_at = date('Y-m-d');
 
     	$activity = new Activity();
-    	$activity->execution_type = 'recall';
+    	$activity->execution_type = 'Recall';
     	$activity->warrant_id = $id;
 		$activity->created_by = $user_id;
 
@@ -78,9 +79,33 @@ class RecalledController extends Controller
 	           	'message' => 'Successfully updated'
 	        ]);
     	}
-	    	
-
     }
+
+
+    public function getRecalledWarrant(){
+        $warrants = DB::table('warrants')
+                    ->join('activities', 'warrants.id','=','activities.warrant_id')
+                    ->where('activities.execution_type','Recall')
+                    ->where('warrants.is_recalled',0)
+                    ->get();
+        return response()->json([
+            'success' => true,
+            'data' => $warrants
+        ]);
+    }
+
+
+    public function receiveRecalledWarrantCI($id){
+        $warrant = Warrant::where('id',$id)->first();
+        $warrant->is_recalled = 1;
+        if($warrant->save()){
+            return response()->json([
+                'message' => 'Successfully updated'
+            ]);
+        }
+    }
+
+
 
 
 

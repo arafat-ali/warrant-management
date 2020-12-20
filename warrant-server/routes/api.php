@@ -72,8 +72,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/assignSI/{warrant_id}/{si_id}','App\Http\Controllers\Api\SIController@assignSItoWarrant');
 
     //SI Warrants
-    Route::get('/get-assigned-si-warrants','App\Http\Controllers\Api\SiController@getAssignedWarrant');
-    Route::get('/get-completed-si-warrants','App\Http\Controllers\Api\SiController@getCompletedWarrant');
+    Route::get('/get-assigned-si-warrants','App\Http\Controllers\Api\SIController@getAssignedWarrant');
+    Route::get('/get-completed-si-warrants','App\Http\Controllers\Api\SIController@getCompletedWarrant');
 
 
 
@@ -122,7 +122,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('receieve-warrant','App\Http\Controllers\Api\WarrantController@ReceiveWarrant');
 
     //Report
-    Route::get('show-report','App\Http\Controllers\Api\ReportController@showReport');
+    Route::post('show-report','App\Http\Controllers\Api\ReportController@showReport');
+
+    //Recall accept by CI
+    Route::get('get-recalled-warrant-ci','App\Http\Controllers\Api\RecalledController@getRecalledWarrant');
+    Route::get('receive-recall-ci/{id}','App\Http\Controllers\Api\RecalledController@receiveRecalledWarrantCI');
 
 });
 

@@ -361,6 +361,7 @@ export default {
       axios
         .get('api/save-execution/'+this.optionId+'/'+msg)
         .then(response => {
+          this.getSiWarrants();
           console.log('successful');
         })
         .catch(error => {

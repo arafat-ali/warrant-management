@@ -10,6 +10,7 @@ use App\Models\AssignedWarrant;
 use App\Models\Activity;
 use Auth;
 use DB;
+use Carbon\Carbon;
 class SIController extends Controller
 {
     public function GetSIListByThana(){
@@ -62,6 +63,7 @@ class SIController extends Controller
 
 
 	public function getSiPerformenceData($si, $start_date, $end_date){
+		$end_date = Carbon::parse($end_date)->addDay();
 		$totalWarrant = DB::table('warrants')
 						->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
 						->where('assigned_warrants.assigned_to',$si)
@@ -77,10 +79,11 @@ class SIController extends Controller
 						->get();
 		$totalCompletedWarrant = DB::table('warrants')
 						->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
+						->join('activities','warrants.id','=','activities.warrant_id')
 						->where('assigned_warrants.assigned_to',$si)
 						->whereBetween('assigned_warrants.created_at',[$start_date,$end_date])
 						->where('assigned_warrants.is_completed',1)
-						->select('assigned_warrants.created_at','assigned_warrants.executed_at', 'warrants.process_number','gr_number','case_section_and_date','warrant_type','criminal_name','criminal_father_name','criminal_address','send_date','arrest_warrant_received_to_thana')
+						->select('assigned_warrants.created_at','assigned_warrants.executed_at', 'warrants.process_number','gr_number','case_section_and_date','warrant_type','criminal_name','criminal_father_name','criminal_address','send_date','arrest_warrant_received_to_thana','activities.execution_type')
 						->get();
         
         $data = array(
