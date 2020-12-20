@@ -70,6 +70,11 @@ const router = new Router({
 	mode: 'history',
 	routes: [
 		{
+			path: '/',
+			name: 'login',
+			component: login,
+		},
+		{
 			path: '/login',
 			name: 'login',
 			component: login,
@@ -321,15 +326,16 @@ const router = new Router({
 			meta: {requiresAuth: true}
 		},
 		{
-<<<<<<< HEAD
+
 			path: '/warrant-notrecieved',
 			name: 'warrantNotRecievedOC',
 			component: warrantNotRecievedOC,
-=======
+		},
+		{
 			path: '/report',
 			name: 'report',
 			component: report,
->>>>>>> 9b44facec526f3832d575b7abb56aef007e16432
+
 			meta: {requiresAuth: true}
 		},
 
