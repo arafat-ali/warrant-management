@@ -148,32 +148,36 @@
         });
     },
     methods:{
-        show_modal_func(id){
-            this.show_modal = true;
-            this.editable_warrant = id;
-            console.log(this.show_modal);
-        },
-        assignSI(){
-            axios
-            .get('api/assignSI/'+this.editable_warrant+'/'+this.SI_id)
-            .then(response => {
-                store.dispatch('fetchNonAssignedThanaWarrants');
-                axios
-                    .get('api/SI-list')
-                    .then(response => {
-                      this.SIList = response.data.SIList;
-                      //console.log(this.thanas);
-                    })
-                    .catch(error => {
-                      console.log(error)
-                    });
-                this.SI_id=''
-            })
-            .catch(error => {
-              console.log(error)
-            });
-            this.show_modal = false;
-        }
+      show_modal_func(id){
+          this.show_modal = true;
+          this.editable_warrant = id;
+          console.log(this.show_modal);
+      },
+      assignSI(){
+          this.$swal({ title: 'Assigning...', icon: 'info', showConfirmButton: false });
+          axios
+          .get('api/assignSI/'+this.editable_warrant+'/'+this.SI_id)
+          .then(response => {
+              store.dispatch('fetchNonAssignedThanaWarrants');
+              axios
+                  .get('api/SI-list')
+                  .then(response => {
+                    this.SIList = response.data.SIList;
+                    this.$swal({ title: 'Successfully assigned', icon: 'success' });
+                    //console.log(this.thanas);
+                  })
+                  .catch(error => {
+                    console.log(error);
+                    this.$swal({ title: error, icon: 'error' });
+                  });
+              this.SI_id=''
+          })
+          .catch(error => {
+            console.log(error)
+          });
+          this.show_modal = false;
+      },
+
     }
 }
 </script>
