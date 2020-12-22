@@ -56,6 +56,7 @@
 		},
 		methods: {
 			formSubmit(e) {
+				this.showAlert('Saving...', 'info');
 	            e.preventDefault();
 	            const config = {
 	                headers: { 'content-type': 'multipart/form-data' }
@@ -68,6 +69,7 @@
 					.post('api/import-from-CI', formData, config)
 					.then(response => {
 						this.success = true;
+						this.showAlert('Successfully imported', 'success');
 					})
 					.catch(response => {
 					});
@@ -107,7 +109,13 @@
 		      event.currentTarget.classList.add('bg-gray-100');
 		      event.currentTarget.classList.remove('bg-green-300');
 		    },
-
+			showAlert(title, icon) {
+				// Use sweetalert2
+				this.$swal({
+					title: title,
+					icon: icon
+				});
+			},
 		},
 		
 

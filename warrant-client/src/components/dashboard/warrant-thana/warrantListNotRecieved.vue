@@ -232,6 +232,7 @@ export default {
         });
     },
     receiveWarrant(warrantId){
+      this.showAlert('Receiving...', 'info');
       let data = new FormData();
       data.append('id', warrantId);
       axios
@@ -239,6 +240,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.getWarrant();
+          this.showAlert('Successfully received', 'success');
           //alert('');
         })
         .catch((response) => {
@@ -257,7 +259,10 @@ export default {
         .catch((response) => {
           alert(response);
         });
-    }
+    },
+    showAlert(title, icon) {
+      this.$swal({ title: title, icon: icon });
+    },
   },
   created() {
     // store.dispatch("fetchThanaWarrants");

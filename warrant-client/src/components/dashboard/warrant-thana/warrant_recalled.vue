@@ -99,13 +99,16 @@
           });
       },
       receive_recall(id){
+        this.$swal({ title: 'Receiving...', icon: 'info', showConfirmButton: false });
         axios
           .get('api/receive-recall/'+id)
           .then(response => {
             this.getRecalledWarrant();
+            this.$swal({ title: 'Successfully received', icon: 'success' });
           })
           .catch(error => {
-            console.log(error)
+            console.log(error);
+            this.$swal({ title: error, icon: 'error' });
           });
       }
     }

@@ -153,14 +153,14 @@
                         <!-- <td class="border">{{ warrant.criminal_mobile_no }}</td> -->
                         <td class="p-2 text-center border-b border-r border-gray-200">
                           <!-- <button class="rounded-lg py-3 px-3 bg-blue-500 text-white">Details</button> -->
-                          <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-500 text-sm font-medium text-gray-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="options-menu" aria-haspopup="true" aria-expanded="true" @click="buttonOption = !buttonOption, optionId = warrant.id">
+                          <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-500 text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500 text-white" id="options-menu" aria-haspopup="true" aria-expanded="true" @click="buttonOption = !buttonOption, optionId = warrant.id">
                             Options
                             <!-- Heroicon name: chevron-down -->
                             <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                           </button>
-                          <div class="origin-top-right absolute right mt-9  w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" v-show="buttonOption && optionId == warrant.id">
+                          <div class="origin-top-right absolute right-2 mt-4  w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" v-show="buttonOption && optionId == warrant.id">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                               <a href="#" @click="(buttonOption = false,executionModal = true)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Execution</a>
                               <a href="#" @click="(nonExecutedModal = true, buttonOption = false)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Non Execution</a>
@@ -358,19 +358,23 @@ export default {
       //console.log(this.optionId, msg);
       this.otherwaysExecution = '';
       this.selectedExecutionType='';
+      this.$swal({ title: 'Saving...', icon: 'info', showConfirmButton: false });
       axios
         .get('api/save-execution/'+this.optionId+'/'+msg)
         .then(response => {
           this.getSiWarrants();
           console.log('successful');
+          this.$swal({ title: 'Successfully saved', icon: 'success' });
         })
         .catch(error => {
-          console.log(error)
+          console.log(error);
+          this.$swal({ title: error, icon: 'error'});
         });
     },
 
     saveNonExecutionInfo(e){
-      this.nonExecutedModal = false
+      this.nonExecutedModal = false;
+      this.$swal({ title: 'Saving...', icon: 'info', showConfirmButton: false });
       e.preventDefault();
       const config = {
           headers: { 'content-type': 'multipart/form-data' }
@@ -391,8 +395,10 @@ export default {
             this.contact_no='';
             this.description='';
             console.log(response.data.Message);
+            this.$swal({ title: 'Successfully saved', icon: 'success' });
           })
           .catch(response => {
+            this.$swal({ title: response, icon: 'error'});
           });
     }
     

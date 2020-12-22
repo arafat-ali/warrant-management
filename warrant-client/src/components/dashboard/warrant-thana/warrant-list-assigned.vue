@@ -68,13 +68,16 @@
     methods:{
       unAssignedWarrant(assigned_id, warrant_id){
         //console.log(assigned_id, warrant_id)
+        this.$swal({ title: 'Unassigning...', icon: 'info', showConfirmButton: false });
         axios
         .get('api/unassigned-warrant/'+assigned_id+'/'+warrant_id)
         .then(response => {
           store.dispatch('fetchAssignedThanaWarrants');
+          this.$swal({ title: 'Successfully unassigned...', icon: 'success' });
         })
         .catch(error => {
-          console.log(error)
+          console.log(error);
+          this.$swal({ title: error, icon: 'error' });
         });
       }
     },

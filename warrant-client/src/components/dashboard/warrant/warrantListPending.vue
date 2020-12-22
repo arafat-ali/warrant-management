@@ -251,16 +251,25 @@ import DataTable from "vue-materialize-datatable";
       },
 
       recallWarrant(id){
+        this.showAlert('Recalling...', 'info');
         axios
           .get("api/recall-from-CI/"+id)
           .then((response) => {
             this.getRecalledRefresh();
+            this.showAlert('Successfully Recalled', 'success');
           })
           .catch((error) => {
             console.log(error);
           });
 
-      }
+      },
+      showAlert(title, icon) {
+        // Use sweetalert2
+        this.$swal({
+          title: title,
+          icon: icon
+        });
+      },
     },
     computed:{
       // searchedWarrant(){

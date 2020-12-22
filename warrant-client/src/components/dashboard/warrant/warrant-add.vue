@@ -310,6 +310,7 @@ import Multiselect from 'vue-multiselect'
     },
     methods:{
       saveWarrantInfo(e){
+        this.showAlert('Saving...', 'Info')
         e.preventDefault();
         const config = {
             headers: { 'content-type': 'multipart/form-data' }
@@ -344,8 +345,10 @@ import Multiselect from 'vue-multiselect'
           .post('api/add-warrant', data, config)
           .then(response => {
             console.log(response.data.Message);
+            this.showAlert('Save Successful', 'success');
           })
           .catch(response => {
+             this.showAlert(response, 'error');
           });
 
         
@@ -365,7 +368,14 @@ import Multiselect from 'vue-multiselect'
         this.wizardActive1 = "bg-green-500 text-white"
         this.wizardActive2 = "bg-blue text-white"
 
-      }
+      },
+      showAlert(title, icon) {
+        // Use sweetalert2
+        this.$swal({
+          title: title,
+          icon: icon
+        });
+      },
 
     },
     created(){
@@ -398,6 +408,8 @@ import Multiselect from 'vue-multiselect'
         .catch(error => {
           console.log(error)
         });
+
+      // this.showAlert();
 
       // axios
       //   .get('api/crime-subcategories')
