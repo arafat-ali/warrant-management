@@ -190,9 +190,26 @@ class DashboardController extends Controller
 
     // method for SI
     public function getSiDashboardData($userId){
-		$totalWarrant = AssignedWarrant::where('assigned_to',$userId)->count('id');
-		$totalPendingWarrant = AssignedWarrant::where('assigned_to',$userId)->where('is_completed',0)->count('id');
-		$totalCompletedWarrant = $totalWarrant - $totalPendingWarrant;
+		// $totalWarrant = AssignedWarrant::where('assigned_to',$userId)->count('id');
+		$totalWarrant = DB::table('warrants')
+    				->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
+    				->where('assigned_warrants.assigned_to','=',$userId)
+    				->where('warrants.is_recalled',0)
+    				->count();
+		// $totalPendingWarrant = AssignedWarrant::where('assigned_to',$userId)->where('is_completed',0)->count('id');
+		$totalPendingWarrant = DB::table('warrants')
+    				->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
+    				->where('assigned_warrants.assigned_to','=',$userId)
+    				->where('warrants.is_recalled',0)
+    				->where('warrants.is_executed',0)
+    				->count();
+		// $totalCompletedWarrant = $totalWarrant - $totalPendingWarrant;
+		$totalCompletedWarrant = DB::table('warrants')
+    				->join('assigned_warrants','warrants.id','=','assigned_warrants.warrant_id')
+    				->where('assigned_warrants.assigned_to','=',$userId)
+    				->where('warrants.is_recalled',0)
+    				->where('warrants.is_executed',1)
+    				->count();
 		$totalNewWarrant = DB::select('SELECT COUNT(*) as warrant FROM assigned_warrants WHERE DATE(created_at) = DATE(NOW() - INTERVAL 1 DAY) AND assigned_to = '. $userId);
 		$totalNewWarrant = $totalNewWarrant[0]->warrant;
 

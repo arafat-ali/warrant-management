@@ -108,6 +108,7 @@ class SIController extends Controller
 			->join('warrants', 'assigned_warrants.warrant_id', '=', 'warrants.id')
 			->where('assigned_warrants.assigned_to', $userId)
 			->where('assigned_warrants.is_completed', 0)
+			->where('warrants.is_recalled', 0)
             // ->join('orders', 'users.id', '=', 'orders.user_id')
 			->select('assigned_warrants.*', 'warrants.process_number','gr_number','warrant_type','criminal_name','criminal_father_name','criminal_address')
 			->orderBy('assigned_warrants.created_at', 'DESC')
@@ -115,6 +116,7 @@ class SIController extends Controller
 
         $warrants2 = DB::table('assigned_warrants')
 			->join('activities', 'activities.warrant_id','=','assigned_warrants.warrant_id')
+			
 			->select(DB::raw('assigned_warrants.warrant_id,count(activities.warrant_id) as totalActivity'))
 			->groupBy('assigned_warrants.warrant_id')
             ->get();
