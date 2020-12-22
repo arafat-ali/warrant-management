@@ -1,5 +1,26 @@
 <template>
     <div id="home">
+      <div v-if="user.role_id == 3" class="h-20 flex flex-col justify-start lg:flex-row lg:justify-between gap-4">
+        <div class="w-full">
+          <label for="">জেলা</label>
+          <select class="w-full block border rounded py-2 px-4" v-model="districtId" @change="getThanaByDistrictId()">
+            <option value="" selected>--নির্বাচন করুন--</option>
+            <option v-for="district in districts" :key="district.id" :value="district.id">{{district.name}}</option>
+          </select>
+        </div>
+        <div class="w-full">
+          <label for="">থানা</label>
+          <select class="w-full block border rounded py-2 px-4" v-model="thanaId">
+            <option value="" selected>--নির্বাচন করুন--</option>
+            <option v-for="thana in thanas" :key="thana.id" :value="thana.id">{{thana.name}}</option>
+          </select>
+        </div>
+        <div class="w-full mt-6">
+            <button @click="formSubmit" class="bg-blue-500 py-2 px-8 text-white rounded-md">
+              সাবমিট  
+            </button>
+          </div>
+      </div> 
 
       <div class="flex flex-wrap -mx-3 mb-20">
 
@@ -58,6 +79,7 @@
         </div>
 
       </div>
+
       <div v-show="thana_not_received_show" class="flex flex-wrap -mx-3">
         <div class="w-full px-3">
           <p class="text-xl font-semibold mb-4">
@@ -298,6 +320,11 @@
         process_no_not_found_show: false,
         recalled_mismatch_show :false,
         process_no_mismatch_show:false,
+        districts: [],
+        thanas: [],
+        districtId: '',
+        thanaId: '',
+        user :false
       }
     },
     methods:{
@@ -324,45 +351,113 @@
         this.thana_not_received_show = false;
         this.process_no_not_found_show = false;
         this.recalled_mismatch_show = false;
+      },
+      getDistrict(){
+        axios
+        .get('api/districts')
+        .then(response => {
+          this.districts = response.data.data;
+        })
+        .catch(error =>{
+          alert(error);
+        })
+      },
+      getThanaByDistrictId(){
+        if(this.districtId){
+          axios
+          .get('api/thanas-by-district/' + this.districtId)
+          .then(response => {
+            this.thanas = response.data.data;
+          })
+          .catch(error =>{
+            alert(error);
+          })
+        }
+        else {
+          this.thanas = [];
+        }
+      },
+      formSubmit(){
+          axios
+            .get('api/thana-not-recieve-by-thana/'+this.thanaId)
+            .then(response => {
+              this.thana_not_receives = response.data.Mismatch;
+              console.log(this.thana_not_receives.length);
+            })
+            .catch(error => {
+              console.log(error)
+            });
+
+          axios
+            .get('api/process-no-not-found-by-thana/'+this.thanaId)
+            .then(response => {
+              this.process_no_not_founds = response.data.Mismatch;
+            })
+            .catch(error => {
+              console.log(error)
+            });
+
+          axios
+            .get('api/recalled-mismatch-by-thana/'+this.thanaId)
+            .then(response => {
+              this.recalled_mismatch = response.data.Mismatch;
+            })
+            .catch(error => {
+              console.log(error)
+            });
+
+          axios
+            .get('api/process-no-not-match-by-thana/'+this.thanaId)
+            .then(response => {
+              this.process_no_mismatch = response.data.Mismatch;
+            })
+            .catch(error => {
+              console.log(error)
+            });
       }
     },
     created(){
-      axios
-        .get('api/thana-not-recieve')
-        .then(response => {
-          this.thana_not_receives = response.data.Mismatch;
-          console.log(this.thana_not_receives.length);
-        })
-        .catch(error => {
-          console.log(error)
-        });
+      this.user = store.getters.getCurrentUser ? store.getters.getCurrentUser : false;
+      this.getDistrict();
+      if(this.user.role_id!=3){
+          axios
+            .get('api/thana-not-recieve')
+            .then(response => {
+              this.thana_not_receives = response.data.Mismatch;
+              console.log(this.thana_not_receives.length);
+            })
+            .catch(error => {
+              console.log(error)
+            });
 
-      axios
-        .get('api/process-no-not-found')
-        .then(response => {
-          this.process_no_not_founds = response.data.Mismatch;
-        })
-        .catch(error => {
-          console.log(error)
-        });
+          axios
+            .get('api/process-no-not-found')
+            .then(response => {
+              this.process_no_not_founds = response.data.Mismatch;
+            })
+            .catch(error => {
+              console.log(error)
+            });
 
-      axios
-        .get('api/recalled-mismatch')
-        .then(response => {
-          this.recalled_mismatch = response.data.Mismatch;
-        })
-        .catch(error => {
-          console.log(error)
-        });
+          axios
+            .get('api/recalled-mismatch')
+            .then(response => {
+              this.recalled_mismatch = response.data.Mismatch;
+            })
+            .catch(error => {
+              console.log(error)
+            });
 
-      axios
-        .get('api/process-no-not-match')
-        .then(response => {
-          this.process_no_mismatch = response.data.Mismatch;
-        })
-        .catch(error => {
-          console.log(error)
-        });
+          axios
+            .get('api/process-no-not-match')
+            .then(response => {
+              this.process_no_mismatch = response.data.Mismatch;
+            })
+            .catch(error => {
+              console.log(error)
+            });
+      }
+          
     }
 
   }
